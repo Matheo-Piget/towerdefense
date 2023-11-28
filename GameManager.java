@@ -33,6 +33,8 @@ public class GameManager {
             System.out.println("Choix invalide, veuillez sélectionner T ou G.");
             
         }
+
+        scanner.close();
     }
 
     public static void main(String[] args) {

@@ -8,6 +8,12 @@ public class Cellule {
 
     }
 
+    public Cellule(Element e){
+
+        element = e;
+
+    }
+
     public boolean isOccupied() {
 
         return element != null;

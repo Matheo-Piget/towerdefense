@@ -8,5 +8,11 @@ public class Player {
         
     }
 
+    public void affiche(){
+
+        System.out.println("Vous avez : "+ money);
+
+    }
+
     // Getters, setters, and methods for managing money, lives, etc.
 }
