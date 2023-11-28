@@ -18,7 +18,7 @@ public class GameMap {
 
     public boolean placer(Element e, int x, int y){
 
-        if(tiles[y][x].get_elt() == null){
+        if(!tiles[y][x].isOccupied()){
 
             tiles[y][x].set_elt(e);
             return true;
@@ -31,7 +31,7 @@ public class GameMap {
 
     public boolean deplacer(int x1, int y1, int x2, int y2){
 
-        if(tiles[y1][x1].get_elt() == null || tiles[y2][x2].get_elt() != null){
+        if(tiles[y1][x1].isOccupied() || !tiles[y2][x2].isOccupied()){
 
             return false;
 
