@@ -8,8 +8,8 @@ public class GameManager {
     private GUI gui;
 
     public GameManager() {
-        map = new GameMap(/* rows, cols */);
-        player = new Player(/* initial parameters */);
+        map = new GameMap(5, 10);
+        player = new Player(1000);
         terminalUI = new TerminalUI();
         gui = new GUI();
     }
@@ -33,5 +33,12 @@ public class GameManager {
             System.out.println("Choix invalide, veuillez sélectionner T ou G.");
             
         }
+    }
+
+    public static void main(String[] args) {
+        
+        GameManager game = new GameManager();
+        game.startGame();
+
     }
 }
