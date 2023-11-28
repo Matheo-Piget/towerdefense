@@ -27,6 +27,8 @@ public class GameMap {
                 
             }
             
+            System.out.println();
+            
         }
 
 
