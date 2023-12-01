@@ -1,4 +1,6 @@
-package src;
+package src.main.java.configMap;
+
+import src.main.java.model.*;
 
 public class GameMap {
 

@@ -1,4 +1,4 @@
-package src;
+package src.main.java.model;
 
 public abstract class Element {
 

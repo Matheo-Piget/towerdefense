@@ -1,4 +1,4 @@
-package src;
+package src.main.java.model;
 
 public class Enemy extends Element {
 

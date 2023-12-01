@@ -1,4 +1,7 @@
-package src;
+package src.main.java.UI;
+
+import src.main.java.configMap.GameMap;
+import src.main.java.start.Player;
 
 public class TerminalUI {
 

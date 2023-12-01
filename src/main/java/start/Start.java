@@ -1,17 +1,20 @@
-package src;
+package src.main.java.start;
 
 import java.util.Scanner;
+import src.main.java.configMap.GameMap;
+import src.main.java.UI.GUI.*;
+import src.main.java.UI.TerminalUI;
 
-public class GameManager {
+public class Start {
 
     private GameMap map;
     private Player player;
     private TerminalUI terminalUI;
     private GUI gui;
 
-    public GameManager() {
+    public Start() {
         map = new GameMap(5, 10);
-        player = new Player(1000);
+        player = new Player(1000, 3);
         terminalUI = new TerminalUI();
         gui = new GUI();
     }
@@ -41,7 +44,7 @@ public class GameManager {
 
     public static void main(String[] args) {
 
-        GameManager game = new GameManager();
+        Start game = new Start();
         game.startGame();
 
     }
