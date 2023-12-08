@@ -12,6 +12,12 @@ public class Player {
 
     }
 
+    public void update(){
+
+        //TODO mettre a jour le joueur
+
+    }
+
     public void affiche() {
 
         System.out.println("Vous avez : " + money + " d'argent et " + lives + " vies");

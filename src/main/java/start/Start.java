@@ -15,7 +15,7 @@ public class Start {
     public Start() {
         map = new GameMap(5, 10);
         player = new Player(1000, 3);
-        terminalUI = new TerminalUI();
+        terminalUI = new TerminalUI(map, player);
         gui = new GUI();
     }
 
