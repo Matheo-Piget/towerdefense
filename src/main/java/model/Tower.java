@@ -13,6 +13,22 @@ public class Tower extends Element {
 
     }
 
+    public int getAttackSpeed() {
+        return attackSpeed;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public void setAttackSpeed(int attackSpeed) {
+        this.attackSpeed = attackSpeed;
+    }
+
     // Méthodes spécifiques à Tower
     // ...
 }

@@ -14,9 +14,23 @@ public class Player {
 
     public void affiche() {
 
-        System.out.println("Vous avez : " + money + " d'argent et " + lives + "vies");
+        System.out.println("Vous avez : " + money + " d'argent et " + lives + " vies");
 
     }
 
-    // Getters, setters, and methods for managing money, lives, etc.
+    public int getLives() {
+        return lives;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
 }
