@@ -78,7 +78,7 @@ public class TerminalUI {
 
             Scanner scanner = new Scanner(System.in);
 
-            //on met a jour la frame, a toi de faire
+            //on met a jour la frame selon le choix du joueur, a toi de faire 
 
             scanner.close();
             
