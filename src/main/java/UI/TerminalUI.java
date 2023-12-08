@@ -78,7 +78,7 @@ public class TerminalUI {
             scanner.close();
 
 
-            map.update();// on met jour la map : les nouveaux enemies, les enemies mort, le placement des nouvelles tours etc..
+            map.update();// on met jour la map : les nouveaux enemies, les enemies mort etc..
             player.update();// on met jour le joueur : si il a perdu une vie, gagné de l'argent etc...
 
             player.affiche(); // on affiche la map et les données du joueur
