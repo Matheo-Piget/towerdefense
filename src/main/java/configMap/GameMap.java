@@ -49,6 +49,12 @@ public class GameMap {
 
     }
 
+    public void update(){
+
+        //TODO mettre a jour la map
+
+    }
+
     public void affiche() {
 
         for (int i = 0; i < tiles.length; i++) {
