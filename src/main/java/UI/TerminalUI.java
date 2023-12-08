@@ -68,11 +68,6 @@ public class TerminalUI {
 
         while (player.getLives() > 0) {
 
-            map.update();// on met jour la map : les nouveaux enemies, les enemies mort, le placement des nouvelles tours etc..
-            player.update();// on met jour le joueur : si il a perdu une vie, gagné de l'argent etc...
-
-            player.affiche(); // on affiche la map et les données du joueur
-            map.affiche();
 
             System.out.println("Choisissez une action : ");
 
@@ -81,6 +76,13 @@ public class TerminalUI {
             //on met a jour la frame selon le choix du joueur, a toi de faire 
 
             scanner.close();
+
+
+            map.update();// on met jour la map : les nouveaux enemies, les enemies mort, le placement des nouvelles tours etc..
+            player.update();// on met jour le joueur : si il a perdu une vie, gagné de l'argent etc...
+
+            player.affiche(); // on affiche la map et les données du joueur
+            map.affiche();
             
 
         }
