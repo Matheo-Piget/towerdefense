@@ -74,6 +74,7 @@ public class TerminalUI {
             Scanner scanner = new Scanner(System.in);
 
             //on met a jour la frame selon le choix du joueur, a toi de faire 
+            //si tel choix est mis dans le terminal alors on afffiche le menu
 
             scanner.close();
 
