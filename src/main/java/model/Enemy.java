@@ -4,9 +4,9 @@ public class Enemy extends Element {
 
     private int speed;
 
-    public Enemy(int health, int damage, int speed) {
+    public Enemy(int health, int damage, int speed, int x, int y) {
 
-        super(health, damage);
+        super(health, damage, x, y);
         this.speed = speed;
 
     }

@@ -1,6 +1,7 @@
 package src.main.java.configMap;
 
 import src.main.java.model.*;
+import src.main.java.start.*;
 
 public class GameMap {
 
@@ -20,38 +21,97 @@ public class GameMap {
         }
     }
 
-    public boolean placer(Element e, int x, int y) {
+    public boolean placer(Element e) {
 
-        if (!tiles[y][x].isOccupied()) {
+        int x = e.getX();
+        int y = e.getY();
 
-            tiles[y][x].set_elt(e);
-            return true;
+        if (estDansLimites(x, y) && !tiles[x][y].isOccupied()) { // on regarde si les coordnonnées sont dans les limites et que la cellule en question est vide
+
+            tiles[x][y].set_elt(e);
+            return true; 
 
         }
-
+        
         return false;
 
     }
 
-    public boolean deplacer(int x1, int y1, int x2, int y2) {
+    public void retirerElement(Element element) {
 
-        if (tiles[y1][x1].isOccupied() || !tiles[y2][x2].isOccupied()) {
+        int x = element.getX();
+        int y = element.getY();
 
-            return false;
+        if (estDansLimites(x, y)) {
+            tiles[x][y] = null;
+        } else {
+            System.out.println("Coordonnées hors limites !");
+        }
+    }
+
+    public Enemy trouverEnnemiSurMemeLigne(Tower tower) {
+
+        int tourX = tower.getX();
+
+        for (int y = 0; y < tiles[tourX].length; y++) {
+
+            Element element = tiles[tourX][y].get_elt();
+
+            if (element instanceof Enemy) {
+
+                return (Enemy) element; // Retourne le premier ennemi trouvé sur la même ligne que la tour
+
+            }
+        }
+        return null; // Aucun ennemi sur la même ligne que la tour
+    }
+
+    public boolean deplacerElement(Element element, int newX, int newY) {
+
+        int oldX = element.getX();
+        int oldY = element.getY();
+
+        if (estDansLimites(newX, newY)) {
+
+            // Vérifie si la nouvelle position est libre
+            if (tiles[newX][newY] == null) {
+
+                tiles[oldX][oldY] = null; // Supprime l'élément de son ancienne position
+                element.setX(newX);
+                element.setY(newY);
+                tiles[newX][newY].set_elt(element);; // Place l'élément à sa nouvelle position
+                return true;
+
+            } else {
+
+                return false;
+
+            }
 
         } else {
 
-            tiles[y2][x2].set_elt(tiles[y1][x1].get_elt());
-            tiles[y1][x1].set_elt(null);
-            return true;
+            return false;
 
         }
-
     }
 
     public void update(){
 
-        //TODO mettre a jour la map
+        for (int i = 0; i < tiles.length; i++) {
+
+
+            for (int j = 0; j < tiles[0].length; j++) {
+
+                //TODO deplacer les enemy en fonction de leur vitesse, retirer les tours si elles on plus de vie, etc...
+
+                if (tiles[i][j].get_elt().getHealth() <= 0) { // si il y a un enemy qui a plus de santé on le retire de la map
+
+                    retirerElement(tiles[i][j].get_elt()); 
+                    
+                }
+                
+            }
+        }
 
     }
 
@@ -68,6 +128,12 @@ public class GameMap {
             System.out.println();
 
         }
+
+    }
+
+    private boolean estDansLimites(int x, int y) {
+
+        return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length; // teste si les coordenées sont dans les limites
 
     }
 

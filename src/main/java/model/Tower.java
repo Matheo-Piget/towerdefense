@@ -1,13 +1,15 @@
 package src.main.java.model;
 
+import src.main.java.configMap.GameMap;
+
 public class Tower extends Element {
 
     private int cost;
     private int attackSpeed;
 
-    public Tower(int health, int damage, int cost, int attackSpeed) {
+    public Tower(int health, int damage, int cost, int attackSpeed, int x, int y) {
 
-        super(health, damage);
+        super(health, damage, x, y);
         this.attackSpeed = attackSpeed;
         this.cost = cost;
 
@@ -27,6 +29,18 @@ public class Tower extends Element {
 
     public void setAttackSpeed(int attackSpeed) {
         this.attackSpeed = attackSpeed;
+    }
+
+    public void attaque(GameMap gameMap) {
+
+        Enemy enemy = gameMap.trouverEnnemiSurMemeLigne(this); // Recherche de l'ennemi sur la même ligne que la tour
+
+        if (enemy != null) {
+
+            enemy.setHealth(enemy.health - damage); // Attaque le premier ennemi trouvé sur la même ligne
+
+        }
+
     }
 
     // Méthodes spécifiques à Tower
