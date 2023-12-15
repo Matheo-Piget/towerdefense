@@ -164,6 +164,43 @@ public class GameMap {
 
     }
 
+    // Méthode pour déplacer tous les ennemis en fonction de leur vitesse
+    public void deplacerTousLesEnnemis() {
+
+        for (Cellule[] cellules : tiles) {
+
+            for (Cellule cellule : cellules) {
+
+
+                if(cellule.get_elt() instanceof Enemy) deplacerEnnemi((Enemy) cellule.get_elt()); // Appel de la méthode pour déplacer un ennemi
+        
+                
+            }
+        }
+
+    }
+
+    // Méthode pour déplacer un ennemi spécifique
+    private void deplacerEnnemi(Enemy enemy) {
+
+        // Logique pour calculer les déplacements en fonction de la vitesse de l'ennemi
+        int deplacementX = enemy.getX() - enemy.getSpeed();
+
+        // Calcul des nouvelles positions
+        int newX = enemy.getX() + deplacementX;
+
+        // Vérification si les nouvelles positions sont à l'intérieur des limites de la carte
+        if (estDansLimites(newX, enemy.getY())) {
+
+            deplacerElement(enemy, newX, enemy.getY());// Déplacement de l'ennemi aux nouvelles positions
+
+        } else {
+
+            // Gérer le comportement lorsque l'ennemi atteint les limites de la carte
+
+        }
+    }
+
     public void affiche() {
 
         for (int i = 0; i < tiles.length; i++) {
