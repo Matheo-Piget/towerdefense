@@ -47,7 +47,8 @@ mv src/main/java/start/Start.class build/src/main/java/start/
 mv src/main/java/UI/TerminalUI.class build/src/main/java/UI/
 mv src/main/java/UI/GUI/GUI.class build/src/main/java/UI/GUI/
 
-
+# Fichier étrange qui apparaît lors de la compilation, on le supprime
+rm src/main/java/UI/GUI/GUI\$1.class
 
 
 echo "Fin du script buid.sh, pour lancer le programme, veuillez executer le script run.sh"
