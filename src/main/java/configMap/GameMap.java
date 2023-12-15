@@ -120,7 +120,7 @@ public class GameMap {
 
             for (int j = 0; j < tiles[0].length; j++) {
 
-                if(tiles[i][j].get_elt().getHealth() <= 0 && tiles[i][j].get_elt() instanceof Enemy) tiles[i][j].set_elt(null); // on teste si l'élément n'a plus de vie et si c'est un enemy
+                if(tiles[i][j].get_elt().getHealth() <= 0 && tiles[i][j].get_elt() instanceof Enemy) retirerElement(tiles[i][j].get_elt()); // on teste si l'élément n'a plus de vie et si c'est un enemy
                 
             }
         }
@@ -133,7 +133,7 @@ public class GameMap {
 
             for (int j = 0; j < tiles[0].length; j++) {
 
-                if(tiles[i][j].get_elt().getHealth() <= 0 && tiles[i][j].get_elt() instanceof Enemy) tiles[i][j].set_elt(null); // on teste si l'élément n'a plus de vie et si c'est une tour
+                if(tiles[i][j].get_elt().getHealth() <= 0 && tiles[i][j].get_elt() instanceof Enemy) retirerElement(tiles[i][j].get_elt()); // on teste si l'élément n'a plus de vie et si c'est une tour
                 
             }
         }
