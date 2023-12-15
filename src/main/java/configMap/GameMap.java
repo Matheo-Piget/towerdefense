@@ -144,7 +144,7 @@ public class GameMap {
 
         enemyMort();
         towerMorte();
-        //nouveauxEnemy(); TODO -> 
+        //nouveauxEnemy(); TODO -> faire apparaître de nouveaux enemies suivant un timer ou autre alternative
 
         for (int i = 0; i < tiles.length; i++) {
 
