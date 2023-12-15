@@ -142,25 +142,11 @@ public class GameMap {
 
     public void update(){
 
-        enemyMort();
-        towerMorte();
+        enemyMort(); // on supprime tout les enemis mort
+        towerMorte(); // meme chose pour les tours
         //nouveauxEnemy(); TODO -> faire apparaître de nouveaux enemies suivant un timer ou autre alternative
 
-        for (int i = 0; i < tiles.length; i++) {
-
-
-            for (int j = 0; j < tiles[0].length; j++) {
-
-                //TODO deplacer les enemy en fonction de leur vitesse, retirer les tours si elles on plus de vie, etc...
-
-                if (tiles[i][j].get_elt().getHealth() <= 0) { // si il y a un enemy qui a plus de santé on le retire de la map
-
-                    retirerElement(tiles[i][j].get_elt()); 
-                    
-                }
-                
-            }
-        }
+        deplacerTousLesEnnemis(); // on déplace tout les enemis
 
     }
 
