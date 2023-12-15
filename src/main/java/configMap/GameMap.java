@@ -43,19 +43,38 @@ public class GameMap {
         int y = element.getY();
 
         if (estDansLimites(x, y)) {
-            tiles[x][y] = null;
+            tiles[x][y].set_elt(null);
         } else {
             System.out.println("Coordonnées hors limites !");
         }
     }
 
+    public Tower trouverTowerSurMemeLigne(Enemy e){
+
+        int enemyY = e.getY();
+
+        for (int i = tiles[enemyY].length; i > 0; i--) {
+
+            Element element = tiles[enemyY][i].get_elt();
+
+            if (element instanceof Tower) {
+
+                return (Tower) element; // Retourne la premiere tour trouvé sur la même ligne que l'enemi
+
+            }
+        }
+        return null; // Aucune tour sur la même ligne que la tour
+
+
+    }
+
     public Enemy trouverEnnemiSurMemeLigne(Tower tower) {
 
-        int tourX = tower.getX();
+        int tourY = tower.getY();
 
-        for (int y = 0; y < tiles[tourX].length; y++) {
+        for (int y = 0; y < tiles[tourY].length; y++) {
 
-            Element element = tiles[tourX][y].get_elt();
+            Element element = tiles[tourY][y].get_elt();
 
             if (element instanceof Enemy) {
 
