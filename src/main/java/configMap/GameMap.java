@@ -114,7 +114,37 @@ public class GameMap {
         }
     }
 
+    public void enemyMort(){ // supprime tout les enemies qui n'ont plus de vie
+
+        for (int i = 0; i < tiles.length; i++) {
+
+            for (int j = 0; j < tiles[0].length; j++) {
+
+                if(tiles[i][j].get_elt().getHealth() <= 0 && tiles[i][j].get_elt() instanceof Enemy) tiles[i][j].set_elt(null); // on teste si l'élément n'a plus de vie et si c'est un enemy
+                
+            }
+        }
+
+    }
+
+    public void towerMorte(){ // supprime tout les tours qui n'ont plus de vie
+
+        for (int i = 0; i < tiles.length; i++) {
+
+            for (int j = 0; j < tiles[0].length; j++) {
+
+                if(tiles[i][j].get_elt().getHealth() <= 0 && tiles[i][j].get_elt() instanceof Enemy) tiles[i][j].set_elt(null); // on teste si l'élément n'a plus de vie et si c'est une tour
+                
+            }
+        }
+
+    }
+
     public void update(){
+
+        enemyMort();
+        towerMorte();
+        //nouveauxEnemy(); TODO -> 
 
         for (int i = 0; i < tiles.length; i++) {
 
