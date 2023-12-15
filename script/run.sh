@@ -6,10 +6,11 @@ launch() {
 }
 
 # On sort de script si on y est pour correctement lancer le projet
-if [ $(pwd) = "script" ]; then
+repo_actuel=$(basename "$(pwd)")
+if [ "$repo_actuel" == "script" ]; then
     cd ..
-    pwd
 fi
+
 
 
 # Vérification de l'existence du répertoire build

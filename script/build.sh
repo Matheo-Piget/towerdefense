@@ -56,10 +56,8 @@ echo "Fin du script buid.sh, pour lancer le programme, veuillez executer le scri
 
 
 # On sort de script si on y est pour correctement lancer le projet
-repo_actuel=$(pwd)
-repo_script="script"
-
-if [ "$repo_actuel" = "$repo_script" ]; then
+repo_actuel=$(basename "$(pwd)")
+if [ "$repo_actuel" == "script" ]; then
     cd ..
 fi
 
