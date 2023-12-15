@@ -1,20 +1,18 @@
 #!/bin/bash
 
-ma_fonction(){
+# Fonction build qui réalise tout le travail nécessaire à la construction
+build(){
 
 # Construction des fichiers .class
 echo "Construction des classes en cours..."
 
 javac src/main/java/configMap/Cellule.java
 javac src/main/java/configMap/GameMap.java
-
 javac src/main/java/model/Element.java
 javac src/main/java/model/Enemy.java
 javac src/main/java/model/Tower.java
-
 javac src/main/java/start/Player.java
 javac src/main/java/start/Start.java
-
 javac src/main/java/UI/TerminalUI.java
 javac src/main/java/UI/GUI/GUI.java
 
@@ -35,7 +33,10 @@ mkdir UI
 cd UI && mkdir GUI
 cd ../../../../..
 
-# On déplace les fichiers .class au bon endroid dans le fichier build
+
+
+
+# On déplace les fichiers .class au bon endroit dans le fichier build
 mv "src/main/java/configMap/Cellule.class" "build/src/main/java/configMap/"
 mv "src/main/java/configMap/GameMap.class" "build/src/main/java/configMap/"
 mv src/main/java/model/Element.class build/src/main/java/model/
@@ -46,12 +47,22 @@ mv src/main/java/start/Start.class build/src/main/java/start/
 mv src/main/java/UI/TerminalUI.class build/src/main/java/UI/
 mv src/main/java/UI/GUI/GUI.class build/src/main/java/UI/GUI/
 
+
+
+
 echo "Fin du script buid.sh, pour lancer le programme, veuillez executer le script run.sh"
+
 }
 
 
+# On sort de script si on y est pour correctement lancer le projet
+repo_actuel=$(pwd)
+repo_script="script"
 
-cd ..
+if [ "$repo_actuel" = "$repo_script" ]; then
+    cd ..
+fi
+
 
 # Chemin du répertoire à supprimer
 repertoire="build"
@@ -59,7 +70,7 @@ repertoire="build"
 #On vérifie si le répertoire existe pour le supprimer (lui et son contenu) en cas de conflits
 if [ -d "$repertoire" ]; then
     rm -rf "$repertoire"
-    ma_fonction
+    build
 else
-    ma_fonction
+    build
 fi
