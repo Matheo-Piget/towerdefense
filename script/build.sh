@@ -2,7 +2,6 @@
 
 ma_fonction(){
 
-
 # Construction des fichiers .class
 echo "Construction des classes en cours..."
 
@@ -34,30 +33,25 @@ mkdir model
 mkdir start
 mkdir UI
 cd UI && mkdir GUI
-cd ../../../..
-
-
-
+cd ../../../../..
 
 # On déplace les fichiers .class au bon endroid dans le fichier build
-mv -v src/main/java/configMap/Cellule.class /build/src/main/java/configMap/
-mv src/main/java/configMap/GameMap.class /build/src/main/java/configMap/
-
-mv src/main/java/model/Element.class /build/src/main/java/model/
-mv src/main/java/model/Enemy.class /build/src/main/java/model/
-mv src/main/java/model/Tower.class /build/src/main/java/model/
-
-mv src/main/java/start/Player.class /build/src/main/java/start/
-mv src/main/java/start/Start.class /build/src/main/java/start/
-
-mv src/main/java/UI/TerminalUI.class /build/src/main/java/UI/
-mv src/main/java/UI/GUI/GUI.class /build/src/main/java/UI/GUI/
+mv "src/main/java/configMap/Cellule.class" "build/src/main/java/configMap/"
+mv "src/main/java/configMap/GameMap.class" "build/src/main/java/configMap/"
+mv src/main/java/model/Element.class build/src/main/java/model/
+mv src/main/java/model/Enemy.class build/src/main/java/model/
+mv src/main/java/model/Tower.class build/src/main/java/model/
+mv src/main/java/start/Player.class build/src/main/java/start/
+mv src/main/java/start/Start.class build/src/main/java/start/
+mv src/main/java/UI/TerminalUI.class build/src/main/java/UI/
+mv src/main/java/UI/GUI/GUI.class build/src/main/java/UI/GUI/
 
 echo "Fin du script buid.sh, pour lancer le programme, veuillez executer le script run.sh"
 }
 
 
 
+cd ..
 
 # Chemin du répertoire à supprimer
 repertoire="build"
