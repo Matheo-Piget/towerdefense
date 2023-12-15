@@ -31,7 +31,7 @@ public class Start {
 
         } else if (choice.equalsIgnoreCase("G")) {
 
-            gui.startGUIGame(map, player);
+            GUI.main(new String[0]);
 
         } else {
 
