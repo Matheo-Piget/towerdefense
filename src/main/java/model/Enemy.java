@@ -1,5 +1,7 @@
 package src.main.java.model;
 
+import src.main.java.configMap.GameMap;
+
 public class Enemy extends Element {
 
     private int speed;
@@ -17,6 +19,18 @@ public class Enemy extends Element {
 
     public void setSpeed(int speed) {
         this.speed = speed;
+    }
+
+    public void attaque(GameMap gameMap) {
+
+        Tower tour = gameMap.trouverTowerSurMemeLigne(this); // Recherche de la tour sur la même ligne que l'enemi
+
+        if (tour != null) {
+
+            tour.setHealth(tour.health - damage); // Attaque la premiere tour trouvé sur la même ligne
+
+        }
+
     }
 
     // Méthodes spécifiques à Enemy

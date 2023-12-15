@@ -43,19 +43,38 @@ public class GameMap {
         int y = element.getY();
 
         if (estDansLimites(x, y)) {
-            tiles[x][y] = null;
+            tiles[x][y].set_elt(null);
         } else {
             System.out.println("Coordonnées hors limites !");
         }
     }
 
+    public Tower trouverTowerSurMemeLigne(Enemy e){
+
+        int enemyY = e.getY();
+
+        for (int i = tiles[enemyY].length; i > 0; i--) {
+
+            Element element = tiles[enemyY][i].get_elt();
+
+            if (element instanceof Tower) {
+
+                return (Tower) element; // Retourne la premiere tour trouvé sur la même ligne que l'enemi
+
+            }
+        }
+        return null; // Aucune tour sur la même ligne que la tour
+
+
+    }
+
     public Enemy trouverEnnemiSurMemeLigne(Tower tower) {
 
-        int tourX = tower.getX();
+        int tourY = tower.getY();
 
-        for (int y = 0; y < tiles[tourX].length; y++) {
+        for (int y = 0; y < tiles[tourY].length; y++) {
 
-            Element element = tiles[tourX][y].get_elt();
+            Element element = tiles[tourY][y].get_elt();
 
             if (element instanceof Enemy) {
 
@@ -95,7 +114,37 @@ public class GameMap {
         }
     }
 
+    public void enemyMort(){ // supprime tout les enemies qui n'ont plus de vie
+
+        for (int i = 0; i < tiles.length; i++) {
+
+            for (int j = 0; j < tiles[0].length; j++) {
+
+                if(tiles[i][j].get_elt().getHealth() <= 0 && tiles[i][j].get_elt() instanceof Enemy) tiles[i][j].set_elt(null); // on teste si l'élément n'a plus de vie et si c'est un enemy
+                
+            }
+        }
+
+    }
+
+    public void towerMorte(){ // supprime tout les tours qui n'ont plus de vie
+
+        for (int i = 0; i < tiles.length; i++) {
+
+            for (int j = 0; j < tiles[0].length; j++) {
+
+                if(tiles[i][j].get_elt().getHealth() <= 0 && tiles[i][j].get_elt() instanceof Enemy) tiles[i][j].set_elt(null); // on teste si l'élément n'a plus de vie et si c'est une tour
+                
+            }
+        }
+
+    }
+
     public void update(){
+
+        enemyMort();
+        towerMorte();
+        //nouveauxEnemy(); TODO -> faire apparaître de nouveaux enemies suivant un timer ou autre alternative
 
         for (int i = 0; i < tiles.length; i++) {
 
