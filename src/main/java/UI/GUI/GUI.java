@@ -11,6 +11,7 @@ import src.main.java.start.Player;
 public class GUI {
 
     public void startGUIGame(GameMap map, Player player) {
+
         JFrame frame = new JFrame("Tower Defense");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,15 +55,19 @@ public class GUI {
     }
 
     private void addStyledButton(JPanel panel, String text, ActionListener listener) {
+
         JButton button = new JButton(text);
         button.setFont(new Font("Arial", Font.BOLD, 16)); // Police et taille
         button.setForeground(Color.WHITE); // Couleur du texte
         button.setBackground(Color.BLUE); // Couleur de fond
+
         button.setFocusPainted(false); // Supprimer le contour lorsqu'il est sélectionné
         button.setBorderPainted(false); // Supprimer la bordure
+
         button.setOpaque(true); // Rendre le bouton opaque
         button.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Curseur de la souris au survol du bouton
         button.setPreferredSize(new Dimension(200, 40)); // Taille préférée du bouton
+
         button.addActionListener(listener);
         
         // Bordure arrondie
@@ -73,6 +78,7 @@ public class GUI {
 
         // Effet de survol
         button.addMouseListener(new java.awt.event.MouseAdapter() {
+            
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 button.setBackground(Color.GREEN); // Changement de couleur au survol
             }
