@@ -10,13 +10,11 @@ public class Start {
     private GameMap map;
     private Player player;
     private TerminalUI terminalUI;
-    private GUI gui;
 
     public Start() {
         map = new GameMap(5, 10);
         player = new Player(1000, 3);
         terminalUI = new TerminalUI(map, player);
-        gui = new GUI();
     }
 
     public void startGame() {
