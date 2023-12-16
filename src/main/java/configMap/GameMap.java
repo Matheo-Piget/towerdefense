@@ -1,5 +1,8 @@
 package src.main.java.configMap;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import src.main.java.model.*;
 import src.main.java.start.*;
 
@@ -21,14 +24,72 @@ public class GameMap {
         }
     }
 
+    public ArrayList<Enemy> tout_les_enemy(){ // retourne tous les enemies sous forme d'une liste, mieux manipulable
+
+        ArrayList<Enemy> enemys = new ArrayList<Enemy>();
+
+        for (int i = 0; i < tiles.length; i++) {
+
+            for (int j = 0; j < tiles[0].length; j++) {
+
+                if(tiles[i][j].get_elt() instanceof Enemy) enemys.add((Enemy) tiles[i][j].get_elt()); // des que l'on a un enmis ou l'ajoute dasn la liste
+
+                
+            }
+        }
+
+        return enemys;
+
+
+    }
+
+    public ArrayList<Tower> tout_les_tower(){ // retourne tous les tours sous forme d'une liste, mieux manipulable
+
+        ArrayList<Tower> towers = new ArrayList<Tower>();
+
+        for (int i = 0; i < tiles.length; i++) {
+
+            for (int j = 0; j < tiles[0].length; j++) {
+
+                if(tiles[i][j].get_elt() instanceof Tower) towers.add((Tower) tiles[i][j].get_elt()); // des que l'on a une tours ou l'ajoute dasn la liste
+
+                
+            }
+        }
+
+        return towers;
+
+
+    }
+
+    public void tours_attaque(){ // fonction qui fait attaquer toutes les tours
+
+        for (Tower t : tout_les_tower()) {
+            
+            t.attaque(this);
+
+        }
+
+    }
+
+    public void enemies_attaque(){ // fonction qui fait attaquer toutes les enemis
+
+        for (Enemy t : tout_les_enemy()) {
+            
+            t.attaque(this);
+
+        }
+
+    }
+
     public boolean placer(Element e) {
 
         int x = e.getX();
         int y = e.getY();
 
-        if (estDansLimites(x, y) && !tiles[x][y].isOccupied()) { // on regarde si les coordnonnées sont dans les limites et que la cellule en question est vide
+        if (estDansLimites(x, y) && !tiles[y][x].isOccupied()) { // on regarde si les coordnonnées sont dans les limites et que la cellule en question est vide
 
-            tiles[x][y].set_elt(e);
+            tiles[y][x].set_elt(e);
             return true; 
 
         }
@@ -53,7 +114,7 @@ public class GameMap {
 
         int enemyY = e.getY();
 
-        for (int i = tiles[enemyY].length; i > 0; i--) {
+        for (int i = tiles[enemyY].length - 1; i >= 0; i--) {
 
             Element element = tiles[enemyY][i].get_elt();
 
@@ -93,12 +154,12 @@ public class GameMap {
         if (estDansLimites(newX, newY)) {
 
             // Vérifie si la nouvelle position est libre
-            if (tiles[newX][newY] == null) {
+            if (!tiles[newY][newX].isOccupied()) {
 
-                tiles[oldX][oldY] = null; // Supprime l'élément de son ancienne position
+                tiles[oldY][oldX].set_elt(null);; // Supprime l'élément de son ancienne position
                 element.setX(newX);
                 element.setY(newY);
-                tiles[newX][newY].set_elt(element);; // Place l'élément à sa nouvelle position
+                tiles[newY][newX].set_elt(element);; // Place l'élément à sa nouvelle position
                 return true;
 
             } else {
@@ -116,53 +177,52 @@ public class GameMap {
 
     public void enemyMort(){ // supprime tout les enemies qui n'ont plus de vie
 
-        for (int i = 0; i < tiles.length; i++) {
+        for (Enemy e : tout_les_enemy()) {
+            
+            if(e.getHealth() <= 0) retirerElement(e);
 
-            for (int j = 0; j < tiles[0].length; j++) {
-
-                if(tiles[i][j].isOccupied() && tiles[i][j].get_elt().getHealth() <= 0 && tiles[i][j].get_elt() instanceof Enemy) retirerElement(tiles[i][j].get_elt()); // on teste si l'élément n'a plus de vie et si c'est un enemy
-                
-            }
         }
 
     }
 
     public void towerMorte(){ // supprime tout les tours qui n'ont plus de vie
 
-        for (int i = 0; i < tiles.length; i++) {
+        for (Tower t : tout_les_tower()) {
+            
+            if(t.getHealth() <= 0) retirerElement(t);
 
-            for (int j = 0; j < tiles[0].length; j++) {
-
-                if(tiles[i][j].isOccupied() && tiles[i][j].get_elt().getHealth() <= 0 && tiles[i][j].get_elt() instanceof Enemy) retirerElement(tiles[i][j].get_elt()); // on teste si l'élément n'a plus de vie et si c'est une tour
-                
-            }
         }
 
     }
 
     public void update(){
 
+        tours_attaque();
+        enemies_attaque();
         enemyMort(); // on supprime tout les enemis mort
         towerMorte(); // meme chose pour les tours
-        //nouveauxEnemy(); TODO -> faire apparaître de nouveaux enemies suivant un timer ou autre alternative
-
         deplacerTousLesEnnemis(); // on déplace tout les enemis
+        nouveauxEnemy(); //TODO -> faire apparaître de nouveaux enemies suivant un timer ou autre alternative
+
+        
 
     }
 
     // Méthode pour déplacer tous les ennemis en fonction de leur vitesse
     public void deplacerTousLesEnnemis() {
 
-        for (Cellule[] cellules : tiles) {
+        for (Enemy e : tout_les_enemy()) {
+            
+            deplacerEnnemi(e);
 
-            for (Cellule cellule : cellules) {
-
-
-                if(cellule.get_elt() instanceof Enemy) deplacerEnnemi((Enemy) cellule.get_elt()); // Appel de la méthode pour déplacer un ennemi
-        
-                
-            }
         }
+
+    }
+
+    public void nouveauxEnemy(){
+
+        placer(new Enemy(20, 5,1, 8, 0));
+        placer(new Enemy(20, 5,1, 8, 1));
 
     }
 
@@ -170,10 +230,10 @@ public class GameMap {
     private void deplacerEnnemi(Enemy enemy) {
 
         // Logique pour calculer les déplacements en fonction de la vitesse de l'ennemi
-        int deplacementX = enemy.getX() - enemy.getSpeed();
+        int deplacementX = enemy.getSpeed();
 
         // Calcul des nouvelles positions
-        int newX = enemy.getX() + deplacementX;
+        int newX = enemy.getX() - deplacementX;
 
         // Vérification si les nouvelles positions sont à l'intérieur des limites de la carte
         if (estDansLimites(newX, enemy.getY())) {
@@ -182,6 +242,7 @@ public class GameMap {
 
         } else {
 
+            System.out.println("debug");
             // Gérer le comportement lorsque l'ennemi atteint les limites de la carte
 
         }
@@ -205,7 +266,7 @@ public class GameMap {
 
     private boolean estDansLimites(int x, int y) {
 
-        return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length; // teste si les coordenées sont dans les limites
+        return x >= 0 && x < tiles[0].length && y >= 0 && y < tiles.length; // teste si les coordenées sont dans les limites
 
     }
 
