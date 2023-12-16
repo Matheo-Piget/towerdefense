@@ -154,9 +154,9 @@ public class GameMap {
         if (estDansLimites(newX, newY)) {
 
             // Vérifie si la nouvelle position est libre
-            if (tiles[newX][newY] == null) {
+            if (!tiles[newX][newY].isOccupied()) {
 
-                tiles[oldX][oldY] = null; // Supprime l'élément de son ancienne position
+                tiles[oldX][oldY].set_elt(null);; // Supprime l'élément de son ancienne position
                 element.setX(newX);
                 element.setY(newY);
                 tiles[newX][newY].set_elt(element);; // Place l'élément à sa nouvelle position
@@ -177,26 +177,20 @@ public class GameMap {
 
     public void enemyMort(){ // supprime tout les enemies qui n'ont plus de vie
 
-        for (int i = 0; i < tiles.length; i++) {
+        for (Enemy e : tout_les_enemy()) {
+            
+            if(e.getHealth() <= 0) retirerElement(e);
 
-            for (int j = 0; j < tiles[0].length; j++) {
-
-                if(tiles[i][j].isOccupied() && tiles[i][j].get_elt().getHealth() <= 0 && tiles[i][j].get_elt() instanceof Enemy) retirerElement(tiles[i][j].get_elt()); // on teste si l'élément n'a plus de vie et si c'est un enemy
-                
-            }
         }
 
     }
 
     public void towerMorte(){ // supprime tout les tours qui n'ont plus de vie
 
-        for (int i = 0; i < tiles.length; i++) {
+        for (Tower t : tout_les_tower()) {
+            
+            if(t.getHealth() <= 0) retirerElement(t);
 
-            for (int j = 0; j < tiles[0].length; j++) {
-
-                if(tiles[i][j].isOccupied() && tiles[i][j].get_elt().getHealth() <= 0 && tiles[i][j].get_elt() instanceof Enemy) retirerElement(tiles[i][j].get_elt()); // on teste si l'élément n'a plus de vie et si c'est une tour
-                
-            }
         }
 
     }
