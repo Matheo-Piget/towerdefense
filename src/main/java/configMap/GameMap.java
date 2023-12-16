@@ -1,5 +1,8 @@
 package src.main.java.configMap;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import src.main.java.model.*;
 import src.main.java.start.*;
 
@@ -19,6 +22,64 @@ public class GameMap {
 
             }
         }
+    }
+
+    public ArrayList<Enemy> tout_les_enemy(){ // retourne tous les enemies sous forme d'une liste, mieux manipulable
+
+        ArrayList<Enemy> enemys = new ArrayList<Enemy>();
+
+        for (int i = 0; i < tiles.length; i++) {
+
+            for (int j = 0; j < tiles[0].length; j++) {
+
+                if(tiles[i][j].get_elt() instanceof Enemy) enemys.add((Enemy) tiles[i][j].get_elt()); // des que l'on a un enmis ou l'ajoute dasn la liste
+
+                
+            }
+        }
+
+        return enemys;
+
+
+    }
+
+    public ArrayList<Tower> tout_les_tower(){ // retourne tous les tours sous forme d'une liste, mieux manipulable
+
+        ArrayList<Tower> towers = new ArrayList<Tower>();
+
+        for (int i = 0; i < tiles.length; i++) {
+
+            for (int j = 0; j < tiles[0].length; j++) {
+
+                if(tiles[i][j].get_elt() instanceof Tower) towers.add((Tower) tiles[i][j].get_elt()); // des que l'on a une tours ou l'ajoute dasn la liste
+
+                
+            }
+        }
+
+        return towers;
+
+
+    }
+
+    public void tours_attaque(){ // fonction qui fait attaquer toutes les tours
+
+        for (Tower t : tout_les_tower()) {
+            
+            t.attaque(this);
+
+        }
+
+    }
+
+    public void enemies_attaque(){ // fonction qui fait attaquer toutes les enemis
+
+        for (Enemy t : tout_les_enemy()) {
+            
+            t.attaque(this);
+
+        }
+
     }
 
     public boolean placer(Element e) {
@@ -142,6 +203,8 @@ public class GameMap {
 
     public void update(){
 
+        tours_attaque();
+        enemies_attaque();
         enemyMort(); // on supprime tout les enemis mort
         towerMorte(); // meme chose pour les tours
         //nouveauxEnemy(); TODO -> faire apparaître de nouveaux enemies suivant un timer ou autre alternative
@@ -153,15 +216,10 @@ public class GameMap {
     // Méthode pour déplacer tous les ennemis en fonction de leur vitesse
     public void deplacerTousLesEnnemis() {
 
-        for (Cellule[] cellules : tiles) {
+        for (Enemy e : tout_les_enemy()) {
+            
+            deplacerEnnemi(e);
 
-            for (Cellule cellule : cellules) {
-
-
-                if(cellule.get_elt() instanceof Enemy) deplacerEnnemi((Enemy) cellule.get_elt()); // Appel de la méthode pour déplacer un ennemi
-        
-                
-            }
         }
 
     }

@@ -108,13 +108,29 @@ public class TerminalUI {
 
 
             System.out.println("Choisissez une action : ");
+            System.out.println("(P) placer une tour, (esc) retourner au menu, ()");
 
-            Scanner scanner = new Scanner(System.in);
+            String choix = scanner.nextLine();
+
+            switch (choix) {
+
+                case "esc":
+
+                    affiche_menu();
+                    break;
+
+                case "P":
+
+                    
+            
+                default:
+
+
+                    break;
+            }
 
             //on met a jour la frame selon le choix du joueur, a toi de faire 
             //si tel choix est mis dans le terminal alors on afffiche le menu
-
-            scanner.close();
 
 
             map.update();// on met jour la map : les nouveaux enemies, les enemies mort etc..
