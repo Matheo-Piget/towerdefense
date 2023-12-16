@@ -87,9 +87,9 @@ public class GameMap {
         int x = e.getX();
         int y = e.getY();
 
-        if (estDansLimites(x, y) && !tiles[x][y].isOccupied()) { // on regarde si les coordnonnées sont dans les limites et que la cellule en question est vide
+        if (estDansLimites(x, y) && !tiles[y][x].isOccupied()) { // on regarde si les coordnonnées sont dans les limites et que la cellule en question est vide
 
-            tiles[x][y].set_elt(e);
+            tiles[y][x].set_elt(e);
             return true; 
 
         }
@@ -114,7 +114,7 @@ public class GameMap {
 
         int enemyY = e.getY();
 
-        for (int i = tiles[enemyY].length; i > 0; i--) {
+        for (int i = tiles[enemyY].length - 1; i >= 0; i--) {
 
             Element element = tiles[enemyY][i].get_elt();
 
@@ -154,12 +154,12 @@ public class GameMap {
         if (estDansLimites(newX, newY)) {
 
             // Vérifie si la nouvelle position est libre
-            if (!tiles[newX][newY].isOccupied()) {
+            if (!tiles[newY][newX].isOccupied()) {
 
-                tiles[oldX][oldY].set_elt(null);; // Supprime l'élément de son ancienne position
+                tiles[oldY][oldX].set_elt(null);; // Supprime l'élément de son ancienne position
                 element.setX(newX);
                 element.setY(newY);
-                tiles[newX][newY].set_elt(element);; // Place l'élément à sa nouvelle position
+                tiles[newY][newX].set_elt(element);; // Place l'élément à sa nouvelle position
                 return true;
 
             } else {
@@ -201,9 +201,10 @@ public class GameMap {
         enemies_attaque();
         enemyMort(); // on supprime tout les enemis mort
         towerMorte(); // meme chose pour les tours
-        //nouveauxEnemy(); TODO -> faire apparaître de nouveaux enemies suivant un timer ou autre alternative
-
         deplacerTousLesEnnemis(); // on déplace tout les enemis
+        nouveauxEnemy(); //TODO -> faire apparaître de nouveaux enemies suivant un timer ou autre alternative
+
+        
 
     }
 
@@ -218,14 +219,21 @@ public class GameMap {
 
     }
 
+    public void nouveauxEnemy(){
+
+        placer(new Enemy(20, 5,1, 8, 0));
+        placer(new Enemy(20, 5,1, 8, 1));
+
+    }
+
     // Méthode pour déplacer un ennemi spécifique
     private void deplacerEnnemi(Enemy enemy) {
 
         // Logique pour calculer les déplacements en fonction de la vitesse de l'ennemi
-        int deplacementX = enemy.getX() - enemy.getSpeed();
+        int deplacementX = enemy.getSpeed();
 
         // Calcul des nouvelles positions
-        int newX = enemy.getX() + deplacementX;
+        int newX = enemy.getX() - deplacementX;
 
         // Vérification si les nouvelles positions sont à l'intérieur des limites de la carte
         if (estDansLimites(newX, enemy.getY())) {
@@ -234,6 +242,7 @@ public class GameMap {
 
         } else {
 
+            System.out.println("debug");
             // Gérer le comportement lorsque l'ennemi atteint les limites de la carte
 
         }
@@ -257,7 +266,7 @@ public class GameMap {
 
     private boolean estDansLimites(int x, int y) {
 
-        return x >= 0 && x < tiles.length && y >= 0 && y < tiles[0].length; // teste si les coordenées sont dans les limites
+        return x >= 0 && x < tiles[0].length && y >= 0 && y < tiles.length; // teste si les coordenées sont dans les limites
 
     }
 

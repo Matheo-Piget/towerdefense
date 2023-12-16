@@ -8,7 +8,7 @@ public class Enemy extends Element {
 
     public Enemy(int health, int damage, int speed, int x, int y) {
 
-        super(health, damage, x, y);
+        super(health, damage, y, x);
         this.speed = speed;
 
     }

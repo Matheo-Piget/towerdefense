@@ -6,7 +6,7 @@ public abstract class Element {
     protected int damage;
     protected int x, y;
 
-    Element(int health, int damage, int x, int y) {
+    Element(int health, int damage, int y, int x) {
 
         this.health = health;
         this.damage = damage;
