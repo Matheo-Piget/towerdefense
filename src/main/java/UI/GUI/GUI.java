@@ -65,23 +65,39 @@ public class GUI {
 
         // Éléments graphiques pour choisir la difficulté
         JPanel difficultyPanel = new JPanel(new GridLayout(4, 1));
-        difficultyPanel.setBackground(Color.WHITE);
+        difficultyPanel.setBackground(Color.BLACK);
 
         JLabel label = new JLabel("Choisissez la difficulté :");
+        label.setForeground(Color.WHITE); // Couleur du texte
+        label.setFont(new Font("Arial", Font.BOLD, 24)); // Police et taille
+        label.setHorizontalAlignment(SwingConstants.CENTER); // Alignement horizontal
+
+        // Effet d'ombre
+        label.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLACK),
+                BorderFactory.createEmptyBorder(10, 15, 10, 15)));
+
+        // Dégradé de couleur pour le fond du label
+        label.setOpaque(true);
+        label.setBackground(new Color(0, 0, 0, 0)); // Rendre le fond transparent
+        label.setForeground(new Color(255, 255, 255, 200)); // Couleur du texte semi-transparente
+        label.setOpaque(true); // Permet d'appliquer le dégradé
+        label.setBackground(null); // Fond transparent
+
         difficultyPanel.add(label);
 
         addStyledButton(difficultyPanel, "Facile", e -> {
-            // Action a fere quand la difficulté est mis en facile
+            // Action a faire quand la difficulté est mis en facile
             startGUIGame(map, null);
         });
 
         addStyledButton(difficultyPanel, "Moyen", e -> {
-            // Action a fere quand la difficulté est mis en Moyen
+            // Action a faire quand la difficulté est mis en Moyen
             startGUIGame(map, null);
         });
 
         addStyledButton(difficultyPanel, "Difficile", e -> {
-            // Action a fere quand la difficulté est mis en facile
+            // Action a faire quand la difficulté est mis en facile
             startGUIGame(map, null);
         });
 
