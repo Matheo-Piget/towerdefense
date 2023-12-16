@@ -10,14 +10,22 @@ import src.main.java.start.Player;
 
 public class GUI {
 
+    private JFrame frame;
+    private JPanel mainPanel;
+    private GameMap map;
+    private Player player;
+
     public void startGUIGame(GameMap map, Player player) {
 
-        JFrame frame = new JFrame("Tower Defense");
+        this.map = map;
+        this.player = player;
+
+        frame = new JFrame("Tower Defense");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); // Centrer la fenêtre sur l'écran
 
-        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.WHITE); // Couleur de fond du panel principal
 
         JPanel menuPanel = new JPanel(new GridLayout(5, 1, 10, 10)); // Utilisation d'un layout pour le menu
@@ -35,8 +43,7 @@ public class GUI {
         });
 
         addStyledButton(menuPanel, "Options", e -> {
-            System.out.println("Options du jeu");
-            // Action lors du clic sur "Options"
+            afficheOption();
         });
 
         addStyledButton(menuPanel, "Scores", e -> {
@@ -52,6 +59,34 @@ public class GUI {
         mainPanel.add(menuPanel, BorderLayout.CENTER);
         frame.add(mainPanel);
         frame.setVisible(true);
+    }
+
+    private void afficheOption() {
+
+        // Éléments graphiques pour choisir la difficulté
+        JPanel difficultyPanel = new JPanel(new GridLayout(4, 1));
+        difficultyPanel.setBackground(Color.WHITE);
+
+        JLabel label = new JLabel("Choisissez la difficulté :");
+        difficultyPanel.add(label);
+
+        addStyledButton(difficultyPanel, "Facile", e -> {
+            // Action a fere quand la difficulté est mis en facile
+            startGUIGame(map, null);
+        });
+
+        addStyledButton(difficultyPanel, "Moyen", e -> {
+            // Action a fere quand la difficulté est mis en Moyen
+            startGUIGame(map, null);
+        });
+
+        addStyledButton(difficultyPanel, "Difficile", e -> {
+            // Action a fere quand la difficulté est mis en facile
+            startGUIGame(map, null);
+        });
+
+        frame.setContentPane(difficultyPanel); // Changer le panel pour afficher les difficultés
+        frame.revalidate();
     }
 
     private void addStyledButton(JPanel panel, String text, ActionListener listener) {
