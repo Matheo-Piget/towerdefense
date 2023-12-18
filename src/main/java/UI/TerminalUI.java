@@ -90,8 +90,7 @@ public class TerminalUI {
         System.out.print("Entrez votre choix : ");
         choixDifficulte = scanner.nextInt();
 
-        // Implémentez la logique pour régler la difficulté ici en fonction de choixDifficulte
-        // Par exemple, ajuster les paramètres du jeu en fonction de la difficulté choisie
+        difficulté = choixDifficulte;
 
         System.out.println("Difficulté réglée avec succès !");
         affiche_menu(); // Revenir au menu principal
