@@ -116,13 +116,7 @@ public class TerminalUI {
     
             // Afficher le menu pour les actions du joueur pendant le jeu
             displayInGameMenu();
-    
-            // Attendre un certain temps entre les mises à jour (simulant le temps d'une vague d'ennemis, par exemple)
-            try {
-                Thread.sleep(1000); // Attendre 1 seconde (1000 millisecondes)
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            
         }
     }
     
