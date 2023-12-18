@@ -1,10 +1,10 @@
 package src.main.java.configMap;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import src.main.java.UI.TerminalUI;
 import src.main.java.model.*;
-import src.main.java.start.*;
+import src.main.java.start.Player;
 
 public class GameMap {
 
@@ -23,6 +23,25 @@ public class GameMap {
             }
         }
     }
+
+    public int calculerGainEnnemiMort() {
+    int gain = 0;
+    switch (TerminalUI.difficulté) {
+        case 1: // Facile
+            gain = 10;
+            break;
+        case 2: // Moyen
+            gain = 15;
+            break;
+        case 3: // Difficile
+            gain = 20;
+            break;
+        default:
+            gain = 10; // Valeur par défaut pour éviter les erreurs
+            break;
+    }
+    return gain;
+}
 
     public ArrayList<Enemy> tout_les_enemy(){ // retourne tous les enemies sous forme d'une liste, mieux manipulable
 
@@ -72,11 +91,12 @@ public class GameMap {
 
     }
 
-    public void enemies_attaque(){ // fonction qui fait attaquer toutes les enemis
+    public void enemies_attaque(Player p){ // fonction qui fait attaquer toutes les enemis
 
         for (Enemy t : tout_les_enemy()) {
             
-            t.attaque(this);
+            if(t.getRange()) t.attaque_loin(this, p);
+            else t.attaque(this, p);
 
         }
 
@@ -124,6 +144,7 @@ public class GameMap {
 
             }
         }
+
         return null; // Aucune tour sur la même ligne que la tour
 
 
@@ -143,6 +164,7 @@ public class GameMap {
 
             }
         }
+
         return null; // Aucun ennemi sur la même ligne que la tour
     }
 
@@ -175,13 +197,20 @@ public class GameMap {
         }
     }
 
-    public void enemyMort(){ // supprime tout les enemies qui n'ont plus de vie
+    public int enemyMort(){ // supprime tout les enemies qui n'ont plus de vie
+
+        int money_win = 0;
 
         for (Enemy e : tout_les_enemy()) {
             
-            if(e.getHealth() <= 0) retirerElement(e);
+            if(e.getHealth() <= 0) {
+                retirerElement(e); 
+                money_win += calculerGainEnnemiMort();
+            }
 
         }
+
+        return money_win;
 
     }
 
@@ -195,14 +224,16 @@ public class GameMap {
 
     }
 
-    public void update(){
+    public int update(Player p){
 
         tours_attaque();
-        enemies_attaque();
-        enemyMort(); // on supprime tout les enemis mort
+        enemies_attaque(p);
+        int money_win = enemyMort(); // on supprime tout les enemis mort
         towerMorte(); // meme chose pour les tours
         deplacerTousLesEnnemis(); // on déplace tout les enemis
-        nouveauxEnemy(); //TODO -> faire apparaître de nouveaux enemies suivant un timer ou autre alternative
+        nouveauxEnemy();
+
+        return money_win;
 
         
 
@@ -229,7 +260,7 @@ public class GameMap {
             int randomX = mapWidth - 1; // Position aléatoire sur la dernière colonne de la carte
             int randomY = (int) (Math.random() * mapHeight); // Position aléatoire sur la hauteur de la carte
     
-            placer(new Enemy(1, 2, 1, randomX, randomY)); 
+            placer(new Enemy(10, 3, 1, randomX, randomY, false)); 
         }
 
     }
@@ -247,11 +278,6 @@ public class GameMap {
         if (estDansLimites(newX, enemy.getY())) {
 
             deplacerElement(enemy, newX, enemy.getY());// Déplacement de l'ennemi aux nouvelles positions
-
-        } else {
-
-            System.out.println("debug");
-            // Gérer le comportement lorsque l'ennemi atteint les limites de la carte
 
         }
     }

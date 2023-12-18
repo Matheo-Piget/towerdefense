@@ -2,7 +2,6 @@ package src.main.java.UI.GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import src.main.java.configMap.GameMap;

@@ -11,12 +11,13 @@ public class TerminalUI {
     GameMap map;
     Player player;
     private final Scanner scanner; 
-    static int difficulté;
+    public static int difficulté;
 
     public TerminalUI(GameMap map, Player player){
 
         this.map = map;
         this.player = player;
+        difficulté = 1;
         this.scanner = new Scanner(System.in); // on initialise un champ scannaer pour gerer tout les choix via le terminal de l'utitlisateur
 
 
@@ -90,8 +91,7 @@ public class TerminalUI {
         System.out.print("Entrez votre choix : ");
         choixDifficulte = scanner.nextInt();
 
-        // Implémentez la logique pour régler la difficulté ici en fonction de choixDifficulte
-        // Par exemple, ajuster les paramètres du jeu en fonction de la difficulté choisie
+        difficulté = choixDifficulte;
 
         System.out.println("Difficulté réglée avec succès !");
         affiche_menu(); // Revenir au menu principal
@@ -108,10 +108,7 @@ public class TerminalUI {
     
         while (!gameOver) {
             // Mettre à jour la carte
-            map.update();
-    
-            // Mettre à jour les informations du joueur
-            player.update();
+            player.setMoney(map.update(player)+player.getMoney());
     
             // Afficher les informations du joueur et la carte
             player.affiche();// Méthode à créer dans la classe Player pour afficher les infos
@@ -119,32 +116,66 @@ public class TerminalUI {
     
             // Afficher le menu pour les actions du joueur pendant le jeu
             displayInGameMenu();
-    
-            // Attendre un certain temps entre les mises à jour (simulant le temps d'une vague d'ennemis, par exemple)
-            try {
-                Thread.sleep(1000); // Attendre 1 seconde (1000 millisecondes)
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+            gameOver = player.getLives() < 0;
+            
         }
+
+        System.out.println("Game over !");
+
+        System.out.println("Voulez vous relacez une partie ? ");
+        String reponse = scanner.nextLine();
+
+        switch (reponse) {
+            case "oui":
+
+                TerminalUI new_partie = new TerminalUI(new GameMap(5, 10), new Player(50, 10));
+                new_partie.start();
+
+                break;
+        
+            case "non": 
+
+                System.out.println("Très bien, au revoir");
+                System.exit(0);
+                break;
+
+
+            default:
+                System.exit(0);
+                break;
+        }
+
     }
     
     private void displayInGameMenu() {
         System.out.println("===== MENU D'ACTION =====");
         System.out.println("1. Placer une tour");
         System.out.println("2. Passer le tour");
+        System.out.println("3. Retour au Menu");
+
     
         System.out.print("Entrez votre choix : ");
         int choice = scanner.nextInt();
         scanner.nextLine(); // Pour consommer la nouvelle ligne
     
         switch (choice) {
+
             case 1:
+
                 placeTower();
                 break;
+
             case 2:
+
                 // Le joueur choisit de passer son tour
                 break;
+
+            case 3:
+
+                affiche_menu();
+                break;
+
             default:
                 System.out.println("Choix invalide. Veuillez choisir une option valide.");
                 break;
@@ -153,16 +184,66 @@ public class TerminalUI {
     
     private void placeTower() {
 
+        boolean fin = true;
         System.out.println("Choisissez quelle type de tour vous voulez placer : (1) (2) (3) :");
-        int choix_tours = scanner.nextInt();
-        // TODO condition qui fait place la tour que si le joueur a assez d'argent et enleve l'argent 
-        System.out.println("Choisissez maintenant les coordonnés :");
-        int x = scanner.nextInt();
-        int y = scanner.nextInt();
+        int choix_tours;
+
+        while (fin) {
+
+            choix_tours = scanner.nextInt();
+
+            switch (choix_tours) {
+            case 1:
+
+                if(player.getMoney() >= 10){
+
+                    System.out.println("Choisissez maintenant les coordonnés :");
+                    int x = scanner.nextInt();
+                    int y = scanner.nextInt();
+                    // Logique pour placer la tour à l'emplacement (x, y) sur la carte
+                    map.placer(new Tower(20, 3, 2, y, x)); 
+                    player.setMoney(player.getMoney() - 10);
+                    fin = false;
+
+                } else {
+
+                    System.out.println("Vous n'avez pas assez d'argent");
+
+                }
+                
+                break;
+
+            case 2:
+
+                if(player.getMoney() >= 20){
+
+                    System.out.println("Choisissez maintenant les coordonnés :");
+                    int x = scanner.nextInt();
+                    int y = scanner.nextInt();
+                    // Logique pour placer la tour à l'emplacement (x, y) sur la carte
+                    map.placer(new Tower(30, 2, 2, y, x)); 
+                    player.setMoney(player.getMoney() - 20);
+                    fin = false;
+
+                } else {
+
+                    System.out.println("Vous n'avez pas assez d'argent");
+
+                }
+                
+                break;
+        
+            default:
+                System.out.println("Veuillez selectionnez un nombre en .. et .."); //TODO a determiner selon le nombre de tour que l'on a créer
+                break;
+            }
+            
+        }
+        
+        
         scanner.nextLine(); // Pour consommer la nouvelle ligne
     
-        // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-        map.placer(new Tower(20, 3, 5, 2, y, x)); 
+       
     }
 
 }
