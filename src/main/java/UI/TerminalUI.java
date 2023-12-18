@@ -116,6 +116,8 @@ public class TerminalUI {
     
             // Afficher le menu pour les actions du joueur pendant le jeu
             displayInGameMenu();
+
+            gameOver = player.getLives() < 0;
             
         }
     }

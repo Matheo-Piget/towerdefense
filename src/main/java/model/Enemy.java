@@ -33,7 +33,8 @@ public class Enemy extends Element {
 
         Tower t = map.trouverTowerSurMemeLigne(this);
 
-        if(getX() - t.getX() == 1) t.setHealth(health - getDamage());
+        if(t == null) return;
+        else if(getX() - t.getX() == 1) t.setHealth(health - getDamage());
 
     }
 
