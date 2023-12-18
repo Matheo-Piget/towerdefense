@@ -2,6 +2,7 @@ package src.main.java.configMap;
 
 import java.util.ArrayList;
 
+import src.main.java.UI.TerminalUI;
 import src.main.java.model.*;
 import src.main.java.start.Player;
 
@@ -22,6 +23,25 @@ public class GameMap {
             }
         }
     }
+
+    public int calculerGainEnnemiMort() {
+    int gain = 0;
+    switch (TerminalUI.difficulté) {
+        case 1: // Facile
+            gain = 10;
+            break;
+        case 2: // Moyen
+            gain = 15;
+            break;
+        case 3: // Difficile
+            gain = 20;
+            break;
+        default:
+            gain = 10; // Valeur par défaut pour éviter les erreurs
+            break;
+    }
+    return gain;
+}
 
     public ArrayList<Enemy> tout_les_enemy(){ // retourne tous les enemies sous forme d'une liste, mieux manipulable
 
@@ -183,7 +203,7 @@ public class GameMap {
 
         for (Enemy e : tout_les_enemy()) {
             
-            if(e.getHealth() <= 0) retirerElement(e); money_win += 10;
+            if(e.getHealth() <= 0) retirerElement(e); money_win += calculerGainEnnemiMort();
 
         }
 
@@ -237,7 +257,7 @@ public class GameMap {
             int randomX = mapWidth - 1; // Position aléatoire sur la dernière colonne de la carte
             int randomY = (int) (Math.random() * mapHeight); // Position aléatoire sur la hauteur de la carte
     
-            placer(new Enemy(1, 2, 1, randomX, randomY, false)); 
+            placer(new Enemy(10, 3, 1, randomX, randomY, false)); 
         }
 
     }

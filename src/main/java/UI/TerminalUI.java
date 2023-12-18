@@ -11,12 +11,13 @@ public class TerminalUI {
     GameMap map;
     Player player;
     private final Scanner scanner; 
-    static int difficulté;
+    public static int difficulté;
 
     public TerminalUI(GameMap map, Player player){
 
         this.map = map;
         this.player = player;
+        difficulté = 1;
         this.scanner = new Scanner(System.in); // on initialise un champ scannaer pour gerer tout les choix via le terminal de l'utitlisateur
 
 

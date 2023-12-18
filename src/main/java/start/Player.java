@@ -1,5 +1,7 @@
 package src.main.java.start;
 
+import src.main.java.UI.TerminalUI;
+
 public class Player {
 
     private int money;
@@ -9,7 +11,25 @@ public class Player {
 
         this.money = money;
         this.lives = lives;
+        ajusterVieSelonDifficulte();
 
+    }
+
+    public void ajusterVieSelonDifficulte() {
+        switch (TerminalUI.difficulté) {
+            case 1: // Facile
+                setLives(10);
+                break;
+            case 2: // Moyen
+                setLives(5);
+                break;
+            case 3: // Difficile
+                setLives(3);
+                break;
+            default:
+                setLives(10); // Valeur par défaut pour éviter les erreurs
+                break;
+        }
     }
 
     public void lostLive(){
