@@ -120,6 +120,32 @@ public class TerminalUI {
             gameOver = player.getLives() < 0;
             
         }
+
+        System.out.println("Game over !");
+
+        System.out.println("Voulez vous relacez une partie ? ");
+        String reponse = scanner.nextLine();
+
+        switch (reponse) {
+            case "oui":
+
+                TerminalUI new_partie = new TerminalUI(new GameMap(5, 10), new Player(50, 10));
+                new_partie.start();
+
+                break;
+        
+            case "non": 
+
+                System.out.println("Très bien, au revoir");
+                System.exit(0);
+                break;
+
+
+            default:
+                System.exit(0);
+                break;
+        }
+
     }
     
     private void displayInGameMenu() {

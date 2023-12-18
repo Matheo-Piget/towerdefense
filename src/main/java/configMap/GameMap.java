@@ -95,8 +95,8 @@ public class GameMap {
 
         for (Enemy t : tout_les_enemy()) {
             
-            if(t.getRange()) t.attaque_loin(this);
-            else t.attaque(this);
+            if(t.getRange()) t.attaque_loin(this, p);
+            else t.attaque(this, p);
 
         }
 
@@ -203,7 +203,10 @@ public class GameMap {
 
         for (Enemy e : tout_les_enemy()) {
             
-            if(e.getHealth() <= 0) retirerElement(e); money_win += calculerGainEnnemiMort();
+            if(e.getHealth() <= 0) {
+                retirerElement(e); 
+                money_win += calculerGainEnnemiMort();
+            }
 
         }
 
@@ -275,11 +278,6 @@ public class GameMap {
         if (estDansLimites(newX, enemy.getY())) {
 
             deplacerElement(enemy, newX, enemy.getY());// Déplacement de l'ennemi aux nouvelles positions
-
-        } else {
-
-            enemy.attaque(this);
-            // Gérer le comportement lorsque l'ennemi atteint les limites de la carte
 
         }
     }
