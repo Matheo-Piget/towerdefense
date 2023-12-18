@@ -3,6 +3,7 @@ package src.main.java.configMap;
 import java.util.ArrayList;
 
 import src.main.java.model.*;
+import src.main.java.start.Player;
 
 public class GameMap {
 
@@ -70,11 +71,11 @@ public class GameMap {
 
     }
 
-    public void enemies_attaque(){ // fonction qui fait attaquer toutes les enemis
+    public void enemies_attaque(Player p){ // fonction qui fait attaquer toutes les enemis
 
         for (Enemy t : tout_les_enemy()) {
             
-            t.attaque(this);
+            if(!t.attaque(this)) p.lostLive();
 
         }
 
@@ -122,7 +123,7 @@ public class GameMap {
 
             }
         }
-        
+
         return null; // Aucune tour sur la même ligne que la tour
 
 
@@ -199,10 +200,10 @@ public class GameMap {
 
     }
 
-    public int update(){
+    public int update(Player p){
 
         tours_attaque();
-        enemies_attaque();
+        enemies_attaque(p);
         int money_win = enemyMort(); // on supprime tout les enemis mort
         towerMorte(); // meme chose pour les tours
         deplacerTousLesEnnemis(); // on déplace tout les enemis
@@ -256,7 +257,7 @@ public class GameMap {
 
         } else {
 
-            System.out.println("debug");
+            enemy.attaque(this);
             // Gérer le comportement lorsque l'ennemi atteint les limites de la carte
 
         }

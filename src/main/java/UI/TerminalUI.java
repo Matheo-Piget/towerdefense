@@ -107,7 +107,7 @@ public class TerminalUI {
     
         while (!gameOver) {
             // Mettre à jour la carte
-            player.setMoney(map.update()+player.getMoney());
+            player.setMoney(map.update(player)+player.getMoney());
     
             // Afficher les informations du joueur et la carte
             player.affiche();// Méthode à créer dans la classe Player pour afficher les infos
@@ -131,7 +131,7 @@ public class TerminalUI {
         scanner.nextLine(); // Pour consommer la nouvelle ligne
     
         switch (choice) {
-            
+
             case 1:
 
                 placeTower();
@@ -173,6 +173,7 @@ public class TerminalUI {
                     int y = scanner.nextInt();
                     // Logique pour placer la tour à l'emplacement (x, y) sur la carte
                     map.placer(new Tower(20, 3, 2, y, x)); 
+                    player.setMoney(player.getMoney() - 10);
                     fin = false;
 
                 } else {
@@ -192,6 +193,7 @@ public class TerminalUI {
                     int y = scanner.nextInt();
                     // Logique pour placer la tour à l'emplacement (x, y) sur la carte
                     map.placer(new Tower(30, 2, 2, y, x)); 
+                    player.setMoney(player.getMoney() - 20);
                     fin = false;
 
                 } else {

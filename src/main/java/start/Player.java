@@ -12,6 +12,12 @@ public class Player {
 
     }
 
+    public void lostLive(){
+
+        lives -= 1;
+
+    }
+
     public void affiche() {
 
         System.out.println("Vous avez : " + money + " d'argent et " + lives + " vies");
