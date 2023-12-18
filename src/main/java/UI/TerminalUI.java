@@ -123,18 +123,30 @@ public class TerminalUI {
         System.out.println("===== MENU D'ACTION =====");
         System.out.println("1. Placer une tour");
         System.out.println("2. Passer le tour");
+        System.out.println("3. Retour au Menu");
+
     
         System.out.print("Entrez votre choix : ");
         int choice = scanner.nextInt();
         scanner.nextLine(); // Pour consommer la nouvelle ligne
     
         switch (choice) {
+            
             case 1:
+
                 placeTower();
                 break;
+
             case 2:
+
                 // Le joueur choisit de passer son tour
                 break;
+
+            case 3:
+
+                affiche_menu();
+                break;
+
             default:
                 System.out.println("Choix invalide. Veuillez choisir une option valide.");
                 break;
