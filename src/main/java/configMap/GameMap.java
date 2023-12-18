@@ -122,6 +122,7 @@ public class GameMap {
 
             }
         }
+        
         return null; // Aucune tour sur la même ligne que la tour
 
 
