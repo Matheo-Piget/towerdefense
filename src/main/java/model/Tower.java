@@ -37,7 +37,7 @@ public class Tower extends Element {
 
         if (enemy != null) {
 
-            enemy.setHealth(enemy.health - damage); // Attaque le premier ennemi trouvé sur la même ligne
+            enemy.setHealth((enemy.health - damage)*attackSpeed); // Attaque le premier ennemi trouvé sur la même ligne
             return true;
 
         } 

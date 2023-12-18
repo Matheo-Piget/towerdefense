@@ -3,6 +3,7 @@ package src.main.java.UI;
 import java.util.Scanner;
 
 import src.main.java.configMap.GameMap;
+import src.main.java.model.Tower;
 import src.main.java.start.Player;
 
 public class TerminalUI {
@@ -102,47 +103,66 @@ public class TerminalUI {
 
     }
 
-    public void start(){
-
-        while (player.getLives() > 0) {
-
-
-            System.out.println("Choisissez une action : ");
-            System.out.println("(P) placer une tour, (esc) retourner au menu, ()");
-
-            String choix = scanner.nextLine();
-
-            switch (choix) {
-
-                case "esc":
-
-                    affiche_menu();
-                    break;
-
-                case "P":
-
-                    
-            
-                default:
-
-
-                    break;
+    private void start() {
+        boolean gameOver = false;
+    
+        while (!gameOver) {
+            // Mettre à jour la carte
+            map.update();
+    
+            // Mettre à jour les informations du joueur
+            player.update();
+    
+            // Afficher les informations du joueur et la carte
+            player.affiche();// Méthode à créer dans la classe Player pour afficher les infos
+            map.affiche(); // Méthode à créer dans la classe GameMap pour afficher la carte
+    
+            // Afficher le menu pour les actions du joueur pendant le jeu
+            displayInGameMenu();
+    
+            // Attendre un certain temps entre les mises à jour (simulant le temps d'une vague d'ennemis, par exemple)
+            try {
+                Thread.sleep(1000); // Attendre 1 seconde (1000 millisecondes)
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
-            //on met a jour la frame selon le choix du joueur, a toi de faire 
-            //si tel choix est mis dans le terminal alors on afffiche le menu
-
-
-            map.update();// on met jour la map : les nouveaux enemies, les enemies mort etc..
-            player.update();// on met jour le joueur : si il a perdu une vie, gagné de l'argent etc...
-
-            player.affiche(); // on affiche la map et les données du joueur
-            map.affiche();
-            
-
         }
-        
+    }
+    
+    private void displayInGameMenu() {
+        System.out.println("===== MENU D'ACTION =====");
+        System.out.println("1. Placer une tour");
+        System.out.println("2. Passer le tour");
+    
+        System.out.print("Entrez votre choix : ");
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // Pour consommer la nouvelle ligne
+    
+        switch (choice) {
+            case 1:
+                placeTower();
+                break;
+            case 2:
+                // Le joueur choisit de passer son tour
+                break;
+            default:
+                System.out.println("Choix invalide. Veuillez choisir une option valide.");
+                break;
+        }
+    }
+    
+    private void placeTower() {
 
+        System.out.println("Choisissez quelle type de tour vous voulez placer : (1) (2) (3) :");
+        int choix_tours = scanner.nextInt();
+        // TODO condition qui fait place la tour que si le joueur a assez d'argent et enleve l'argent 
+        System.out.println("Choisissez maintenant les coordonnés :");
+        int x = scanner.nextInt();
+        int y = scanner.nextInt();
+        scanner.nextLine(); // Pour consommer la nouvelle ligne
+    
+        // Logique pour placer la tour à l'emplacement (x, y) sur la carte
+        map.placer(new Tower(20, 3, 5, 2, y, x)); 
     }
 
 }

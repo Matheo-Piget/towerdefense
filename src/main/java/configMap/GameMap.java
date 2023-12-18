@@ -104,7 +104,7 @@ public class GameMap {
         int y = element.getY();
 
         if (estDansLimites(x, y)) {
-            tiles[x][y].set_elt(null);
+            tiles[y][x].set_elt(null);
         } else {
             System.out.println("Coordonnées hors limites !");
         }
@@ -221,8 +221,16 @@ public class GameMap {
 
     public void nouveauxEnemy(){
 
-        placer(new Enemy(20, 5,1, 8, 0));
-        placer(new Enemy(20, 5,1, 8, 1));
+        int mapWidth = tiles[0].length;
+        int mapHeight = tiles.length;
+        int numberOfEnemies = 2; // Nombre d'ennemis à placer (à ajuster selon vos besoins)
+    
+        for (int i = 0; i < numberOfEnemies; i++) {
+            int randomX = mapWidth - 1; // Position aléatoire sur la dernière colonne de la carte
+            int randomY = (int) (Math.random() * mapHeight); // Position aléatoire sur la hauteur de la carte
+    
+            placer(new Enemy(1, 2, 1, randomX, randomY)); 
+        }
 
     }
 
