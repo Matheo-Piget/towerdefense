@@ -10,15 +10,15 @@ public class TerminalUI {
 
     GameMap map;
     Player player;
-    private final Scanner scanner; 
+    private final Scanner scanner;
     static int difficulté;
 
-    public TerminalUI(GameMap map, Player player){
+    public TerminalUI(GameMap map, Player player) {
 
         this.map = map;
         this.player = player;
-        this.scanner = new Scanner(System.in); // on initialise un champ scannaer pour gerer tout les choix via le terminal de l'utitlisateur
-
+        this.scanner = new Scanner(System.in); // on initialise un champ scannaer pour gerer tout les choix via le
+                                               // terminal de l'utitlisateur
 
     }
 
@@ -90,8 +90,10 @@ public class TerminalUI {
         System.out.print("Entrez votre choix : ");
         choixDifficulte = scanner.nextInt();
 
-        // Implémentez la logique pour régler la difficulté ici en fonction de choixDifficulte
-        // Par exemple, ajuster les paramètres du jeu en fonction de la difficulté choisie
+        // Implémentez la logique pour régler la difficulté ici en fonction de
+        // choixDifficulte
+        // Par exemple, ajuster les paramètres du jeu en fonction de la difficulté
+        // choisie
 
         System.out.println("Difficulté réglée avec succès !");
         affiche_menu(); // Revenir au menu principal
@@ -105,22 +107,23 @@ public class TerminalUI {
 
     private void start() {
         boolean gameOver = false;
-    
+
         while (!gameOver) {
             // Mettre à jour la carte
             map.update();
-    
+
             // Mettre à jour les informations du joueur
             player.update();
-    
+
             // Afficher les informations du joueur et la carte
             player.affiche();// Méthode à créer dans la classe Player pour afficher les infos
-            map.affiche(); // Méthode à créer dans la classe GameMap pour afficher la carte
-    
+            map.showMap(); // Méthode à créer dans la classe GameMap pour afficher la carte
+
             // Afficher le menu pour les actions du joueur pendant le jeu
             displayInGameMenu();
-    
-            // Attendre un certain temps entre les mises à jour (simulant le temps d'une vague d'ennemis, par exemple)
+
+            // Attendre un certain temps entre les mises à jour (simulant le temps d'une
+            // vague d'ennemis, par exemple)
             try {
                 Thread.sleep(1000); // Attendre 1 seconde (1000 millisecondes)
             } catch (InterruptedException e) {
@@ -128,16 +131,16 @@ public class TerminalUI {
             }
         }
     }
-    
+
     private void displayInGameMenu() {
         System.out.println("===== MENU D'ACTION =====");
         System.out.println("1. Placer une tour");
         System.out.println("2. Passer le tour");
-    
+
         System.out.print("Entrez votre choix : ");
         int choice = scanner.nextInt();
         scanner.nextLine(); // Pour consommer la nouvelle ligne
-    
+
         switch (choice) {
             case 1:
                 placeTower();
@@ -150,19 +153,20 @@ public class TerminalUI {
                 break;
         }
     }
-    
+
     private void placeTower() {
 
         System.out.println("Choisissez quelle type de tour vous voulez placer : (1) (2) (3) :");
         int choix_tours = scanner.nextInt();
-        // TODO condition qui fait place la tour que si le joueur a assez d'argent et enleve l'argent 
+        // TODO condition qui fait place la tour que si le joueur a assez d'argent et
+        // enleve l'argent
         System.out.println("Choisissez maintenant les coordonnés :");
         int x = scanner.nextInt();
         int y = scanner.nextInt();
         scanner.nextLine(); // Pour consommer la nouvelle ligne
-    
+
         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-        map.placer(new Tower(20, 3, 5, 2, y, x)); 
+        map.putElem(new Tower(20, 3, 5, 2, y, x));
     }
 
 }

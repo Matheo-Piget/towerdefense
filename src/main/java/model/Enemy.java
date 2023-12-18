@@ -23,7 +23,7 @@ public class Enemy extends Element {
 
     public boolean attaque(GameMap gameMap) {
 
-        Tower tour = gameMap.trouverTowerSurMemeLigne(this); // Recherche de la tour sur la même ligne que l'enemi
+        Tower tour = gameMap.findTowerSameLine(this); // Recherche de la tour sur la même ligne que l'enemi
 
         if (tour != null) {
 

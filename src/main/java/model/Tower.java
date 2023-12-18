@@ -31,16 +31,17 @@ public class Tower extends Element {
         this.attackSpeed = attackSpeed;
     }
 
-    public boolean attaque(GameMap gameMap) {
+    public boolean attack(GameMap gameMap) {
 
-        Enemy enemy = gameMap.trouverEnnemiSurMemeLigne(this); // Recherche de l'ennemi sur la même ligne que la tour
+        Enemy enemy = gameMap.findEnemySameLine(this); // Recherche de l'ennemi sur la même ligne que la tour
 
         if (enemy != null) {
 
-            enemy.setHealth((enemy.health - damage)*attackSpeed); // Attaque le premier ennemi trouvé sur la même ligne
+            enemy.setHealth((enemy.health - damage) * attackSpeed); // Attaque le premier ennemi trouvé sur la même
+                                                                    // ligne
             return true;
 
-        } 
+        }
 
         return false;
 
