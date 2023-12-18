@@ -108,7 +108,7 @@ public class TerminalUI {
     
         while (!gameOver) {
             // Mettre à jour la carte
-            player.setMoney(map.update());
+            player.setMoney(map.update()+player.getMoney());
     
             // Afficher les informations du joueur et la carte
             player.affiche();// Méthode à créer dans la classe Player pour afficher les infos
@@ -144,16 +144,64 @@ public class TerminalUI {
     
     private void placeTower() {
 
+        boolean fin = true;
         System.out.println("Choisissez quelle type de tour vous voulez placer : (1) (2) (3) :");
-        int choix_tours = scanner.nextInt();
-        // TODO condition qui fait place la tour que si le joueur a assez d'argent et enleve l'argent 
-        System.out.println("Choisissez maintenant les coordonnés :");
-        int x = scanner.nextInt();
-        int y = scanner.nextInt();
+        int choix_tours;
+
+        while (fin) {
+
+            choix_tours = scanner.nextInt();
+
+            switch (choix_tours) {
+            case 1:
+
+                if(player.getMoney() >= 10){
+
+                    System.out.println("Choisissez maintenant les coordonnés :");
+                    int x = scanner.nextInt();
+                    int y = scanner.nextInt();
+                    // Logique pour placer la tour à l'emplacement (x, y) sur la carte
+                    map.placer(new Tower(20, 3, 2, y, x)); 
+                    fin = false;
+
+                } else {
+
+                    System.out.println("Vous n'avez pas assez d'argent");
+
+                }
+                
+                break;
+
+            case 2:
+
+                if(player.getMoney() >= 20){
+
+                    System.out.println("Choisissez maintenant les coordonnés :");
+                    int x = scanner.nextInt();
+                    int y = scanner.nextInt();
+                    // Logique pour placer la tour à l'emplacement (x, y) sur la carte
+                    map.placer(new Tower(30, 2, 2, y, x)); 
+                    fin = false;
+
+                } else {
+
+                    System.out.println("Vous n'avez pas assez d'argent");
+
+                }
+                
+                break;
+        
+            default:
+                System.out.println("Veuillez selectionnez un nombre en .. et .."); //TODO a determiner selon le nombre de tour que l'on a créer
+                break;
+            }
+            
+        }
+        
+        
         scanner.nextLine(); // Pour consommer la nouvelle ligne
     
-        // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-        map.placer(new Tower(20, 3, 5, 2, y, x)); 
+       
     }
 
 }

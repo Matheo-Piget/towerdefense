@@ -13,7 +13,7 @@ public class Start {
 
     public Start() {
         map = new GameMap(5, 10);
-        player = new Player(1000, 3);
+        player = new Player(50, 3);
         terminalUI = new TerminalUI(map, player);
     }
 
