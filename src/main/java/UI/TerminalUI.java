@@ -108,10 +108,7 @@ public class TerminalUI {
     
         while (!gameOver) {
             // Mettre à jour la carte
-            map.update();
-    
-            // Mettre à jour les informations du joueur
-            player.update();
+            player.setMoney(map.update());
     
             // Afficher les informations du joueur et la carte
             player.affiche();// Méthode à créer dans la classe Player pour afficher les infos

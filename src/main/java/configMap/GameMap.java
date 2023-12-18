@@ -1,10 +1,8 @@
 package src.main.java.configMap;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import src.main.java.model.*;
-import src.main.java.start.*;
 
 public class GameMap {
 
@@ -143,6 +141,7 @@ public class GameMap {
 
             }
         }
+
         return null; // Aucun ennemi sur la même ligne que la tour
     }
 
@@ -175,13 +174,17 @@ public class GameMap {
         }
     }
 
-    public void enemyMort(){ // supprime tout les enemies qui n'ont plus de vie
+    public int enemyMort(){ // supprime tout les enemies qui n'ont plus de vie
+
+        int money_win = 0;
 
         for (Enemy e : tout_les_enemy()) {
             
-            if(e.getHealth() <= 0) retirerElement(e);
+            if(e.getHealth() <= 0) retirerElement(e); money_win += 10;
 
         }
+
+        return money_win;
 
     }
 
@@ -195,14 +198,16 @@ public class GameMap {
 
     }
 
-    public void update(){
+    public int update(){
 
         tours_attaque();
         enemies_attaque();
-        enemyMort(); // on supprime tout les enemis mort
+        int money_win = enemyMort(); // on supprime tout les enemis mort
         towerMorte(); // meme chose pour les tours
         deplacerTousLesEnnemis(); // on déplace tout les enemis
-        nouveauxEnemy(); //TODO -> faire apparaître de nouveaux enemies suivant un timer ou autre alternative
+        nouveauxEnemy();
+
+        return money_win;
 
         
 
