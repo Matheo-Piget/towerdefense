@@ -6,6 +6,9 @@ import src.main.java.model.*;
  * La classe Cellule représente une cellule de la carte du jeu.
  * On pourra consulter la présence d'un élément sur la cellule, et le cas
  * échéant, lequel.
+ * 
+ * @see GameMap pour la carte du jeu
+ * @see Element pour les éléments du jeu
  */
 
 public class Cellule {
@@ -20,22 +23,22 @@ public class Cellule {
         element = e;
     }
 
-    /* Pour savoir si la cellule contient quelque chose */
+    /** @return true si la cellule contient quelque chose, false sinon */
     public boolean isOccupied() {
         return element != null;
     }
 
-    /* Pour récupérer dans la classe GameMap l'élement en question */
+    /** @return l'élément présent sur la cellule */
     public Element getElement() {
         return element;
     }
 
-    /* Pour modifier dans la classe GameMap l'élement pris en argument */
-    public void setElement(Element e) {
-        this.element = e;
+    /** Pour modifier dans la classe GameMap l'élement pris en argument */
+    public void setElement(Element element) {
+        this.element = element;
     }
 
-    /* Pour afficher l'élement sur le type de l'élement sur le tableau de jeu */
+    /** Pour afficher l'élement sur le type de l'élement sur le tableau de jeu */
     public void affiche() {
         if (element instanceof Enemy) {
             System.out.print("E");
@@ -47,6 +50,4 @@ public class Cellule {
         }
 
     }
-
-    // Getters, setters, methods for tower, enemy, etc.
 }
