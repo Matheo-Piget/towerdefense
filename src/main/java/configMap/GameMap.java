@@ -75,7 +75,8 @@ public class GameMap {
 
         for (Enemy t : tout_les_enemy()) {
             
-            if(!t.attaque(this)) p.lostLive();
+            if(t.getRange()) t.attaque_loin(this);
+            else t.attaque(this);
 
         }
 
@@ -236,7 +237,7 @@ public class GameMap {
             int randomX = mapWidth - 1; // Position aléatoire sur la dernière colonne de la carte
             int randomY = (int) (Math.random() * mapHeight); // Position aléatoire sur la hauteur de la carte
     
-            placer(new Enemy(1, 2, 1, randomX, randomY)); 
+            placer(new Enemy(1, 2, 1, randomX, randomY, false)); 
         }
 
     }
