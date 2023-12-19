@@ -3,7 +3,11 @@ package src.main.java.UI;
 import java.util.Scanner;
 
 import src.main.java.configMap.GameMap;
+import src.main.java.model.FastTower;
+import src.main.java.model.MediumTower;
+import src.main.java.model.StrongTower;
 import src.main.java.model.Tower;
+import src.main.java.model.WeakTower;
 import src.main.java.start.Player;
 
 public class TerminalUI {
@@ -185,7 +189,7 @@ public class TerminalUI {
     private void placeTower() {
 
         boolean fin = true;
-        System.out.println("Choisissez quelle type de tour vous voulez placer : (1) (2) (3) :");
+        System.out.println("Choisissez quelle type de tour vous voulez placer : (1)petite tours,  (2)moyenne_tours (3), tours rapides, (4) tours forte :");
         int choix_tours;
 
         while (fin) {
@@ -195,14 +199,14 @@ public class TerminalUI {
             switch (choix_tours) {
             case 1:
 
-                if(player.getMoney() >= 10){
+                if(player.getMoney() >= 5){
 
                     System.out.println("Choisissez maintenant les coordonnés :");
                     int x = scanner.nextInt();
                     int y = scanner.nextInt();
                     // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-                    map.placer(new Tower(20, 3, 2, y, x)); 
-                    player.setMoney(player.getMoney() - 10);
+                    map.placer(new WeakTower(y, x)); 
+                    player.setMoney(player.getMoney() - 5);
                     fin = false;
 
                 } else {
@@ -215,13 +219,53 @@ public class TerminalUI {
 
             case 2:
 
+                if(player.getMoney() >= 10){
+
+                    System.out.println("Choisissez maintenant les coordonnés :");
+                    int x = scanner.nextInt();
+                    int y = scanner.nextInt();
+                    // Logique pour placer la tour à l'emplacement (x, y) sur la carte
+                    map.placer(new MediumTower(y, x)); 
+                    player.setMoney(player.getMoney() - 10);
+                    fin = false;
+
+                } else {
+
+                    System.out.println("Vous n'avez pas assez d'argent");
+
+                }
+                
+                break;
+
+            case 3:
+
+                if(player.getMoney() >= 15){
+
+                    System.out.println("Choisissez maintenant les coordonnés :");
+                    int x = scanner.nextInt();
+                    int y = scanner.nextInt();
+                    // Logique pour placer la tour à l'emplacement (x, y) sur la carte
+                    map.placer(new FastTower(y, x)); 
+                    player.setMoney(player.getMoney() - 15);
+                    fin = false;
+
+                } else {
+
+                    System.out.println("Vous n'avez pas assez d'argent");
+
+                }
+                
+                break;
+
+            case 4:
+
                 if(player.getMoney() >= 20){
 
                     System.out.println("Choisissez maintenant les coordonnés :");
                     int x = scanner.nextInt();
                     int y = scanner.nextInt();
                     // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-                    map.placer(new Tower(30, 2, 2, y, x)); 
+                    map.placer(new StrongTower(y, x)); 
                     player.setMoney(player.getMoney() - 20);
                     fin = false;
 
@@ -232,9 +276,10 @@ public class TerminalUI {
                 }
                 
                 break;
+
         
             default:
-                System.out.println("Veuillez selectionnez un nombre en .. et .."); //TODO a determiner selon le nombre de tour que l'on a créer
+                System.out.println("Veuillez selectionnez un nombre en 1 et 4 : "); 
                 break;
             }
             

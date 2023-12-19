@@ -38,17 +38,41 @@ public class Cellule {
 
     public void affiche() {
 
-        if (element instanceof Enemy) {
+        if (element instanceof WeakEnemy) {
 
-            System.out.print("E");
+            System.out.print("wE");
 
-        } else if (element instanceof Tower) {
+        } else if (element instanceof MediumEnemy) {
 
-            System.out.print("T");
+            System.out.print("mE");
 
-        } else {
+        } else if (element instanceof RangeEnemy) {
 
-            System.out.print("-");
+            System.out.print("rE");
+
+        }else if (element instanceof StrongEnemy) {
+
+            System.out.print("sE");
+
+        }else if (element instanceof WeakTower) {
+
+            System.out.print("wT");
+
+        }else if (element instanceof MediumTower) {
+
+            System.out.print("mT");
+
+        }else if (element instanceof StrongTower) {
+
+            System.out.print("sT");
+
+        }else if (element instanceof FastTower) {
+
+            System.out.print("fT");
+
+        }else {
+
+            System.out.print("--");
 
         }
 
