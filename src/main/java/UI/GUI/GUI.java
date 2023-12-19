@@ -33,7 +33,6 @@ public class GUI {
         // Création de boutons stylés avec des styles personnalisés
         addStyledButton(menuPanel, "Démarrer le jeu", e -> {
             System.out.println("Le jeu démarre !");
-            // Action lors du clic sur "Démarrer le jeu"
         });
 
         addStyledButton(menuPanel, "Reprendre le jeu", e -> {
@@ -87,17 +86,17 @@ public class GUI {
 
         addStyledButton(difficultyPanel, "Facile", e -> {
             // Action a faire quand la difficulté est mis en facile
-            startGUIGame(map, null);
+            startGUIGame(map, new Player(3, 50));
         });
 
         addStyledButton(difficultyPanel, "Moyen", e -> {
             // Action a faire quand la difficulté est mis en Moyen
-            startGUIGame(map, null);
+            startGUIGame(map, new Player(3, 25));
         });
 
         addStyledButton(difficultyPanel, "Difficile", e -> {
             // Action a faire quand la difficulté est mis en facile
-            startGUIGame(map, null);
+            startGUIGame(map, new Player(2, 0));
         });
 
         frame.setContentPane(difficultyPanel); // Changer le panel pour afficher les difficultés

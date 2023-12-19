@@ -1,6 +1,7 @@
 package src.main.java.configMap;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import src.main.java.UI.TerminalUI;
 import src.main.java.model.*;
@@ -24,20 +25,65 @@ public class GameMap {
         }
     }
 
-    public int calculerGainEnnemiMort() {
+    public int calculerGainEnnemiMort(int choix_enemie) {
     int gain = 0;
     switch (TerminalUI.difficulté) {
         case 1: // Facile
-            gain = 10;
+            switch (choix_enemie) {
+                case 1:
+                    gain = 3;
+                    break;
+                case 2:
+                    gain = 4;
+                    break;
+                case 3:
+                    gain = 5;
+                    break;
+                case 4:
+                    gain = 5;
+                    break;
+                default:
+                    break;
+            }
             break;
         case 2: // Moyen
-            gain = 15;
+            switch (choix_enemie) {
+                case 1:
+                    gain = 2;
+                    break;
+                case 2:
+                    gain = 3;
+                    break;
+                case 3:
+                    gain = 4;
+                    break;
+                case 4:
+                    gain = 4;
+                    break;
+                default:
+                    break;
+            }
             break;
         case 3: // Difficile
-            gain = 20;
+            switch (choix_enemie) {
+                case 1:
+                    gain = 1;
+                    break;
+                case 2:
+                    gain = 2;
+                    break;
+                case 3:
+                    gain = 3;
+                    break;
+                case 4:
+                    gain = 3;
+                    break;
+                default:
+                    break;
+            }
             break;
         default:
-            gain = 10; // Valeur par défaut pour éviter les erreurs
+            gain = 5; // Valeur par défaut pour éviter les erreurs
             break;
     }
     return gain;
@@ -204,14 +250,22 @@ public class GameMap {
         for (Enemy e : tout_les_enemy()) {
             
             if(e.getHealth() <= 0) {
+                
+                money_win += calculerGainEnnemiMort(type_e(e));
                 retirerElement(e); 
-                money_win += calculerGainEnnemiMort();
             }
 
         }
 
         return money_win;
 
+    }
+
+    private int type_e(Enemy e) { 
+        if(e instanceof WeakEnemy) return 1;
+        if(e instanceof MediumEnemy) return 2;
+        if(e instanceof RangeEnemy) return 3;
+        else return 4;
     }
 
     public void towerMorte(){ // supprime tout les tours qui n'ont plus de vie
@@ -252,15 +306,36 @@ public class GameMap {
 
     public void nouveauxEnemy(){
 
-        int mapWidth = tiles[0].length;
         int mapHeight = tiles.length;
         int numberOfEnemies = 2; // Nombre d'ennemis à placer (à ajuster selon vos besoins)
+        Random r = new Random();
+        int random_enemies = (int) (Math.random() * 4);
     
         for (int i = 0; i < numberOfEnemies; i++) {
-            int randomX = mapWidth - 1; // Position aléatoire sur la dernière colonne de la carte
+            int randomX = r.nextBoolean() ? 8 : 9;// Position aléatoire sur la dernière colonne de la carte
             int randomY = (int) (Math.random() * mapHeight); // Position aléatoire sur la hauteur de la carte
     
-            placer(new Enemy(10, 3, 1, randomX, randomY, false)); 
+
+            switch (random_enemies) { // place un enemie alétoire parmit tout les types d'enemies possible 
+                case 0:
+                    placer(new WeakEnemy(randomX, randomY));
+                    break;
+                
+                case 1:
+                    placer(new MediumEnemy(randomX, randomY));
+                    break;
+                case 2:
+                    placer(new RangeEnemy(randomX, randomY));
+                    break;
+                case 3:
+                    placer(new StrongEnemy(randomX, randomY));
+                    break;
+            
+                default:
+                    placer(new WeakEnemy(randomX, randomY));
+                    break;
+            }
+            
         }
 
     }
@@ -302,6 +377,14 @@ public class GameMap {
 
         return x >= 0 && x < tiles[0].length && y >= 0 && y < tiles.length; // teste si les coordenées sont dans les limites
 
+    }
+
+    public int getRows() {
+        return tiles.length;
+    }
+
+    public int getCols() {
+        return tiles[0].length;
     }
 
     // Methods for interacting with tiles, placing towers, moving enemies, etc.
