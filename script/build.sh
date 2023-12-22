@@ -46,6 +46,16 @@ mv src/main/java/start/Player.class build/src/main/java/start/
 mv src/main/java/start/Start.class build/src/main/java/start/
 mv src/main/java/UI/TerminalUI.class build/src/main/java/UI/
 mv src/main/java/UI/GUI/GUI.class build/src/main/java/UI/GUI/
+mv src/main/java/model/FastTower.class build/src/main/java/model/
+mv src/main/java/model/MediumEnemy.class build/src/main/java/model/
+mv src/main/java/model/MediumTower.class build/src/main/java/model/
+mv src/main/java/model/RangeEnemy.class build/src/main/java/model/
+mv src/main/java/model/StrongEnemy.class build/src/main/java/model/
+mv src/main/java/model/StrongTower.class build/src/main/java/model/
+mv src/main/java/model/WeakEnemy.class build/src/main/java/model/
+mv src/main/java/model/WeakTower.class build/src/main/java/model/
+
+
 
 # Fichier étrange qui apparaît lors de la compilation, on le supprime
 rm src/main/java/UI/GUI/GUI\$1.class
