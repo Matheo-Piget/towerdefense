@@ -2,10 +2,23 @@ package src.main.java.start;
 
 import src.main.java.UI.TerminalUI;
 
+/**
+ * Classe représentant le joueur
+ * Cette classe est uniquement présente pour modéliser le joueur et ses
+ * capacités d'action sur le jeu
+ */
 public class Player {
 
+    /* Argent et vies */
     private int money;
     private int lives;
+
+    /**
+     * Constructeur de la classe Player
+     * 
+     * @param money Argent du joueur
+     * @param lives Vies du joueur
+     */
 
     public Player(int money, int lives) {
 
@@ -15,6 +28,7 @@ public class Player {
 
     }
 
+    /** On ajuste le nombre de vie en fonction de la difficulté */
     public void ajusterVieSelonDifficulte() {
         switch (TerminalUI.difficulté) {
             case 1: // Facile
@@ -32,11 +46,14 @@ public class Player {
         }
     }
 
-    public void lostLive(){
+    /** Lorsqu'on perd une vie */
+    public void lostLive() {
 
         lives -= 1;
 
     }
+
+    /** Affichage des caractéristiques du joueur */
 
     public void affiche() {
 
@@ -44,16 +61,18 @@ public class Player {
 
     }
 
+    /* Getter et Setter de Lives */
     public int getLives() {
         return lives;
     }
 
-    public int getMoney() {
-        return money;
-    }
-
     public void setLives(int lives) {
         this.lives = lives;
+    }
+
+    /* Getter et Setter de Money */
+    public int getMoney() {
+        return money;
     }
 
     public void setMoney(int money) {
