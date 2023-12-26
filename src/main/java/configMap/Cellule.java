@@ -13,8 +13,10 @@ import src.main.java.model.*;
 
 public class Cellule {
 
+    /** Symbolise l'élément présent dans la cellule du jeu */
     private Element element;
 
+    /** Constructeurs des deux cas */
     public Cellule() {
         element = null;
     }
@@ -40,46 +42,25 @@ public class Cellule {
 
     /** Pour afficher l'élement sur le type de l'élement sur le tableau de jeu */
     public void affiche() {
-
         if (element instanceof WeakEnemy) {
-
-            System.out.print("wE");
-
+            System.out.print("\u001B[32m" + "wE" + "\u001B[0m");
         } else if (element instanceof MediumEnemy) {
-
-            System.out.print("mE");
-
+            System.out.print("\u001B[33m" + "mE" + "\u001B[0m");
         } else if (element instanceof RangeEnemy) {
-
-            System.out.print("rE");
-
+            System.out.print("\u001B[34m" + "rE" + "\u001B[0m");
         } else if (element instanceof StrongEnemy) {
-
-            System.out.print("sE");
-
+            System.out.print("\u001B[31m" + "sE" + "\u001B[0m");
         } else if (element instanceof WeakTower) {
-
-            System.out.print("wT");
-
+            System.out.print("\u001B[32m" + "w♖" + "\u001B[0m");
         } else if (element instanceof MediumTower) {
-
-            System.out.print("mT");
-
+            System.out.print("\u001B[33m" + "m♖" + "\u001B[0m");
         } else if (element instanceof StrongTower) {
-
-            System.out.print("sT");
-
+            System.out.print("\u001B[31m" + "s♖" + "\u001B[0m");
         } else if (element instanceof FastTower) {
-
-            System.out.print("fT");
-
+            System.out.print("\u001B[34m" + "f♖" + "\u001B[0m");
         } else {
-
             System.out.print("--");
-
         }
-
     }
 
-    // Getters, setters, methods for tower, enemy, etc.
 }

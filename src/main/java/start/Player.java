@@ -57,7 +57,9 @@ public class Player {
 
     public void affiche() {
 
-        System.out.println("Vous avez : " + money + " d'argent et " + lives + " vies");
+        System.out.println(
+                "\u001B[32m" + "Argent : " + money + " $" + "\u001B[31m" + "          Vies :  " + lives + " ❤"
+                        + "\u001B[0m");
 
     }
 

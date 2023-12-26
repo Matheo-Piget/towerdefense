@@ -14,7 +14,8 @@ import src.main.java.start.Player;
  * @param tiles représente la carte du jeu sous forme de tableau de tableau avec
  *              dans chaque case une cellule
  * @see Cellule pour plus d'informations sur la cellule
- * @see Element pour plus d'informations sur les éléments
+ * @see Element pour plus d'informations sur les éléments (classe contenant les
+ *      deux enfants importants : Tower et Enemy)
  */
 
 public class GameMap {
@@ -29,26 +30,24 @@ public class GameMap {
      * @param cols nombre de colonnes
      */
     public GameMap(int rows, int cols) {
-
         this.tiles = new Cellule[rows][cols];
-
         for (int i = 0; i < tiles.length; i++) {
-
             for (int j = 0; j < tiles[0].length; j++) {
-
                 tiles[i][j] = new Cellule();
-
             }
         }
     }
 
     /**
      * Fonction permettant de calculer combien un ennemi nous rapporte s'il meurt
+     * case 1 : pour le niveau facile
+     * case 2 : pour le niveau moyen
+     * case 3 : pour le niveau difficile
      */
     public int calculerGainEnnemiMort(int choix_enemie) {
         int gain = 0;
         switch (TerminalUI.difficulté) {
-            case 1: // Facile
+            case 1:
                 switch (choix_enemie) {
                     case 1:
                         gain = 3;
@@ -66,7 +65,7 @@ public class GameMap {
                         break;
                 }
                 break;
-            case 2: // Moyen
+            case 2:
                 switch (choix_enemie) {
                     case 1:
                         gain = 2;
@@ -84,7 +83,7 @@ public class GameMap {
                         break;
                 }
                 break;
-            case 3: // Difficile
+            case 3:
                 switch (choix_enemie) {
                     case 1:
                         gain = 1;
@@ -114,24 +113,17 @@ public class GameMap {
      * Dès que l'on croise un ennemi, on l'ajoute dans la liste
      * 
      * @param enemies est la liste des ennemis présents sur la carte
-     * @return l'arraylist enemies
+     * @return l'arraylist contenant les ennemis
      */
-    public ArrayList<Enemy> tout_les_enemy() { // retourne tous les enemies sous forme d'une liste, mieux manipulable
-
+    public ArrayList<Enemy> tout_les_enemy() {
         ArrayList<Enemy> enemys = new ArrayList<Enemy>();
-
         for (int i = 0; i < tiles.length; i++) {
-
             for (int j = 0; j < tiles[0].length; j++) {
-
                 if (tiles[i][j].get_elt() instanceof Enemy)
-                    enemys.add((Enemy) tiles[i][j].get_elt()); // des que l'on a un enmis ou l'ajoute dasn la liste
-
+                    enemys.add((Enemy) tiles[i][j].get_elt());
             }
         }
-
         return enemys;
-
     }
 
     /**
@@ -140,7 +132,7 @@ public class GameMap {
      * 
      * @return Une arraylist contenant toutes les tours présentes sur la carte
      */
-    public ArrayList<Tower> tout_les_tower() { // retourne tous les tours sous forme d'une liste, mieux manipulable
+    public ArrayList<Tower> tout_les_tower() {
 
         ArrayList<Tower> towers = new ArrayList<Tower>();
 
@@ -149,7 +141,7 @@ public class GameMap {
             for (int j = 0; j < tiles[0].length; j++) {
 
                 if (tiles[i][j].get_elt() instanceof Tower)
-                    towers.add((Tower) tiles[i][j].get_elt()); // des que l'on a une tours ou l'ajoute dasn la liste
+                    towers.add((Tower) tiles[i][j].get_elt());
 
             }
         }
