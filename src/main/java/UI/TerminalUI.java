@@ -154,36 +154,43 @@ public class TerminalUI {
     }
 
     private void displayInGameMenu() {
-        System.out.println("===== MENU D'ACTION =====");
-        System.out.println("1. Placer une tour");
-        System.out.println("2. Passer le tour");
-        System.out.println("3. Retour au Menu");
+        int choice;
 
-        System.out.print("Entrez votre choix : ");
-        int choice = scanner.nextInt();
-        scanner.nextLine(); // Pour consommer la nouvelle ligne
+        do {
 
-        switch (choice) {
+            System.out.println("===== MENU D'ACTION =====");
+            System.out.println("1. Placer une tour");
+            System.out.println("2. Fin du tour");
+            System.out.println("3. Retour au Menu");
 
-            case 1:
+            System.out.print("Entrez votre choix : ");
+            choice = scanner.nextInt();
+            scanner.nextLine(); // Pour consommer la nouvelle ligne
 
-                placeTower();
-                break;
+            switch (choice) {
 
-            case 2:
-                System.out.println("\033\143");
-                break;
+                case 1:
 
-            case 3:
-                System.out.println("\033\143");
-                affiche_menu();
-                break;
+                    placeTower();
+                    break;
 
-            default:
-                System.out.println("\033\143");
-                System.out.println("Choix invalide. Veuillez choisir une option valide.");
-                break;
-        }
+                case 2:
+                    System.out.println("\033\143");
+                    break;
+
+                case 3:
+                    System.out.println("\033\143");
+                    affiche_menu();
+                    break;
+
+                default:
+                    System.out.println("\033\143");
+                    System.out.println("Choix invalide. Veuillez choisir une option valide.");
+                    break;
+            }
+            
+        } while (choice == 1 || choice == 3);
+        
     }
 
     private void placeTower() {
