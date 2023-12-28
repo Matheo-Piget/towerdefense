@@ -26,6 +26,33 @@ public class TerminalUI {
 
     }
 
+    public void affiche_règles() {
+
+        System.out.println("\033\143");
+        System.out.println("===== RÈGLES DU JEU =====");
+        System.out.println("Le but du jeu est de survivre le plus longtemps possible.");
+        System.out.println(
+                "Pour cela, vous devez placer des tours sur la carte pour tuer les ennemis qui arrivent par la droite.");
+        System.out.println(
+                "Vous gagnez de l'argent en tuant des ennemis. Vous pouvez utiliser cet argent pour acheter des tours.");
+        System.out.println("Vous perdez une vie à chaque fois qu'un ennemi atteint la fin de la carte.");
+
+        System.out.println("===== TYPES DE TOURS =====");
+
+        System.out.println("===== TYPES D'ENNEMIS =====");
+
+        System.out.println("Insérez (M) pour revenir au menu principal.");
+
+        String choix = scanner.nextLine();
+        if (choix.equalsIgnoreCase("M")) {
+            System.out.println("\033\143");
+            affiche_menu();
+        } else {
+            System.out.println("Choix invalide. Veuillez choisir une option valide.");
+        }
+
+    }
+
     public void affiche_menu() {
         int choix;
 
@@ -33,8 +60,9 @@ public class TerminalUI {
         System.out.println("1. Démarrer le jeu");
         System.out.println("2. Reprendre le jeu");
         System.out.println("3. Options");
-        System.out.println("4. Scores");
-        System.out.println("5. Quitter");
+        System.out.println("4. Règles");
+        System.out.println("5. Scores");
+        System.out.println("6. Quitter");
 
         System.out.print("Entrez votre choix : "); // pour choisir ce que l'on veut faire
         choix = scanner.nextInt();
@@ -52,9 +80,12 @@ public class TerminalUI {
                 gererOptions();
                 break;
             case 4:
-                System.out.println("Scores du jeu");
+                affiche_règles();
                 break;
             case 5:
+                System.out.println("Scores du jeu");
+                break;
+            case 6:
                 System.out.println("Au revoir !");
                 break;
             default:
@@ -188,9 +219,9 @@ public class TerminalUI {
                     System.out.println("Choix invalide. Veuillez choisir une option valide.");
                     break;
             }
-            
+
         } while (choice == 1 || choice == 3);
-        
+
     }
 
     private void placeTower() {
