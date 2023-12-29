@@ -3,6 +3,12 @@ package src.main.java.UI.GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.border.EmptyBorder;
 
 import src.main.java.configMap.GameMap;
 import src.main.java.start.Player;
@@ -13,138 +19,140 @@ public class GUI {
     private JPanel mainPanel;
     private GameMap map;
     private Player player;
+    private JPanel cardPanel;
+    private CardLayout cardLayout;
 
+    // Méthode pour démarrer le jeu
     public void startGUIGame(GameMap map, Player player) {
-
         this.map = map;
         this.player = player;
 
+        // Création de la JFrame principale
         frame = new JFrame("Tower Defense");
-        frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null); // Centrer la fenêtre sur l'écran
+        frame.setSize(new Dimension(1550, 800));
+        frame.setLocationRelativeTo(null);
 
-        mainPanel = new JPanel(new BorderLayout());
-        mainPanel.setBackground(Color.WHITE); // Couleur de fond du panel principal
+        // Création du panel principal avec une image de fond
+        mainPanel = new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                try {
+                    Image backgroundImage = ImageIO.read(new File("pack/menu/main_menu_usable.jpg"));
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
 
-        JPanel menuPanel = new JPanel(new GridLayout(5, 1, 10, 10)); // Utilisation d'un layout pour le menu
-        menuPanel.setBackground(Color.DARK_GRAY); // Couleur de fond du menu
+        cardLayout = new CardLayout();
+        cardPanel = new JPanel(cardLayout);
+        cardPanel.setOpaque(false);
 
-        // Création de boutons stylés avec des styles personnalisés
-        addStyledButton(menuPanel, "Démarrer le jeu", e -> {
-            System.out.println("Le jeu démarre !");
-        });
+        // Création des panels pour le menu et les options
+        JPanel menuPanel = createMenuPanel();
+        menuPanel.setOpaque(false);
+        cardPanel.add(menuPanel, "Menu");
 
-        addStyledButton(menuPanel, "Reprendre le jeu", e -> {
-            System.out.println("Reprise du jeu");
-            // Action lors du clic sur "Reprendre le jeu"
-        });
+        JPanel optionsPanel = createOptionsPanel();
+        cardPanel.add(optionsPanel, "Options");
 
-        addStyledButton(menuPanel, "Options", e -> {
-            afficheOption();
-        });
+        // Ajout du panel principal au centre de la JFrame
+        mainPanel.add(cardPanel, BorderLayout.CENTER);
+        frame.setContentPane(mainPanel);
 
-        addStyledButton(menuPanel, "Scores", e -> {
-            System.out.println("Scores du jeu");
-            // Action lors du clic sur "Scores"
-        });
-
-        addStyledButton(menuPanel, "Quitter", e -> {
-            System.out.println("Au revoir !");
-            System.exit(0);
-        });
-
-        mainPanel.add(menuPanel, BorderLayout.CENTER);
-        frame.add(mainPanel);
+        // Rendre la JFrame visible
         frame.setVisible(true);
     }
 
-    private void afficheOption() {
+    // Méthode pour créer le panel du menu
+    private JPanel createMenuPanel() {
+        JPanel menuPanel = new JPanel(new GridLayout(7, 1, 10, 10));
+        menuPanel.setOpaque(false);
+        menuPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        // Éléments graphiques pour choisir la difficulté
-        JPanel difficultyPanel = new JPanel(new GridLayout(4, 1));
-        difficultyPanel.setBackground(Color.BLACK);
+        // Création de boutons pour le menu principal
+        JPanel empty = new JPanel();
+        empty.setOpaque(false);
+        JPanel empty1 = new JPanel();
+        empty1.setOpaque(false);
+        JPanel empty2 = new JPanel();
+        empty2.setOpaque(false);
 
-        JLabel label = new JLabel("Choisissez la difficulté :");
-        label.setForeground(Color.WHITE); // Couleur du texte
-        label.setFont(new Font("Arial", Font.BOLD, 24)); // Police et taille
-        label.setHorizontalAlignment(SwingConstants.CENTER); // Alignement horizontal
+        menuPanel.add(empty);
+        menuPanel.add(empty1);
+        menuPanel.add(empty2);
 
-        // Effet d'ombre
-        label.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(2, 2, 2, 2, Color.BLACK),
-                BorderFactory.createEmptyBorder(10, 15, 10, 15)));
+        addStyledButton(menuPanel, "pack/buttons/start.png", e -> System.out.println("Le jeu démarre !"));
+        addStyledButton(menuPanel, "pack/buttons/settings.png", e -> showCard("Options"));
+        addStyledButton(menuPanel, "pack/buttons/credits.png", e -> System.out.println("Crédits"));
+        addStyledButton(menuPanel, "pack/buttons/quit.png", e -> System.exit(0));
 
-        // Dégradé de couleur pour le fond du label
-        label.setOpaque(true);
-        label.setBackground(new Color(0, 0, 0, 0)); // Rendre le fond transparent
-        label.setForeground(new Color(255, 255, 255, 200)); // Couleur du texte semi-transparente
-        label.setOpaque(true); // Permet d'appliquer le dégradé
-        label.setBackground(null); // Fond transparent
-
-        difficultyPanel.add(label);
-
-        addStyledButton(difficultyPanel, "Facile", e -> {
-            // Action a faire quand la difficulté est mis en facile
-            startGUIGame(map, new Player(3, 50));
-        });
-
-        addStyledButton(difficultyPanel, "Moyen", e -> {
-            // Action a faire quand la difficulté est mis en Moyen
-            startGUIGame(map, new Player(3, 25));
-        });
-
-        addStyledButton(difficultyPanel, "Difficile", e -> {
-            // Action a faire quand la difficulté est mis en facile
-            startGUIGame(map, new Player(2, 0));
-        });
-
-        frame.setContentPane(difficultyPanel); // Changer le panel pour afficher les difficultés
-        frame.revalidate();
+        return menuPanel;
     }
 
-    private void addStyledButton(JPanel panel, String text, ActionListener listener) {
-
-        JButton button = new JButton(text);
-        button.setFont(new Font("Arial", Font.BOLD, 16)); // Police et taille
-        button.setForeground(Color.WHITE); // Couleur du texte
-        button.setBackground(Color.BLUE); // Couleur de fond
-
-        button.setFocusPainted(false); // Supprimer le contour lorsqu'il est sélectionné
-        button.setBorderPainted(false); // Supprimer la bordure
-
-        button.setOpaque(true); // Rendre le bouton opaque
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Curseur de la souris au survol du bouton
-        button.setPreferredSize(new Dimension(200, 40)); // Taille préférée du bouton
-
-        button.addActionListener(listener);
-        
-        // Bordure arrondie
-        button.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.WHITE, 2),
-                BorderFactory.createEmptyBorder(5, 15, 5, 15)
-        ));
-
-        // Effet de survol
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(Color.GREEN); // Changement de couleur au survol
+    // Méthode pour créer le panel des options
+    private JPanel createOptionsPanel() {
+        JPanel optionsPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                try {
+                    Image backgroundImage = ImageIO.read(new File("pack/menu/settings.jpg"));
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+        };
+        optionsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                button.setBackground(Color.BLUE); // Couleur de fond d'origine
-            }
-        });
+        addStyledButton(optionsPanel, "pack/buttons/back.png", e -> showCard("Menu"));
 
-        panel.add(button);
+        return optionsPanel;
     }
 
+    // Méthode pour ajouter un bouton stylisé
+    private void addStyledButton(JPanel panel, String imagePath, ActionListener listener) {
+        try {
+            Image img = ImageIO.read(new File(imagePath));
+            ImageIcon icon = new ImageIcon(img.getScaledInstance(300, 70, Image.SCALE_SMOOTH));
+
+            JButton button = new JButton(icon);
+            button.setBorderPainted(false);
+            button.setFocusPainted(false);
+            button.setContentAreaFilled(false);
+
+            button.addActionListener(listener);
+
+            button.addMouseListener(new MouseAdapter() {
+                public void mouseEntered(MouseEvent evt) {
+                    button.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
+                }
+
+                public void mouseExited(MouseEvent evt) {
+                    button.setBorder(null);
+                }
+            });
+
+            panel.add(button);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Méthode pour afficher une carte spécifique (Menu ou Options)
+    private void showCard(String cardName) {
+        cardLayout.show(cardPanel, cardName);
+    }
+
+    // Méthode principale pour lancer le jeu
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             GUI gui = new GUI();
             gui.startGUIGame(new GameMap(5, 10), new Player(1000, 3));
         });
     }
-
 }
