@@ -141,10 +141,9 @@ public class GUI {
     public void startGame() {
         // Création de l'état du jeu
         gameState = new GameState(map, player);
-        gameState.startGame();
-
-        // Fermeture de la fenêtre du menu
-        frame.setVisible(false);
+        cardPanel.add(gameState.getGamePanel(), "Game");
+        showCard("Game");
+        gameState.startGameLoop();
     }
 
     public static void main(String[] args) {
