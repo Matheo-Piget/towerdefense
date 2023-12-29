@@ -21,19 +21,17 @@ public class GUI {
     private Player player;
     private JPanel cardPanel;
     private CardLayout cardLayout;
+    private GameState gameState; // Référence à l'état du jeu
 
-    // Méthode pour démarrer le jeu
     public void startGUIGame(GameMap map, Player player) {
         this.map = map;
         this.player = player;
 
-        // Création de la JFrame principale
         frame = new JFrame("Tower Defense");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(new Dimension(1550, 800));
         frame.setLocationRelativeTo(null);
 
-        // Création du panel principal avec une image de fond
         mainPanel = new JPanel(new BorderLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -51,7 +49,6 @@ public class GUI {
         cardPanel = new JPanel(cardLayout);
         cardPanel.setOpaque(false);
 
-        // Création des panels pour le menu et les options
         JPanel menuPanel = createMenuPanel();
         menuPanel.setOpaque(false);
         cardPanel.add(menuPanel, "Menu");
@@ -59,21 +56,17 @@ public class GUI {
         JPanel optionsPanel = createOptionsPanel();
         cardPanel.add(optionsPanel, "Options");
 
-        // Ajout du panel principal au centre de la JFrame
         mainPanel.add(cardPanel, BorderLayout.CENTER);
         frame.setContentPane(mainPanel);
 
-        // Rendre la JFrame visible
         frame.setVisible(true);
     }
 
-    // Méthode pour créer le panel du menu
     private JPanel createMenuPanel() {
         JPanel menuPanel = new JPanel(new GridLayout(7, 1, 10, 10));
         menuPanel.setOpaque(false);
         menuPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-        // Création de boutons pour le menu principal
         JPanel empty = new JPanel();
         empty.setOpaque(false);
         JPanel empty1 = new JPanel();
@@ -85,7 +78,7 @@ public class GUI {
         menuPanel.add(empty1);
         menuPanel.add(empty2);
 
-        addStyledButton(menuPanel, "pack/buttons/start.png", e -> System.out.println("Le jeu démarre !"));
+        addStyledButton(menuPanel, "pack/buttons/start.png", e -> startGame());
         addStyledButton(menuPanel, "pack/buttons/settings.png", e -> showCard("Options"));
         addStyledButton(menuPanel, "pack/buttons/credits.png", e -> System.out.println("Crédits"));
         addStyledButton(menuPanel, "pack/buttons/quit.png", e -> System.exit(0));
@@ -93,7 +86,6 @@ public class GUI {
         return menuPanel;
     }
 
-    // Méthode pour créer le panel des options
     private JPanel createOptionsPanel() {
         JPanel optionsPanel = new JPanel() {
             @Override
@@ -114,7 +106,6 @@ public class GUI {
         return optionsPanel;
     }
 
-    // Méthode pour ajouter un bouton stylisé
     private void addStyledButton(JPanel panel, String imagePath, ActionListener listener) {
         try {
             Image img = ImageIO.read(new File(imagePath));
@@ -143,12 +134,19 @@ public class GUI {
         }
     }
 
-    // Méthode pour afficher une carte spécifique (Menu ou Options)
     private void showCard(String cardName) {
         cardLayout.show(cardPanel, cardName);
     }
 
-    // Méthode principale pour lancer le jeu
+    public void startGame() {
+        // Création de l'état du jeu
+        gameState = new GameState(map, player);
+        gameState.startGame();
+
+        // Fermeture de la fenêtre du menu
+        frame.setVisible(false);
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             GUI gui = new GUI();
