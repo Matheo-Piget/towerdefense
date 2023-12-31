@@ -1,6 +1,7 @@
 package src.main.java.UI.GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Panel;
@@ -28,29 +29,28 @@ public class GameState {
 
         Dimension d = new Dimension(1, 200);
 
-        // Créez un JPanel pour le jeu
-        JPanel boutton_tour = new JPanel(new GridLayout(1, 6));
-        
-        JButton tour1 = new JButton("tours 1");
-        JButton tour2 = new JButton("tours 2");
-        JButton tour3 = new JButton("tours 3");
-        JButton tour4 = new JButton("tours 4");
-        JButton tour5 = new JButton("tours 5");
-        JButton tour6 = new JButton("tours 6");
-        boutton_tour.add(tour1);
-        boutton_tour.add(tour2);
-        boutton_tour.add(tour3);
-        boutton_tour.add(tour4);
-        boutton_tour.add(tour5);
-        boutton_tour.add(tour6);
         JPanel bottomPanel = new JPanel();
         bottomPanel.setPreferredSize(d); // Ajuster la taille ici
-        bottomPanel.add(boutton_tour, BorderLayout.CENTER);
+        bottomPanel.add(buttonTour(), BorderLayout.CENTER);
 
         gamePanel = new JPanel();
         gamePanel.setLayout(new BorderLayout());
         gamePanel.add(gameMapPanel, BorderLayout.CENTER);
         gamePanel.add(bottomPanel, BorderLayout.NORTH);
+    }
+
+    private JPanel buttonTour() {
+
+        JPanel boutton_tour = new JPanel(new GridLayout(1, 6));
+
+        for(int i = 0; i < 6; i++){
+
+            boutton_tour.add(new JButton(("Tour " + (i+1))));
+
+        }
+
+        return boutton_tour;
+
     }
 
     public void startGameLoop() {
