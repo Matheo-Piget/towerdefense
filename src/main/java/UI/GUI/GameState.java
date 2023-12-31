@@ -24,11 +24,10 @@ public class GameState {
         this.player = player;
         gameMapPanel = new GameMapPanel(map);
 
-        // Créez un JPanel pour le jeu, ajoutez-y GameMapPanel
+        // Créez un JPanel pour le jeu
         JPanel bottomPanel = new JPanel();
         bottomPanel.setPreferredSize(new Dimension(1, 200)); // Ajuster la taille ici
-
-        // Créez un JPanel pour le jeu, ajoutez-y GameMapPanel
+        
         gamePanel = new JPanel();
         gamePanel.setLayout(new BorderLayout());
         gamePanel.add(gameMapPanel, BorderLayout.CENTER);

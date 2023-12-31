@@ -5,30 +5,44 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import src.main.java.configMap.GameMap;
-import src.main.java.model.Enemy;
+import src.main.java.model.*;
 import src.main.java.model.Tower;
 
 public class GameMapPanel extends JPanel {
+
     private GameMap gameMap;
     private Image towerImage;
-    private Image enemyImage;
+    private Map<String, Image> enemysImages;
     private Image backgroundImage; // Image de fond des cellules
     private int cellWidth; // Largeur des cellules
     private int cellHeight;
 
     public GameMapPanel(GameMap gameMap) {
         this.gameMap = gameMap;
+        enemysImages = new HashMap<String,Image>();
         
         try {
             // Charger les images des tours et des ennemis
             towerImage = ImageIO.read(new File("pack/towers/tempo.png"));
-            enemyImage = ImageIO.read(new File("pack/enemies/enemy1/1_enemies_1_run_000.png"));
+            Image enemyImage1 = ImageIO.read(new File("pack/enemies/enemy1/1_enemies_1_run_000.png"));
+            Image enemyImage2 = ImageIO.read(new File("pack/enemies/enemy2/2_enemies_1_attack_000.png"));
+            Image enemyImage3 = ImageIO.read(new File("pack/enemies/enemy3/8_enemies_1_attack_000.png"));
+            Image enemyImage4 = ImageIO.read(new File("pack/enemies/enemy4/9_enemies_1_attack_000.png"));
             backgroundImage = ImageIO.read(new File("pack/buttons/pause.png"));
+
+            enemysImages.put("MediumEnemy", enemyImage4);
+            enemysImages.put("WeakEnemy", enemyImage1);
+            enemysImages.put("RangeEnemy", enemyImage3);
+            enemysImages.put("StringEnemy", enemyImage2);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -72,7 +86,12 @@ public class GameMapPanel extends JPanel {
             int enemyY = enemy.getY() * cellHeight;
 
             // Dessinez l'image de l'ennemi à sa position (x, y)
-            g.drawImage(enemyImage, enemyX, enemyY, cellWidth, cellHeight, this);
+
+            if(enemy instanceof MediumEnemy) g.drawImage(enemysImages.get("MediumEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
+            if(enemy instanceof StrongEnemy) g.drawImage(enemysImages.get("StrongEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
+            if(enemy instanceof WeakEnemy) g.drawImage(enemysImages.get("WeakEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
+            if(enemy instanceof RangeEnemy) g.drawImage(enemysImages.get("RangeEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
+            
         }
     }
 }

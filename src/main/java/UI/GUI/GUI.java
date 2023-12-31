@@ -13,6 +13,10 @@ import javax.swing.border.EmptyBorder;
 import src.main.java.configMap.GameMap;
 import src.main.java.start.Player;
 
+/**
+ * Classe GUI pour gérer l'interface utilisateur.
+ */
+
 public class GUI {
 
     private JFrame frame;
@@ -23,6 +27,10 @@ public class GUI {
     private CardLayout cardLayout;
     private GameState gameState; // Référence à l'état du jeu
 
+    /**
+    * Constructeur de GUI
+    */
+
     public void startGUIGame(GameMap map, Player player) {
         this.map = map;
         this.player = player;
@@ -32,7 +40,7 @@ public class GUI {
         frame.setSize(new Dimension(1550, 800));
         frame.setLocationRelativeTo(null);
 
-        mainPanel = new JPanel(new BorderLayout()) {
+        mainPanel = new JPanel(new BorderLayout()) { // on créer un panel genral pour mettre une image en fond pour le menu
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -45,7 +53,7 @@ public class GUI {
             }
         };
 
-        cardLayout = new CardLayout();
+        cardLayout = new CardLayout(); // on créer un cardlayout pour changer de fentre plus facilement 
         cardPanel = new JPanel(cardLayout);
         cardPanel.setOpaque(false);
 
@@ -62,7 +70,10 @@ public class GUI {
         frame.setVisible(true);
     }
 
-    private JPanel createMenuPanel() {
+    /**
+    * @return un Jpanel pour le menu
+    */
+    private JPanel createMenuPanel() { 
         JPanel menuPanel = new JPanel(new GridLayout(7, 1, 10, 10));
         menuPanel.setOpaque(false);
         menuPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
@@ -86,6 +97,9 @@ public class GUI {
         return menuPanel;
     }
 
+    /**
+    * @return un Jpanel pour les options
+    */
     private JPanel createOptionsPanel() {
         JPanel optionsPanel = new JPanel() {
             @Override
@@ -106,7 +120,10 @@ public class GUI {
         return optionsPanel;
     }
 
-    private void addStyledButton(JPanel panel, String imagePath, ActionListener listener) {
+    /**
+    * méthode qui ajoute un boutton au panel mis en parametre, avec une image et un listener mis en parametre
+    */
+    private void addStyledButton(JPanel panel, String imagePath, ActionListener listener) { 
         try {
             Image img = ImageIO.read(new File(imagePath));
             ImageIcon icon = new ImageIcon(img.getScaledInstance(300, 70, Image.SCALE_SMOOTH));
@@ -134,10 +151,16 @@ public class GUI {
         }
     }
 
+    /**
+    * methode pour switch de card via le nom mis en parametre 
+    */
     private void showCard(String cardName) {
         cardLayout.show(cardPanel, cardName);
     }
 
+    /**
+    * lance le jeu
+    */
     public void startGame() {
         // Création de l'état du jeu
         gameState = new GameState(map, player);
