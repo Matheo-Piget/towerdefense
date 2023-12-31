@@ -19,19 +19,27 @@ public class GameState {
 
     GameState(GameMap map, Player player) {
         gameMap = map;
+        gameMap.nouveauxEnemy();
+        gameMap.nouveauxEnemy();
         this.player = player;
         gameMapPanel = new GameMapPanel(map);
+
+        // Créez un JPanel pour le jeu, ajoutez-y GameMapPanel
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setPreferredSize(new Dimension(1, 200)); // Ajuster la taille ici
 
         // Créez un JPanel pour le jeu, ajoutez-y GameMapPanel
         gamePanel = new JPanel();
         gamePanel.setLayout(new BorderLayout());
         gamePanel.add(gameMapPanel, BorderLayout.CENTER);
+        gamePanel.add(bottomPanel, BorderLayout.NORTH);
     }
 
     public void startGameLoop() {
-        Timer timer = new Timer(16, e -> {
+        Timer timer = new Timer(1500, e -> {
             // Mettre à jour le jeu
-            //updateGame();
+            updateGame();
+            
     
             // Rafraîchir l'affichage
             gameMapPanel.repaint();
@@ -41,6 +49,14 @@ public class GameState {
 
     public JPanel getGamePanel() {
         return gamePanel;
+    }
+
+    public void updateGame(){
+
+        gameMap.deplacerTousLesEnnemis();
+        gameMap.nouveauxEnemy();
+
+
     }
 
     // Autres méthodes pour la logique de jeu
