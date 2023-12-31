@@ -14,13 +14,13 @@ public class TerminalUI {
     GameMap map;
     Player player;
     private final Scanner scanner;
-    public static int difficulté;
+    public static int difficulty;
 
     public TerminalUI(GameMap map, Player player) {
 
         this.map = map;
         this.player = player;
-        difficulté = 1;
+        difficulty = 1;
         this.scanner = new Scanner(System.in); // on initialise un champ scannaer pour gerer tout les choix via le
                                                // terminal de l'utitlisateur
 
@@ -126,7 +126,7 @@ public class TerminalUI {
         System.out.print("Entrez votre choix : ");
         choixDifficulte = scanner.nextInt();
 
-        difficulté = choixDifficulte;
+        difficulty = choixDifficulte;
 
         System.out.println("Difficulté réglée avec succès !");
         affiche_menu(); // Revenir au menu principal
@@ -244,7 +244,7 @@ public class TerminalUI {
                         int x = scanner.nextInt();
                         int y = scanner.nextInt();
                         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-                        map.placer(new WeakTower(y, x));
+                        map.put(new WeakTower(y, x));
                         player.setMoney(player.getMoney() - 5);
                         fin = false;
 
@@ -264,7 +264,7 @@ public class TerminalUI {
                         int x = scanner.nextInt();
                         int y = scanner.nextInt();
                         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-                        map.placer(new MediumTower(y, x));
+                        map.put(new MediumTower(y, x));
                         player.setMoney(player.getMoney() - 10);
                         fin = false;
 
@@ -284,7 +284,7 @@ public class TerminalUI {
                         int x = scanner.nextInt();
                         int y = scanner.nextInt();
                         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-                        map.placer(new FastTower(y, x));
+                        map.put(new FastTower(y, x));
                         player.setMoney(player.getMoney() - 15);
                         fin = false;
 
@@ -304,7 +304,7 @@ public class TerminalUI {
                         int x = scanner.nextInt();
                         int y = scanner.nextInt();
                         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-                        map.placer(new StrongTower(y, x));
+                        map.put(new StrongTower(y, x));
                         player.setMoney(player.getMoney() - 20);
                         fin = false;
 

@@ -32,7 +32,7 @@ public class GameMapPanel extends JPanel {
         super.paintComponent(g);
 
         // Dessiner les tours
-        for (Tower tower : gameMap.tout_les_tower()) {
+        for (Tower tower : gameMap.listOfAllTowers()) {
             int x = tower.getX();
             int y = tower.getY();
 
@@ -41,7 +41,7 @@ public class GameMapPanel extends JPanel {
         }
 
         // Dessiner les ennemis
-        for (Enemy enemy : gameMap.tout_les_enemy()) {
+        for (Enemy enemy : gameMap.listOfAllEnemies()) {
             int x = enemy.getX();
             int y = enemy.getY();
 
