@@ -2,8 +2,10 @@ package src.main.java.UI.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Panel;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -24,10 +26,27 @@ public class GameState {
         this.player = player;
         gameMapPanel = new GameMapPanel(map);
 
+        Dimension d = new Dimension(1, 200);
+
         // Créez un JPanel pour le jeu
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setPreferredSize(new Dimension(1, 200)); // Ajuster la taille ici
+        JPanel boutton_tour = new JPanel(new GridLayout(1, 6));
         
+        JButton tour1 = new JButton("tours 1");
+        JButton tour2 = new JButton("tours 2");
+        JButton tour3 = new JButton("tours 3");
+        JButton tour4 = new JButton("tours 4");
+        JButton tour5 = new JButton("tours 5");
+        JButton tour6 = new JButton("tours 6");
+        boutton_tour.add(tour1);
+        boutton_tour.add(tour2);
+        boutton_tour.add(tour3);
+        boutton_tour.add(tour4);
+        boutton_tour.add(tour5);
+        boutton_tour.add(tour6);
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setPreferredSize(d); // Ajuster la taille ici
+        bottomPanel.add(boutton_tour, BorderLayout.CENTER);
+
         gamePanel = new JPanel();
         gamePanel.setLayout(new BorderLayout());
         gamePanel.add(gameMapPanel, BorderLayout.CENTER);

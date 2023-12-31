@@ -40,7 +40,7 @@ public class GUI {
         frame.setSize(new Dimension(1550, 800));
         frame.setLocationRelativeTo(null);
 
-        mainPanel = new JPanel(new BorderLayout()) { // on créer un panel genral pour mettre une image en fond pour le menu
+        mainPanel = new JPanel(new BorderLayout()) { // on créer un panel general pour mettre une image en fond pour le menu
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
