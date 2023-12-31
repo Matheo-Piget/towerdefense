@@ -143,6 +143,8 @@ public class GUI {
         gameState = new GameState(map, player);
         cardPanel.add(gameState.getGamePanel(), "Game");
         showCard("Game");
+        cardPanel.setVisible(true);
+        cardPanel.setOpaque(false);
         gameState.startGameLoop();
     }
 

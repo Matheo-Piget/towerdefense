@@ -1,10 +1,12 @@
 package src.main.java.UI.GUI;
 
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import src.main.java.configMap.GameMap;
@@ -18,6 +20,7 @@ public class GameMapPanel extends JPanel {
 
     public GameMapPanel(GameMap gameMap) {
         this.gameMap = gameMap;
+        gameMap.nouveauxEnemy();
         try {
             // Charger les images des tours et des ennemis
             towerImage = ImageIO.read(new File("pack/towers/tempo.png"));
@@ -25,6 +28,7 @@ public class GameMapPanel extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
