@@ -24,12 +24,12 @@ public class Player {
 
         this.money = money;
         this.lives = lives;
-        ajusterVieSelonDifficulte();
+        ajustLifeAccordingDifficulty();
 
     }
 
     /** On ajuste le nombre de vie en fonction de la difficulté */
-    public void ajusterVieSelonDifficulte() {
+    public void ajustLifeAccordingDifficulty() {
         switch (TerminalUI.difficulty) {
             case 1: // Facile
                 setLives(10);

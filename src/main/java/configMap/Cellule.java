@@ -1,6 +1,14 @@
 package src.main.java.configMap;
 
 import src.main.java.model.*;
+import src.main.java.model.enemies.MediumEnemy;
+import src.main.java.model.enemies.RangeEnemy;
+import src.main.java.model.enemies.StrongEnemy;
+import src.main.java.model.enemies.WeakEnemy;
+import src.main.java.model.towers.FastTower;
+import src.main.java.model.towers.MediumTower;
+import src.main.java.model.towers.StrongTower;
+import src.main.java.model.towers.WeakTower;
 
 /**
  * La classe Cellule représente une cellule de la carte du jeu.

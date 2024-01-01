@@ -5,6 +5,10 @@ import java.util.Random;
 
 import src.main.java.UI.TerminalUI;
 import src.main.java.model.*;
+import src.main.java.model.enemies.MediumEnemy;
+import src.main.java.model.enemies.RangeEnemy;
+import src.main.java.model.enemies.StrongEnemy;
+import src.main.java.model.enemies.WeakEnemy;
 import src.main.java.start.Player;
 
 /**
@@ -20,6 +24,7 @@ import src.main.java.start.Player;
 
 public class GameMap {
 
+    /** Tableau représentant la carte du jeu */
     public Cellule[][] tiles;
 
     /**
@@ -36,6 +41,29 @@ public class GameMap {
                 tiles[i][j] = new Cellule();
             }
         }
+    }
+
+    public int getRows() {
+        return tiles.length;
+    }
+
+    public int getCols() {
+        return tiles[0].length;
+    }
+
+    /**
+     * Retourne le type d'un ennemi sous forme d'un entier pour savoir de quel
+     * ennemi on parle
+     */
+    private int typeE(Enemy e) {
+        if (e instanceof WeakEnemy)
+            return 1;
+        if (e instanceof MediumEnemy)
+            return 2;
+        if (e instanceof RangeEnemy)
+            return 3;
+        else
+            return 4;
     }
 
     /**
@@ -151,27 +179,41 @@ public class GameMap {
 
     }
 
+    /**
+     * Méthode permettant de vérifier si les coordonnées sont dans les limites de la
+     * carte
+     * 
+     * @param x coordonnée x
+     * @param y coordonnée y
+     * @return true si les coordonnées sont dans les limites de la carte, false
+     */
+    private boolean isWithinLimits(int x, int y) {
+
+        return x >= 0 && x < tiles[0].length && y >= 0 && y < tiles.length; // teste si les coordenées sont dans les
+                                                                            // limites
+
+    }
+
     /** Méthode qui fait attaquer toutes les tours posées */
     public void attackTowers() { // fonction qui fait attaquer toutes les tours
 
         for (Tower t : listOfAllTowers()) {
-
             t.attaque(this);
-
         }
 
     }
 
-    /** Méthode qui fait attaquer tous les ennemis présents sur la carte */
-    public void attackEnemies(Player p) { // fonction qui fait attaquer toutes les enemis
+    /**
+     * Méthode qui fait attaquer tous les ennemis présents sur la carte
+     * Nuance qui vérifie si l'ennemi est à distance ou non
+     */
+    public void attackEnemies(Player p) {
 
         for (Enemy t : listOfAllEnemies()) {
-
             if (t.getRange())
                 t.attaque_loin(this, p);
             else
                 t.attaque(this, p);
-
         }
 
     }
@@ -187,17 +229,14 @@ public class GameMap {
      * 
      * @return true si l'élément a été placé, false sinon
      */
-    public boolean put(Element elem) {
+    public boolean putElem(Element elem) {
 
         int x = elem.getX();
         int y = elem.getY();
 
-        if (isWithinLimits(x, y) && !tiles[y][x].isOccupied()) { // on regarde si les coordnonnées sont dans les limites
-                                                                 // et que la cellule en question est vide
-
+        if (isWithinLimits(x, y) && !tiles[y][x].isOccupied()) {
             tiles[y][x].setElem(elem);
             return true;
-
         }
 
         return false;
@@ -325,7 +364,6 @@ public class GameMap {
         for (Enemy e : listOfAllEnemies()) {
 
             if (e.getHealth() <= 0) {
-
                 money_win += moneyOfDeadEnemy(typeE(e));
                 removeElem(e);
             }
@@ -334,21 +372,6 @@ public class GameMap {
 
         return money_win;
 
-    }
-
-    /**
-     * Retourne le type d'un ennemi sous forme d'un entier pour savoir de quel
-     * ennemi on parle
-     */
-    private int typeE(Enemy e) {
-        if (e instanceof WeakEnemy)
-            return 1;
-        if (e instanceof MediumEnemy)
-            return 2;
-        if (e instanceof RangeEnemy)
-            return 3;
-        else
-            return 4;
     }
 
     /** Retire toutes les tours qui n'ont plus du tout de vie */
@@ -389,9 +412,7 @@ public class GameMap {
     public void moveAllEnemies() {
 
         for (Enemy e : listOfAllEnemies()) {
-
             moveSpecificEnemy(e);
-
         }
 
     }
@@ -413,21 +434,21 @@ public class GameMap {
 
             switch (random_enemies) { // place un enemie alétoire parmit tout les types d'enemies possible
                 case 0:
-                    put(new WeakEnemy(randomX, randomY));
+                    putElem(new WeakEnemy(randomX, randomY));
                     break;
 
                 case 1:
-                    put(new MediumEnemy(randomX, randomY));
+                    putElem(new MediumEnemy(randomX, randomY));
                     break;
                 case 2:
-                    put(new RangeEnemy(randomX, randomY));
+                    putElem(new RangeEnemy(randomX, randomY));
                     break;
                 case 3:
-                    put(new StrongEnemy(randomX, randomY));
+                    putElem(new StrongEnemy(randomX, randomY));
                     break;
 
                 default:
-                    put(new WeakEnemy(randomX, randomY));
+                    putElem(new WeakEnemy(randomX, randomY));
                     break;
             }
 
@@ -482,28 +503,4 @@ public class GameMap {
 
     }
 
-    /**
-     * Méthode permettant de vérifier si les coordonnées sont dans les limites de la
-     * carte
-     * 
-     * @param x coordonnée x
-     * @param y coordonnée y
-     * @return true si les coordonnées sont dans les limites de la carte, false
-     */
-    private boolean isWithinLimits(int x, int y) {
-
-        return x >= 0 && x < tiles[0].length && y >= 0 && y < tiles.length; // teste si les coordenées sont dans les
-                                                                            // limites
-
-    }
-
-    public int getRows() {
-        return tiles.length;
-    }
-
-    public int getCols() {
-        return tiles[0].length;
-    }
-
-    // Methods for interacting with tiles, placing towers, moving enemies, etc.
 }

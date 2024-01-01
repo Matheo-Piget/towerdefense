@@ -3,10 +3,10 @@ package src.main.java.UI;
 import java.util.Scanner;
 
 import src.main.java.configMap.GameMap;
-import src.main.java.model.FastTower;
-import src.main.java.model.MediumTower;
-import src.main.java.model.StrongTower;
-import src.main.java.model.WeakTower;
+import src.main.java.model.towers.FastTower;
+import src.main.java.model.towers.MediumTower;
+import src.main.java.model.towers.StrongTower;
+import src.main.java.model.towers.WeakTower;
 import src.main.java.start.Player;
 
 public class TerminalUI {
@@ -244,7 +244,7 @@ public class TerminalUI {
                         int x = scanner.nextInt();
                         int y = scanner.nextInt();
                         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-                        map.put(new WeakTower(y, x));
+                        map.putElem(new WeakTower(y, x));
                         player.setMoney(player.getMoney() - 5);
                         fin = false;
 
@@ -264,7 +264,7 @@ public class TerminalUI {
                         int x = scanner.nextInt();
                         int y = scanner.nextInt();
                         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-                        map.put(new MediumTower(y, x));
+                        map.putElem(new MediumTower(y, x));
                         player.setMoney(player.getMoney() - 10);
                         fin = false;
 
@@ -284,7 +284,7 @@ public class TerminalUI {
                         int x = scanner.nextInt();
                         int y = scanner.nextInt();
                         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-                        map.put(new FastTower(y, x));
+                        map.putElem(new FastTower(y, x));
                         player.setMoney(player.getMoney() - 15);
                         fin = false;
 
@@ -304,7 +304,7 @@ public class TerminalUI {
                         int x = scanner.nextInt();
                         int y = scanner.nextInt();
                         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-                        map.put(new StrongTower(y, x));
+                        map.putElem(new StrongTower(y, x));
                         player.setMoney(player.getMoney() - 20);
                         fin = false;
 
