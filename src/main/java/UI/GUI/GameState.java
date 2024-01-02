@@ -23,6 +23,8 @@ public class GameState {
     private GameMapPanel gameMapPanel;
     private String selectedTowerType;
     private Player player;
+    int enemySpawnInterval = 8; // Nombre d'itérations avant d'apparaître un nouvel ennemi
+    int enemySpawnCounter = 0; // Compteur pour les itérations
 
     /**
      * Constructeur prenant la carte du jeu et le joueur.
@@ -81,10 +83,17 @@ public class GameState {
      * Démarre la boucle de jeu en utilisant un Timer.
      */
     public void startGameLoop() {
-        Timer timer = new Timer(1500, new ActionListener() {
+        Timer timer = new Timer(200, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 gameMapPanel.repaint(); // Rafraîchit l'affichage de la carte du jeu
-                //updateGame(); // Appel à la méthode de mise à jour du jeu
+
+                enemySpawnCounter++;
+                if (enemySpawnCounter >= enemySpawnInterval) {
+                    gameMap.nouveauxEnemy(); // Génère un nouvel ennemi
+                    gameMap.deplacerTousLesEnnemis();
+
+                    enemySpawnCounter = 0; // Réinitialise le compteur
+                }
             }
         });
         timer.start(); // Démarre le Timer pour la boucle de jeu
