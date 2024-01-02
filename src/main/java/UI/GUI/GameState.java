@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -33,14 +36,22 @@ public class GameState {
         gameMapPanel = new GameMapPanel(map); // Initialise le panneau de la carte du jeu
 
         JPanel topPanel = new JPanel();
-        topPanel.setPreferredSize(new Dimension(1, 200));
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS)); // Utilisation de BoxLayout horizontal
+
+        // Ajout d'un espace entre les boutons pour les élargir visuellement
+        topPanel.add(Box.createHorizontalStrut(10)); // Espace initial
 
         // Crée des boutons pour chaque type de tour et les ajoute au panneau supérieur
         for (int i = 1; i <= 4; i++) {
             String towerType = "Tower " + i;
             JButton towerButton = createTowerButton(towerType);
             topPanel.add(towerButton);
+            topPanel.add(Box.createHorizontalStrut(20)); // Espace entre les boutons
         }
+
+        // Ajout d'un espace final pour la mise en page
+        topPanel.add(Box.createHorizontalStrut(10));
+        topPanel.setPreferredSize(new Dimension(1, 200));
 
         gamePanel = new JPanel();
         gamePanel.setLayout(new BorderLayout());
