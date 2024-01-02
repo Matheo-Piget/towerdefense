@@ -1,6 +1,14 @@
 package src.main.java.configMap;
 
 import src.main.java.model.*;
+import src.main.java.model.enemies.MediumEnemy;
+import src.main.java.model.enemies.RangeEnemy;
+import src.main.java.model.enemies.StrongEnemy;
+import src.main.java.model.enemies.WeakEnemy;
+import src.main.java.model.towers.FastTower;
+import src.main.java.model.towers.MediumTower;
+import src.main.java.model.towers.StrongTower;
+import src.main.java.model.towers.WeakTower;
 
 /**
  * La classe Cellule représente une cellule de la carte du jeu.
@@ -31,16 +39,23 @@ public class Cellule {
     }
 
     /** @return l'élément présent sur la cellule */
-    public Element get_elt() {
+    public Element getElem() {
         return element;
     }
 
     /** Pour modifier dans la classe GameMap l'élement pris en argument */
-    public void set_elt(Element e) {
+    public void setElem(Element e) {
         this.element = e;
     }
 
-    /** Pour afficher l'élement sur le type de l'élement sur le tableau de jeu */
+    /**
+     * Pour afficher l'élement sur le type de l'élement sur le tableau de jeu
+     * "\u001B[0m" sert à reset la couleur
+     * "\u001B[32m" désigne la couleur verte
+     * "\u001B[33m" désigne la couleur jaune
+     * "\u001B[34m" désigne la couleur bleue
+     * "\u001B[31m" désigne la couleur rouge
+     */
     public void affiche() {
         if (element instanceof WeakEnemy) {
             System.out.print("\u001B[32m" + "wE" + "\u001B[0m");

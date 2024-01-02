@@ -1,4 +1,6 @@
-package src.main.java.model;
+package src.main.java.model.towers;
+
+import src.main.java.model.Tower;
 
 public class FastTower extends Tower {
     public FastTower(int x, int y) {

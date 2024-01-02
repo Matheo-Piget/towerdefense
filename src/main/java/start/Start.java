@@ -20,15 +20,19 @@ public class Start {
     public void startGame() {
 
         Scanner scanner = new Scanner(System.in);
+
         System.out.println("\033\143");
         System.out.println("Bienvenue dans le jeu ProtectiveTowers");
         System.out.println("Choisissez votre interface (T) Terminal ou (G) Graphique:");
+
         String choice = scanner.nextLine();
 
         if (choice.equalsIgnoreCase("T")) {
             System.out.println("\033\143");
             terminalUI.startTerminalGame(map, player);
         } else if (choice.equalsIgnoreCase("G")) {
+            System.out.println("\033\143");
+            System.out.println("Très bien, le jeu va se lancer dans une nouvelle fenêtre.");
             GUI.main(new String[0]);
         } else if (choice.equalsIgnoreCase("Q")) {
             System.out.println("\033\143");
