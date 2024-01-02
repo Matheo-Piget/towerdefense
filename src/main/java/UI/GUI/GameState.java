@@ -22,6 +22,7 @@ public class GameState {
     private JPanel gamePanel;
     private GameMapPanel gameMapPanel;
     private String selectedTowerType;
+    private Player player;
 
     /**
      * Constructeur prenant la carte du jeu et le joueur.
@@ -31,6 +32,7 @@ public class GameState {
      */
     public GameState(GameMap map, Player player) {
         gameMap = map;
+        this.player = player;
         gameMap.nouveauxEnemy(); // Ajoute des ennemis à la carte
         gameMap.nouveauxEnemy(); // Ajoute plus d'ennemis à la carte
         gameMapPanel = new GameMapPanel(map); // Initialise le panneau de la carte du jeu
