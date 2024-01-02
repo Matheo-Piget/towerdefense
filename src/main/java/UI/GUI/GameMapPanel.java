@@ -53,6 +53,12 @@ public class GameMapPanel extends JPanel {
                 highlightedCellY = -1;
                 repaint();
             }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                placeTowerAtReleasedPosition(e.getX(), e.getY());
+            }
+
         });
 
         // Ajoute un écouteur pour mettre en surbrillance la cellule survolée
@@ -103,15 +109,15 @@ public class GameMapPanel extends JPanel {
      * @param y Position y relâchée.
      */
     public void placeTowerAtReleasedPosition(int x, int y) {
-        if (isPlacingTower) {
+        if (isPlacingTower) { // Vérifie si on est en mode placement et sélection de tour
             int cellX = x / cellWidth;
             int cellY = y / cellHeight;
-
+    
             if (cellX >= 0 && cellX < gameMap.getCols() && cellY >= 0 && cellY < gameMap.getRows()) {
                 gameMap.placer(new WeakTower(cellX, cellY));
                 repaint();
             }
-
+    
             isPlacingTower = false;
         }
     }

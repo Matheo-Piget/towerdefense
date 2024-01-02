@@ -55,11 +55,9 @@ public class GameState {
      */
     private JButton createTowerButton(String towerType) {
         JButton button = new JButton(towerType);
-        // Définit l'action lorsque le bouton est cliqué pour placer une tour
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                selectedTowerType = towerType; // Définit le type de tour sélectionné
-                gameMapPanel.setTowerToPlace(selectedTowerType); // Commence le placement de la tour sur la carte
+                selectedTowerType = towerType;
             }
         });
         return button;
