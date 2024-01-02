@@ -58,6 +58,7 @@ public class GameState {
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 selectedTowerType = towerType;
+                gameMapPanel.setTowerToPlace(towerType);
             }
         });
         return button;
@@ -70,7 +71,7 @@ public class GameState {
         Timer timer = new Timer(1500, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 gameMapPanel.repaint(); // Rafraîchit l'affichage de la carte du jeu
-                updateGame(); // Appel à la méthode de mise à jour du jeu
+                //updateGame(); // Appel à la méthode de mise à jour du jeu
             }
         });
         timer.start(); // Démarre le Timer pour la boucle de jeu
