@@ -81,7 +81,7 @@ public class GameMapPanel extends JPanel {
         });
 
         try {
-            towerImage = ImageIO.read(new File("src/main/ressources/buttons/towerbuttons/fight.jpg"));
+            towerImage = ImageIO.read(new File("src/main/ressources/towers/fighttower.png"));
             Image enemyImage1 = ImageIO.read(new File("src/main/ressources/mobs/dreth.png"));
             Image enemyImage2 = ImageIO.read(new File("src/main/ressources/mobs/fyron.png"));
             Image enemyImage3 = ImageIO.read(new File("src/main/ressources/mobs/gazer.png"));
