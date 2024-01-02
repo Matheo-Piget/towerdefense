@@ -37,6 +37,7 @@ public class GameMapPanel extends JPanel {
     /**
      * Constructeur de GameMapPanel prenant la carte de jeu comme argument.
      * Initialise les images, la carte et les écouteurs de la souris.
+     * 
      * @param gameMap La carte de jeu.
      */
     public GameMapPanel(GameMap gameMap) {
@@ -44,7 +45,6 @@ public class GameMapPanel extends JPanel {
         enemiesImages = new HashMap<String, Image>();
         towerToPlace = null;
         isPlacingTower = false;
-
 
         cellWidth = getWidth() / this.gameMap.getCols();
         cellHeight = getHeight() / this.gameMap.getRows();
@@ -81,17 +81,17 @@ public class GameMapPanel extends JPanel {
         });
 
         try {
-             towerImage = ImageIO.read(new File("pack/towers/tempo.png"));
-             Image enemyImage1 = ImageIO.read(new File("pack/enemies/Dreth/10_enemies_1_walk_018.png"));
-             Image enemyImage2 = ImageIO.read(new File("pack/enemies/Dreth/10_enemies_1_walk_018.png"));
-             Image enemyImage3 = ImageIO.read(new File("pack/enemies/Dreth/10_enemies_1_walk_018.png"));
-             Image enemyImage4 = ImageIO.read(new File("pack/enemies/Dreth/10_enemies_1_walk_018.png"));
-             backgroundImage = ImageIO.read(new File("pack/buttons/pause.png"));
- 
-             enemiesImages.put("MediumEnemy", enemyImage4);
-             enemiesImages.put("WeakEnemy", enemyImage1);
-             enemiesImages.put("RangeEnemy", enemyImage3);
-             enemiesImages.put("StringEnemy", enemyImage2);
+            towerImage = ImageIO.read(new File("src/main/ressources/buttons/towerbuttons/fight.jpg"));
+            Image enemyImage1 = ImageIO.read(new File("src/main/ressources/mobs/dreth.png"));
+            Image enemyImage2 = ImageIO.read(new File("src/main/ressources/mobs/fyron.png"));
+            Image enemyImage3 = ImageIO.read(new File("src/main/ressources/mobs/gazer.png"));
+            Image enemyImage4 = ImageIO.read(new File("src/main/ressources/mobs/kryon.png"));
+            backgroundImage = ImageIO.read(new File("src/main/ressources/menu/ingame.jpg"));
+
+            enemiesImages.put("MediumEnemy", enemyImage4);
+            enemiesImages.put("WeakEnemy", enemyImage1);
+            enemiesImages.put("RangeEnemy", enemyImage3);
+            enemiesImages.put("StringEnemy", enemyImage2);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -100,6 +100,7 @@ public class GameMapPanel extends JPanel {
 
     /**
      * Définit le type de tour à placer.
+     * 
      * @param towerType Le type de tour à placer.
      */
     public void setTowerToPlace(String towerType) {
@@ -109,6 +110,7 @@ public class GameMapPanel extends JPanel {
 
     /**
      * Place la tour à la position relâchée.
+     * 
      * @param x Position x relâchée.
      * @param y Position y relâchée.
      */
@@ -117,9 +119,8 @@ public class GameMapPanel extends JPanel {
             int cellX = x / cellWidth;
             int cellY = y / cellHeight;
 
-
             System.out.println("zzz");
-    
+
             if (cellX >= 0 && cellX < gameMap.getCols() && cellY >= 0 && cellY < gameMap.getRows()) {
                 // Utilisation du type de tour sélectionné depuis GameState pour placer la tour
                 switch (towerToPlace) {
@@ -141,12 +142,11 @@ public class GameMapPanel extends JPanel {
                 System.out.println("zzz");
                 repaint();
             }
-    
+
             isPlacingTower = false;
             towerToPlace = null;
         }
     }
-    
 
     /**
      * Annule le placement de la tour.
@@ -155,10 +155,10 @@ public class GameMapPanel extends JPanel {
         isPlacingTower = false;
     }
 
-    
-
     /**
-     * Redéfinition de la méthode paintComponent pour dessiner les éléments de la carte.
+     * Redéfinition de la méthode paintComponent pour dessiner les éléments de la
+     * carte.
+     * 
      * @param g Objet Graphics pour dessiner.
      */
     @Override
@@ -168,15 +168,8 @@ public class GameMapPanel extends JPanel {
         cellWidth = getWidth() / gameMap.getCols();
         cellHeight = getHeight() / gameMap.getRows();
 
-        // Dessine l'arrière-plan de la carte
-        for (int i = 0; i < gameMap.getCols(); i++) {
-            for (int j = 0; j < gameMap.getRows(); j++) {
-                int x = i * cellWidth;
-                int y = j * cellHeight;
-
-                g.drawImage(backgroundImage, x, y, cellWidth, cellHeight, this);
-            }
-        }
+        // TODO Ligne à modif pour mettre le background correctement
+        g.drawImage(backgroundImage, 0, 0, getFocusCycleRootAncestor());
 
         // Dessine les tours sur la carte
         for (Tower t : gameMap.listOfAllTowers()) {
@@ -185,19 +178,25 @@ public class GameMapPanel extends JPanel {
 
             g.drawImage(towerImage, towerX, towerY, cellWidth, cellHeight, this);
         }
-        
+
         // Dessine les ennemis sur la carte
         for (Enemy enemy : gameMap.listOfAllEnemies()) {
             int enemyX = enemy.getX() * cellWidth;
             int enemyY = enemy.getY() * cellHeight;
 
-            if(enemy instanceof Enemy) g.drawImage(enemiesImages.get("MediumEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
-            //if(enemy instanceof StrongEnemy) g.drawImage(enemiesImages.get("StrongEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
-            //if(enemy instanceof WeakEnemy) g.drawImage(enemiesImages.get("WeakEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
-            //if(enemy instanceof RangeEnemy) g.drawImage(enemiesImages.get("RangeEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
+            if (enemy instanceof Enemy)
+                g.drawImage(enemiesImages.get("MediumEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
+            // if(enemy instanceof StrongEnemy)
+            // g.drawImage(enemiesImages.get("StrongEnemy"), enemyX, enemyY, cellWidth,
+            // cellHeight, this);
+            // if(enemy instanceof WeakEnemy) g.drawImage(enemiesImages.get("WeakEnemy"),
+            // enemyX, enemyY, cellWidth, cellHeight, this);
+            // if(enemy instanceof RangeEnemy) g.drawImage(enemiesImages.get("RangeEnemy"),
+            // enemyX, enemyY, cellWidth, cellHeight, this);
         }
 
-        // Si une cellule est en surbrillance, la dessine en jaune avec une transparence réduite
+        // Si une cellule est en surbrillance, la dessine en jaune avec une transparence
+        // réduite
         if (highlightedCellX != -1 && highlightedCellY != -1) {
             g.setColor(new Color(255, 255, 0, 100)); // Jaune avec opacité réduite
             g.fillRect(highlightedCellX * cellWidth, highlightedCellY * cellHeight, cellWidth, cellHeight);
