@@ -82,10 +82,10 @@ public class GameMapPanel extends JPanel {
 
         try {
              towerImage = ImageIO.read(new File("pack/towers/tempo.png"));
-             Image enemyImage1 = ImageIO.read(new File("pack/enemies/enemy1/1_enemies_1_run_000.png"));
-             Image enemyImage2 = ImageIO.read(new File("pack/enemies/enemy2/2_enemies_1_attack_000.png"));
-             Image enemyImage3 = ImageIO.read(new File("pack/enemies/enemy3/8_enemies_1_attack_000.png"));
-             Image enemyImage4 = ImageIO.read(new File("pack/enemies/enemy4/9_enemies_1_attack_000.png"));
+             Image enemyImage1 = ImageIO.read(new File("pack/enemies/Dreth/10_enemies_1_walk_018.png"));
+             Image enemyImage2 = ImageIO.read(new File("pack/enemies/Dreth/10_enemies_1_walk_018.png"));
+             Image enemyImage3 = ImageIO.read(new File("pack/enemies/Dreth/10_enemies_1_walk_018.png"));
+             Image enemyImage4 = ImageIO.read(new File("pack/enemies/Dreth/10_enemies_1_walk_018.png"));
              backgroundImage = ImageIO.read(new File("pack/buttons/pause.png"));
  
              enemiesImages.put("MediumEnemy", enemyImage4);
@@ -124,16 +124,16 @@ public class GameMapPanel extends JPanel {
                 // Utilisation du type de tour sélectionné depuis GameState pour placer la tour
                 switch (towerToPlace) {
                     case "Tower 1":
-                        gameMap.placer(new WeakTower(cellY, cellX));
+                        gameMap.putElem(new Tower(10, 10, 3, cellY, cellX));
                         break;
                     case "Tower 2":
-                        gameMap.placer(new MediumTower(cellY, cellX));
+                        gameMap.putElem(new Tower(10, 10, 3, cellY, cellX));
                         break;
                     case "Tower 3":
-                        gameMap.placer(new FastTower(cellY, cellX));
+                        gameMap.putElem(new Tower(10, 10, 3, cellY, cellX));
                         break;
                     case "Tower 4":
-                        gameMap.placer(new StrongTower(cellY, cellX));
+                        gameMap.putElem(new Tower(10, 10, 3, cellY, cellX));
                         break;
                     default:
                         break;
@@ -179,7 +179,7 @@ public class GameMapPanel extends JPanel {
         }
 
         // Dessine les tours sur la carte
-        for (Tower t : gameMap.tout_les_tower()) {
+        for (Tower t : gameMap.listOfAllTowers()) {
             int towerX = t.getX() * cellWidth;
             int towerY = t.getY() * cellHeight;
 
@@ -187,14 +187,14 @@ public class GameMapPanel extends JPanel {
         }
         
         // Dessine les ennemis sur la carte
-        for (Enemy enemy : gameMap.tout_les_enemy()) {
+        for (Enemy enemy : gameMap.listOfAllEnemies()) {
             int enemyX = enemy.getX() * cellWidth;
             int enemyY = enemy.getY() * cellHeight;
 
-            if(enemy instanceof MediumEnemy) g.drawImage(enemiesImages.get("MediumEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
-            if(enemy instanceof StrongEnemy) g.drawImage(enemiesImages.get("StrongEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
-            if(enemy instanceof WeakEnemy) g.drawImage(enemiesImages.get("WeakEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
-            if(enemy instanceof RangeEnemy) g.drawImage(enemiesImages.get("RangeEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
+            if(enemy instanceof Enemy) g.drawImage(enemiesImages.get("MediumEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
+            //if(enemy instanceof StrongEnemy) g.drawImage(enemiesImages.get("StrongEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
+            //if(enemy instanceof WeakEnemy) g.drawImage(enemiesImages.get("WeakEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
+            //if(enemy instanceof RangeEnemy) g.drawImage(enemiesImages.get("RangeEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
         }
 
         // Si une cellule est en surbrillance, la dessine en jaune avec une transparence réduite

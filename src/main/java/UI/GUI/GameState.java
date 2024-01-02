@@ -35,8 +35,8 @@ public class GameState {
     public GameState(GameMap map, Player player) {
         gameMap = map;
         this.player = player;
-        gameMap.nouveauxEnemy(); // Ajoute des ennemis à la carte
-        gameMap.nouveauxEnemy(); // Ajoute plus d'ennemis à la carte
+        gameMap.spawnNewEnemies(); // Ajoute des ennemis à la carte
+        gameMap.spawnNewEnemies(); // Ajoute plus d'ennemis à la carte
         gameMapPanel = new GameMapPanel(map); // Initialise le panneau de la carte du jeu
 
         JPanel topPanel = new JPanel();
@@ -89,8 +89,8 @@ public class GameState {
 
                 enemySpawnCounter++;
                 if (enemySpawnCounter >= enemySpawnInterval) {
-                    gameMap.nouveauxEnemy(); // Génère un nouvel ennemi
-                    gameMap.deplacerTousLesEnnemis();
+                    gameMap.spawnNewEnemies(); // Génère un nouvel ennemi
+                    gameMap.moveAllEnemies();
 
                     enemySpawnCounter = 0; // Réinitialise le compteur
                 }
@@ -111,8 +111,8 @@ public class GameState {
      * Met à jour le jeu en déplaçant les ennemis et en ajoutant de nouveaux ennemis.
      */
     public void updateGame() {
-        gameMap.deplacerTousLesEnnemis(); // Déplace tous les ennemis sur la carte
-        gameMap.nouveauxEnemy(); // Ajoute de nouveaux ennemis
+        gameMap.moveAllEnemies(); // Déplace tous les ennemis sur la carte
+        gameMap.spawnNewEnemies(); // Ajoute de nouveaux ennemis
     }
 
     /**
