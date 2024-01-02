@@ -45,6 +45,10 @@ public class GameMapPanel extends JPanel {
         towerToPlace = null;
         isPlacingTower = false;
 
+
+        cellWidth = getWidth() / gameMap.getCols();
+        cellHeight = getHeight() / gameMap.getRows();
+
         // Ajoute un écouteur pour gérer la surbrillance lors du survol des cellules
         addMouseListener(new MouseAdapter() {
             @Override
@@ -109,18 +113,36 @@ public class GameMapPanel extends JPanel {
      * @param y Position y relâchée.
      */
     public void placeTowerAtReleasedPosition(int x, int y) {
-        if (isPlacingTower) { // Vérifie si on est en mode placement et sélection de tour
+        if (isPlacingTower && towerToPlace != null) {
             int cellX = x / cellWidth;
             int cellY = y / cellHeight;
     
             if (cellX >= 0 && cellX < gameMap.getCols() && cellY >= 0 && cellY < gameMap.getRows()) {
-                gameMap.placer(new WeakTower(cellX, cellY));
+                // Utilisation du type de tour sélectionné depuis GameState pour placer la tour
+                switch (towerToPlace) {
+                    case "Tower 1":
+                        gameMap.placer(new WeakTower(cellX, cellY));
+                        break;
+                    case "Tower 2":
+                        gameMap.placer(new MediumTower(cellX, cellY));
+                        break;
+                    case "Tower 3":
+                        gameMap.placer(new FastTower(cellX, cellY));
+                        break;
+                    case "Tower 4":
+                        gameMap.placer(new StrongTower(cellX, cellY));
+                        break;
+                    default:
+                        break;
+                }
                 repaint();
             }
     
             isPlacingTower = false;
+            towerToPlace = null;
         }
     }
+    
 
     /**
      * Annule le placement de la tour.
