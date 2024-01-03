@@ -2,11 +2,16 @@ package src.main.java.UI.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -33,6 +38,9 @@ public class GameState {
      * @param player Le joueur.
      */
     public GameState(GameMap map, Player player) {
+
+        
+
         gameMap = map;
         this.player = player;
         gameMap.spawnNewEnemies(); // Ajoute des ennemis à la carte

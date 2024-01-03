@@ -28,7 +28,8 @@ public class GameMapPanel extends JPanel {
     private int highlightedCellX = -1;
     private int highlightedCellY = -1;
     private Map<String, Image> enemiesImages;
-    private Image backgroundImage;
+    private Image dirt;
+    private Image grass;
     private int cellWidth;
     private int cellHeight;
     private String towerToPlace;
@@ -86,7 +87,8 @@ public class GameMapPanel extends JPanel {
             Image enemyImage2 = ImageIO.read(new File("src/main/ressources/mobs/fyron.png"));
             Image enemyImage3 = ImageIO.read(new File("src/main/ressources/mobs/gazer.png"));
             Image enemyImage4 = ImageIO.read(new File("src/main/ressources/mobs/kryon.png"));
-            backgroundImage = ImageIO.read(new File("src/main/ressources/menu/ingame.jpg"));
+            dirt = ImageIO.read(new File("src/main/ressources/elements/dirt.jpg"));
+            grass = ImageIO.read(new File("src/main/ressources/elements/grass.jpg"));
 
             enemiesImages.put("MediumEnemy", enemyImage4);
             enemiesImages.put("WeakEnemy", enemyImage1);
@@ -119,8 +121,6 @@ public class GameMapPanel extends JPanel {
             int cellX = x / cellWidth;
             int cellY = y / cellHeight;
 
-            System.out.println("zzz");
-
             if (cellX >= 0 && cellX < gameMap.getCols() && cellY >= 0 && cellY < gameMap.getRows()) {
                 // Utilisation du type de tour sélectionné depuis GameState pour placer la tour
                 switch (towerToPlace) {
@@ -139,7 +139,6 @@ public class GameMapPanel extends JPanel {
                     default:
                         break;
                 }
-                System.out.println("zzz");
                 repaint();
             }
 
@@ -168,8 +167,18 @@ public class GameMapPanel extends JPanel {
         cellWidth = getWidth() / gameMap.getCols();
         cellHeight = getHeight() / gameMap.getRows();
 
-        // TODO Ligne à modif pour mettre le background correctement
-        g.drawImage(backgroundImage, 0, 0, getFocusCycleRootAncestor());
+        for (int i = 0; i < gameMap.getCols(); i++) {
+            for (int j = 0; j < gameMap.getRows(); j++) {
+
+                int x = i * cellWidth;
+                int y = j * cellHeight;
+
+                g.drawImage(grass, x, y, cellWidth, cellHeight, this);
+                //else g.drawImage(dirt, x, y, cellWidth, cellHeight, this);
+
+                
+            }
+        }
 
         // Dessine les tours sur la carte
         for (Tower t : gameMap.listOfAllTowers()) {
