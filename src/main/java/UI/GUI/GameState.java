@@ -1,6 +1,7 @@
 package src.main.java.UI.GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -28,6 +29,7 @@ public class GameState {
     private GameMapPanel gameMapPanel;
     private String selectedTowerType;
     private Player player;
+    private Image fond;
     int enemySpawnInterval = 15; // Nombre d'itérations avant d'apparaître un nouvel ennemi
     int enemySpawnCounter = 0; // Compteur pour les itérations
 
@@ -44,7 +46,32 @@ public class GameState {
         gameMap.spawnNewEnemies(); // Ajoute plus d'ennemis à la carte
         gameMapPanel = new GameMapPanel(map); // Initialise le panneau de la carte du jeu
 
-        JPanel topPanel = new JPanel();
+        try {
+            
+            fond = ImageIO.read(new File("src/main/ressources/menu/ingame.jpg"));
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+        JPanel topPanel = new JPanel(){
+
+            @Override
+            public void paintComponent(Graphics g){
+
+                super.paintComponent(g);
+
+                if (fond != null) {
+                    g.drawImage(fond, 0, 0, getWidth(), getHeight(), this); // Dessin de l'image en arrière-plan
+                } else {
+
+                    System.out.println("debug ");
+
+                }
+
+            }
+
+        };
         topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS)); // Utilisation de BoxLayout horizontal
 
         // Ajout d'un espace entre les boutons pour les élargir visuellement
@@ -61,6 +88,7 @@ public class GameState {
         // Ajout d'un espace final pour la mise en page
         topPanel.add(Box.createHorizontalStrut(10));
         topPanel.setPreferredSize(new Dimension(1, 200));
+        topPanel.repaint();
 
         gamePanel = new JPanel();
         gamePanel.setLayout(new BorderLayout());
