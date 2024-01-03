@@ -469,14 +469,6 @@ public class GameMap {
      */
     private void moveSpecificEnemy(Enemy enemy) {
 
-        boolean can_move = true;
-
-        for(int i = enemy.getX(); i > enemy.getX() - enemy.getSpeed(); i --){
-
-            if(this.tiles[enemy.getY()][i].isOccupied()) can_move = false;
-
-        }
-
         // Logique pour calculer les déplacements en fonction de la vitesse de l'ennemi
         int deplacementX = enemy.getSpeed();
 
@@ -485,7 +477,7 @@ public class GameMap {
 
         // Vérification si les nouvelles positions sont à l'intérieur des limites de la
         // carte
-        if (isWithinLimits(newX, enemy.getY()) && can_move) {
+        if (isWithinLimits(newX, enemy.getY())) {
 
             moveElem(enemy, newX, enemy.getY());// Déplacement de l'ennemi aux nouvelles positions
 

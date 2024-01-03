@@ -13,6 +13,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import src.main.java.configMap.GameMap;
@@ -47,23 +48,21 @@ public class GameState {
         gameMap.spawnNewEnemies(); // Ajoute plus d'ennemis à la carte
         gameMapPanel = new GameMapPanel(map); // Initialise le panneau de la carte du jeu
 
+        
         JPanel topPanel = new JPanel();
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS)); // Utilisation de BoxLayout horizontal
 
-        // Ajout d'un espace entre les boutons pour les élargir visuellement
-        topPanel.add(Box.createHorizontalStrut(10)); // Espace initial
+        // Chargez votre image dans un JLabel pour l'afficher en arrière-plan
+        JLabel backgroundImageLabel = createBackgroundImageLabel("src/main/ressources/menu/ingame.jpg");
 
-        // Crée des boutons pour chaque type de tour et les ajoute au panneau supérieur
-        for (int i = 1; i <= 4; i++) {
-            String towerType = "Tower " + i;
-            JButton towerButton = createTowerButton(towerType);
-            topPanel.add(towerButton);
-            topPanel.add(Box.createHorizontalStrut(20)); // Espace entre les boutons
-        }
+        // Créez un JPanel pour contenir votre carte de jeu et l'image en arrière-plan
+        JPanel topPanelWithBackground = new JPanel(new BorderLayout());
+        topPanelWithBackground.add(topPanel, BorderLayout.CENTER); // Ajoutez votre panneau de boutons au centre
+        topPanelWithBackground.add(backgroundImageLabel, BorderLayout.PAGE_START); // Ajoutez l'image en arrière-plan
 
-        // Ajout d'un espace final pour la mise en page
-        topPanel.add(Box.createHorizontalStrut(10));
-        topPanel.setPreferredSize(new Dimension(1, 200));
+        gamePanel = new JPanel();
+        gamePanel.setLayout(new BorderLayout());
+        gamePanel.add(gameMapPanel, BorderLayout.CENTER); // Ajoute le panneau de la carte au centre
+        gamePanel.add(topPanelWithBackground, BorderLayout.NORTH);
 
         gamePanel = new JPanel();
         gamePanel.setLayout(new BorderLayout());
@@ -85,6 +84,21 @@ public class GameState {
             }
         });
         return button;
+    }
+
+    private JLabel createBackgroundImageLabel(String imagePath) {
+        try {
+            Image image = ImageIO.read(new File(imagePath)); // Chargez l'image depuis le chemin spécifié
+            ImageIcon imageIcon = new ImageIcon(image);
+    
+            JLabel backgroundImageLabel = new JLabel(imageIcon);
+            backgroundImageLabel.setLayout(new BorderLayout());
+    
+            return backgroundImageLabel;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new JLabel(); // Retourne un JLabel vide en cas d'erreur de chargement d'image
+        }
     }
 
     /**
@@ -115,6 +129,9 @@ public class GameState {
         return gamePanel; // Renvoie le panneau de jeu
     }
 
+
+
+    
     /**
      * Met à jour le jeu en déplaçant les ennemis et en ajoutant de nouveaux ennemis.
      */
