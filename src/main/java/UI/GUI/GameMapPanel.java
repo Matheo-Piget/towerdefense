@@ -70,6 +70,7 @@ public class GameMapPanel extends JPanel {
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
+                if(cellHeight == 0 || cellWidth == 0) return;
                 int cellX = e.getX() / cellWidth;
                 int cellY = e.getY() / cellHeight;
 
