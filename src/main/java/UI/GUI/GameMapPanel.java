@@ -1,12 +1,10 @@
 package src.main.java.UI.GUI;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -28,7 +26,6 @@ public class GameMapPanel extends JPanel {
     private int highlightedCellX = -1;
     private int highlightedCellY = -1;
     private Map<String, Image> enemiesImages;
-    private Image dirt;
     private Image grass;
     private int cellWidth;
     private int cellHeight;
@@ -43,14 +40,45 @@ public class GameMapPanel extends JPanel {
      */
     public GameMapPanel(GameMap gameMap) {
         this.gameMap = gameMap;
-        enemiesImages = new HashMap<String, Image>();
+        enemiesImages = new HashMap<>();
         towerToPlace = null;
         isPlacingTower = false;
 
-        cellWidth = getWidth() / this.gameMap.getCols();
-        cellHeight = getHeight() / this.gameMap.getRows();
+        initializeImages();
+        initializeMouseListeners();
+    }
 
-        // Ajoute un écouteur pour gérer la surbrillance lors du survol des cellules
+    /**
+     * Initialise les images utilisées dans le jeu.
+     */
+    private void initializeImages() {
+        try {
+            towerImage = ImageIO.read(new File("src/main/ressources/towers/fighttower.png"));
+            grass = ImageIO.read(new File("src/main/ressources/elements/grass.jpg"));
+
+            Image enemyDreth = ImageIO.read(new File("src/main/ressources/mobs/dreth.png"));
+            Image enemyFyron = ImageIO.read(new File("src/main/ressources/mobs/fyron.png"));
+            Image enemyGazer = ImageIO.read(new File("src/main/ressources/mobs/gazer.png"));
+            Image enemyKyron = ImageIO.read(new File("src/main/ressources/mobs/kryon.png"));
+            Image enemyLiche = ImageIO.read(new File("src/main/ressources/mobs/liche.png"));
+            Image enemyZorch = ImageIO.read(new File("src/main/ressources/mobs/zorch.png"));
+
+            enemiesImages.put("enemyDreth", enemyDreth);
+            enemiesImages.put("enemyFyron", enemyFyron);
+            enemiesImages.put("enemyGazer", enemyGazer);
+            enemiesImages.put("enemyLiche", enemyLiche);
+            enemiesImages.put("enemyKyron", enemyKyron);
+            enemiesImages.put("enemyZorch", enemyZorch);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Initialise les écouteurs de souris pour les interactions avec la carte.
+     */
+    private void initializeMouseListeners() {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseExited(MouseEvent e) {
@@ -63,42 +91,14 @@ public class GameMapPanel extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 placeTowerAtReleasedPosition(e.getX(), e.getY());
             }
-
         });
 
-        // Ajoute un écouteur pour mettre en surbrillance la cellule survolée
-        addMouseMotionListener(new MouseMotionAdapter() {
+        addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
-                if(cellHeight == 0 || cellWidth == 0) return;
-                int cellX = e.getX() / cellWidth;
-                int cellY = e.getY() / cellHeight;
-
-                if (cellX != highlightedCellX || cellY != highlightedCellY) {
-                    highlightedCellX = cellX;
-                    highlightedCellY = cellY;
-                    repaint();
-                }
+                updateHighlightedCell(e.getX(), e.getY());
             }
         });
-
-        try {
-            towerImage = ImageIO.read(new File("src/main/ressources/towers/fighttower.png"));
-            Image enemyImage1 = ImageIO.read(new File("src/main/ressources/mobs/dreth.png"));
-            Image enemyImage2 = ImageIO.read(new File("src/main/ressources/mobs/fyron.png"));
-            Image enemyImage3 = ImageIO.read(new File("src/main/ressources/mobs/gazer.png"));
-            Image enemyImage4 = ImageIO.read(new File("src/main/ressources/mobs/kryon.png"));
-            dirt = ImageIO.read(new File("src/main/ressources/elements/dirt.jpg"));
-            grass = ImageIO.read(new File("src/main/ressources/elements/grass.jpg"));
-
-            enemiesImages.put("MediumEnemy", enemyImage4);
-            enemiesImages.put("WeakEnemy", enemyImage1);
-            enemiesImages.put("RangeEnemy", enemyImage3);
-            enemiesImages.put("StringEnemy", enemyImage2);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -137,15 +137,18 @@ public class GameMapPanel extends JPanel {
                     case "Tower 4":
                         gameMap.putElem(new Tower(10, 10, 3, cellY, cellX));
                         break;
+                    case "Tower 5":
+                        gameMap.putElem(new Tower(10, 10, 3, cellY, cellX));
+                        break;
+                    case "Tower 6":
+                        gameMap.putElem(new Tower(10, 10, 3, cellY, cellX));
+                        break;
                     default:
                         break;
                 }
-                repaint();
             }
-
-            isPlacingTower = false;
-            towerToPlace = null;
         }
+        repaint();
     }
 
     /**
@@ -156,8 +159,28 @@ public class GameMapPanel extends JPanel {
     }
 
     /**
-     * Redéfinition de la méthode paintComponent pour dessiner les éléments de la
-     * carte.
+     * Met à jour la surbrillance de la cellule.
+     * 
+     * @param x Coordonnée x de la souris.
+     * @param y Coordonnée y de la souris.
+     */
+    private void updateHighlightedCell(int x, int y) {
+        if (cellHeight == 0 || cellWidth == 0) return;
+    
+        int cellX = x / cellWidth;
+        int cellY = y / cellHeight;
+
+        if (cellX != highlightedCellX || cellY != highlightedCellY) {
+            highlightedCellX = cellX;
+            highlightedCellY = cellY;
+            repaint();
+        }
+        
+    }
+
+
+    /**
+     * Redéfinition de paintComponent pour dessiner les éléments de la carte.
      * 
      * @param g Objet Graphics pour dessiner.
      */
@@ -195,7 +218,7 @@ public class GameMapPanel extends JPanel {
             int enemyY = enemy.getY() * cellHeight;
 
             if (enemy instanceof Enemy)
-                g.drawImage(enemiesImages.get("MediumEnemy"), enemyX, enemyY, cellWidth, cellHeight, this);
+                g.drawImage(enemiesImages.get("enemyDreth"), enemyX, enemyY, cellWidth, cellHeight, this);
             // if(enemy instanceof StrongEnemy)
             // g.drawImage(enemiesImages.get("StrongEnemy"), enemyX, enemyY, cellWidth,
             // cellHeight, this);
@@ -204,12 +227,10 @@ public class GameMapPanel extends JPanel {
             // if(enemy instanceof RangeEnemy) g.drawImage(enemiesImages.get("RangeEnemy"),
             // enemyX, enemyY, cellWidth, cellHeight, this);
         }
-
-        // Si une cellule est en surbrillance, la dessine en jaune avec une transparence
-        // réduite
         if (highlightedCellX != -1 && highlightedCellY != -1) {
             g.setColor(new Color(255, 255, 0, 100)); // Jaune avec opacité réduite
             g.fillRect(highlightedCellX * cellWidth, highlightedCellY * cellHeight, cellWidth, cellHeight);
+    
         }
     }
 }

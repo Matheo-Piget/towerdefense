@@ -1,13 +1,13 @@
 package src.main.java.UI.GUI;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.Box;
@@ -21,7 +21,7 @@ import src.main.java.model.Tower;
 import src.main.java.start.Player;
 
 /**
- * Gère l'état du jeu et la logique de la fenêtre de jeu.
+ * Cette classe gère l'état du jeu et la logique de la fenêtre de jeu.
  */
 public class GameState {
     private GameMap gameMap;
@@ -30,8 +30,8 @@ public class GameState {
     private String selectedTowerType;
     private Player player;
     private Image fond;
-    int enemySpawnInterval = 15; // Nombre d'itérations avant d'apparaître un nouvel ennemi
-    int enemySpawnCounter = 0; // Compteur pour les itérations
+    int enemySpawnInterval = 15;
+    int enemySpawnCounter = 0;
 
     /**
      * Constructeur prenant la carte du jeu et le joueur.
@@ -42,67 +42,83 @@ public class GameState {
     public GameState(GameMap map, Player player) {
         gameMap = map;
         this.player = player;
-        gameMap.spawnNewEnemies(); // Ajoute des ennemis à la carte
-        gameMap.spawnNewEnemies(); // Ajoute plus d'ennemis à la carte
         gameMapPanel = new GameMapPanel(map); // Initialise le panneau de la carte du jeu
 
+        // Chargement de l'image de fond
         try {
-            
             fond = ImageIO.read(new File("src/main/ressources/menu/ingame.jpg"));
-
         } catch (Exception e) {
-            // TODO: handle exception
+            e.printStackTrace();
         }
 
-        JPanel topPanel = new JPanel(){
+        // Création du panneau de boutons pour les tours
+        JPanel topPanel = createTopPanel();
+        createGamePanel(topPanel);
+    }
 
+    // Création du panneau de boutons pour les tours
+    private JPanel createTopPanel() {
+        JPanel topPanel = new JPanel() {
             @Override
-            public void paintComponent(Graphics g){
-
+            public void paintComponent(Graphics g) {
                 super.paintComponent(g);
-
                 if (fond != null) {
-                    g.drawImage(fond, 0, 0, getWidth(), getHeight(), this); // Dessin de l'image en arrière-plan
+                    g.drawImage(fond, 0, 0, getWidth(), getHeight(), this);
                 } else {
-
                     System.out.println("debug ");
-
                 }
-
             }
-
         };
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS)); // Utilisation de BoxLayout horizontal
+        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
+        topPanel.add(Box.createHorizontalStrut(10)); 
 
-        // Ajout d'un espace entre les boutons pour les élargir visuellement
-        topPanel.add(Box.createHorizontalStrut(10)); // Espace initial
+        // Chemins des images des boutons de tour
+        String[] towerImages = {
+            "src/main/ressources/buttons/towerbuttons/bullet.jpg", 
+            "src/main/ressources/buttons/towerbuttons/fight.jpg", 
+            "src/main/ressources/buttons/towerbuttons/nuke.jpg", 
+            "src/main/ressources/buttons/towerbuttons/sniper.jpg",
+            "src/main/ressources/buttons/towerbuttons/speed.jpg",
+            "src/main/ressources/buttons/towerbuttons/tnt.jpg",
+        };
 
-        // Crée des boutons pour chaque type de tour et les ajoute au panneau supérieur
-        for (int i = 1; i <= 4; i++) {
-            String towerType = "Tower " + i;
-            JButton towerButton = createTowerButton(towerType);
+        // Création des boutons pour chaque type de tour
+        for (int i = 0; i < 6; i++) {
+            String towerType = "Tower " + (i + 1);
+            JButton towerButton = createTowerButtonWithImage(towerType, towerImages[i], 50, 50);
             topPanel.add(towerButton);
-            topPanel.add(Box.createHorizontalStrut(20)); // Espace entre les boutons
+            topPanel.add(Box.createHorizontalStrut(20)); 
         }
 
-        // Ajout d'un espace final pour la mise en page
         topPanel.add(Box.createHorizontalStrut(10));
         topPanel.setPreferredSize(new Dimension(1, 200));
         topPanel.repaint();
-
-        gamePanel = new JPanel();
-        gamePanel.setLayout(new BorderLayout());
-        gamePanel.add(gameMapPanel, BorderLayout.CENTER); // Ajoute le panneau de la carte au centre
-        gamePanel.add(topPanel, BorderLayout.NORTH); // Ajoute le panneau supérieur en haut
+        return topPanel;
     }
 
-    /**
-     * Crée un bouton pour un type de tour spécifique.
-     * @param towerType Le type de tour associé au bouton.
-     * @return Le bouton créé.
-     */
-    private JButton createTowerButton(String towerType) {
+    // Création du panneau de jeu avec la carte et les boutons pour les tours
+    private void createGamePanel(JPanel topPanel) {
+        gamePanel = new JPanel();
+        gamePanel.setLayout(new BorderLayout());
+        gamePanel.add(gameMapPanel, BorderLayout.CENTER);
+        gamePanel.add(topPanel, BorderLayout.NORTH);
+    }
+
+    // Création d'un bouton pour un type de tour spécifique avec une image redimensionnée
+    private JButton createTowerButtonWithImage(String towerType, String imagePath, int width, int height) {
         JButton button = new JButton(towerType);
+
+        try {
+            // Chargement de l'image et redimensionnement
+            Image originalImage = ImageIO.read(new File(imagePath));
+            Image resizedImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            ImageIcon resizedIcon = new ImageIcon(resizedImage);
+            button.setIcon(resizedIcon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Action lorsqu'un bouton de tour est cliqué
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 selectedTowerType = towerType;
@@ -112,47 +128,34 @@ public class GameState {
         return button;
     }
 
-    /**
-     * Démarre la boucle de jeu en utilisant un Timer.
-     */
+    // Démarre la boucle de jeu avec un Timer
     public void startGameLoop() {
         Timer timer = new Timer(200, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                gameMapPanel.repaint(); // Rafraîchit l'affichage de la carte du jeu
-
+                gameMapPanel.repaint();
                 enemySpawnCounter++;
                 if (enemySpawnCounter >= enemySpawnInterval) {
-                    gameMap.spawnNewEnemies(); // Génère un nouvel ennemi
-                    gameMap.moveAllEnemies();
-
-                    enemySpawnCounter = 0; // Réinitialise le compteur
+                    updateGame();
+                    enemySpawnCounter = 0;
                 }
             }
         });
-        timer.start(); // Démarre le Timer pour la boucle de jeu
+        timer.start();
     }
 
-    /**
-     * Récupère le panneau de jeu.
-     * @return Le panneau de jeu.
-     */
+    // Renvoie le panneau de jeu
     public JPanel getGamePanel() {
-        return gamePanel; // Renvoie le panneau de jeu
+        return gamePanel;
     }
 
-    /**
-     * Met à jour le jeu en déplaçant les ennemis et en ajoutant de nouveaux ennemis.
-     */
+    // Met à jour le jeu en déplaçant les ennemis et en ajoutant de nouveaux ennemis
     public void updateGame() {
-        gameMap.moveAllEnemies(); // Déplace tous les ennemis sur la carte
-        gameMap.spawnNewEnemies(); // Ajoute de nouveaux ennemis
+        gameMap.moveAllEnemies();
+        gameMap.spawnNewEnemies();
     }
 
-    /**
-     * Renvoie le type de tour sélectionné.
-     * @return Le type de tour sélectionné.
-     */
+    // Renvoie le type de tour sélectionné
     public String getSelectedTowerType() {
-        return selectedTowerType; // Renvoie le type de tour sélectionné
+        return selectedTowerType;
     }
 }
