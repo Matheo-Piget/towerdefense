@@ -45,19 +45,7 @@ public class GUI {
         // frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         // frame.setUndecorated(true);
 
-        mainPanel = new JPanel(new BorderLayout()) { // on créer un panel general pour mettre une image en fond pour le
-                                                     // menu
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                try {
-                    Image backgroundImage = ImageIO.read(new File("src/main/ressources/menu/main_menu_usable.jpg"));
-                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
+        mainPanel = createMainPanel();
 
         cardLayout = new CardLayout(); // on créer un cardlayout pour changer de fentre plus facilement
         cardPanel = new JPanel(cardLayout);
@@ -101,7 +89,7 @@ public class GUI {
         menuPanel.add(empty2);
 
         addStyledButton(menuPanel, "src/main/ressources/buttons/gamebuttons/start.png",
-                e -> startGame());
+                e -> displayRulesPanel());
         addStyledButton(menuPanel, "src/main/ressources/buttons/gamebuttons/settings.png",
                 e -> showCard("Options"));
         addStyledButton(menuPanel, "src/main/ressources/buttons/gamebuttons/credits.png",
@@ -110,6 +98,24 @@ public class GUI {
                 e -> System.exit(0));
 
         return menuPanel;
+    }
+
+    public JPanel createMainPanel(){
+
+        return new JPanel(new BorderLayout()) { // on créer un panel general pour mettre une image en fond pour le
+                                                     // menu
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                try {
+                    Image backgroundImage = ImageIO.read(new File("src/main/ressources/menu/main_menu_usable.jpg"));
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
     }
 
     /**
@@ -134,6 +140,63 @@ public class GUI {
 
         return creditsPanel;
 
+    }
+
+    private JPanel createRulesPanel() {
+        JPanel rulesPanel = new JPanel(new BorderLayout()) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                try {
+                    Image backgroundImage = ImageIO.read(new File("src/main/ressources/menu/ingame.jpg"));
+                    g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    
+        JPanel empty = new JPanel();
+        empty.setOpaque(false);
+    
+        rulesPanel.add(empty, BorderLayout.NORTH);
+        rulesPanel.add(empty, BorderLayout.SOUTH);
+        rulesPanel.add(empty, BorderLayout.EAST);
+        rulesPanel.add(empty, BorderLayout.WEST);
+    
+        JPanel centerPanel = new JPanel(new GridLayout(5, 1));
+        centerPanel.setOpaque(false);
+    
+        for (int i = 0; i < 4; i++) {
+            empty = new JPanel();
+            empty.setOpaque(false);
+            centerPanel.add(empty);
+        }
+    
+        rulesPanel.add(centerPanel, BorderLayout.CENTER);
+    
+        try {
+            Image img = ImageIO.read(new File("src/main/ressources/buttons/gamebuttons/start.png"));
+            ImageIcon icon = new ImageIcon(img.getScaledInstance(300, 70, Image.SCALE_SMOOTH));
+    
+            JButton startButton = new JButton(icon);
+            startButton.setBorderPainted(false);
+            startButton.setFocusPainted(false);
+            startButton.setContentAreaFilled(false);
+    
+            startButton.addActionListener(e -> startGame());
+            centerPanel.add(startButton);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        return rulesPanel;
+    }
+
+    private void displayRulesPanel() {
+        JPanel rulesPanel = createRulesPanel();
+        cardPanel.add(rulesPanel, "Rules");
+        showCard("Rules");
     }
 
     /**
