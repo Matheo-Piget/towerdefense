@@ -150,8 +150,7 @@ public class GameState {
 
     // Met à jour le jeu en déplaçant les ennemis et en ajoutant de nouveaux ennemis
     public void updateGame() {
-        gameMap.moveAllEnemies();
-        gameMap.spawnNewEnemies();
+        gameMap.update(player);
     }
 
     // Renvoie le type de tour sélectionné
