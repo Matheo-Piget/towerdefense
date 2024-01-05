@@ -14,6 +14,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import src.main.java.configMap.GameMap;
@@ -81,39 +82,28 @@ public class GameState {
                 "src/main/ressources/buttons/towerbuttons/nuke.jpg",
                 "src/main/ressources/buttons/towerbuttons/sniper.jpg",
                 "src/main/ressources/buttons/towerbuttons/speed.jpg",
-                "src/main/ressources/buttons/towerbuttons/tnt.jpg",
+                "src/main/ressources/buttons/towerbuttons/tnt.jpg"
         };
 
         // Création des boutons pour chaque type de tour
         String t1 = "Fight Tower";
-        JButton towerButton1 = createTowerButtonWithImage(t1, towerImages[0], 50, 50);
+        JButton towerButton1 = createTowerButtonWithImage(t1, towerImages[1], 50, 50);
         topPanel.add(towerButton1);
         String t2 = "Bullet Tower";
         JButton towerButton2 = createTowerButtonWithImage(t2, towerImages[0], 50, 50);
         topPanel.add(towerButton2);
         String t3 = "Nuke Tower";
-        JButton towerButton3 = createTowerButtonWithImage(t3, towerImages[0], 50, 50);
+        JButton towerButton3 = createTowerButtonWithImage(t3, towerImages[2], 50, 50);
         topPanel.add(towerButton3);
         String t4 = "Sniper Tower";
-        JButton towerButton4 = createTowerButtonWithImage(t4, towerImages[0], 50, 50);
+        JButton towerButton4 = createTowerButtonWithImage(t4, towerImages[3], 50, 50);
         topPanel.add(towerButton4);
         String t5 = "Speed Tower";
-        JButton towerButton5 = createTowerButtonWithImage(t5, towerImages[0], 50, 50);
+        JButton towerButton5 = createTowerButtonWithImage(t5, towerImages[4], 50, 50);
         topPanel.add(towerButton5);
         String t6 = "TnT Tower";
-        JButton towerButton6 = createTowerButtonWithImage(t6, towerImages[0], 50, 50);
+        JButton towerButton6 = createTowerButtonWithImage(t6, towerImages[5], 50, 50);
         topPanel.add(towerButton6);
-
-        /*
-         * // Création des boutons pour chaque type de tour
-         * for (int i = 0; i < 6; i++) {
-         * String towerType = "Tower " + (i + 1);
-         * JButton towerButton = createTowerButtonWithImage(towerType, towerImages[i],
-         * 50, 50);
-         * topPanel.add(towerButton);
-         * topPanel.add(Box.createHorizontalStrut(20));
-         * }
-         */
 
         topPanel.add(Box.createHorizontalStrut(10));
         topPanel.setPreferredSize(new Dimension(1, 200));
@@ -183,4 +173,5 @@ public class GameState {
     public String getSelectedTowerType() {
         return selectedTowerType;
     }
+
 }
