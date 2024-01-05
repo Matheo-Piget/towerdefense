@@ -58,21 +58,21 @@ public class Cellule {
      */
     public void affiche() {
         if (element instanceof Kryon) {
-            System.out.print("\u001B[32m" + "wE" + "\u001B[0m");
+            System.out.print("\u001B[32m" + "kr" + "\u001B[0m");
         } else if (element instanceof Dreth) {
-            System.out.print("\u001B[33m" + "mE" + "\u001B[0m");
+            System.out.print("\u001B[33m" + "dr" + "\u001B[0m");
         } else if (element instanceof Fyron) {
-            System.out.print("\u001B[34m" + "rE" + "\u001B[0m");
+            System.out.print("\u001B[34m" + "fy" + "\u001B[0m");
         } else if (element instanceof Gazer) {
-            System.out.print("\u001B[31m" + "sE" + "\u001B[0m");
+            System.out.print("\u001B[31m" + "Ga" + "\u001B[0m");
         } else if (element instanceof FigthTower) {
-            System.out.print("\u001B[32m" + "w♖" + "\u001B[0m");
+            System.out.print("\u001B[32m" + "f♖" + "\u001B[0m");
         } else if (element instanceof SniperTower) {
-            System.out.print("\u001B[33m" + "m♖" + "\u001B[0m");
+            System.out.print("\u001B[33m" + "s♖" + "\u001B[0m");
         } else if (element instanceof TntTower) {
-            System.out.print("\u001B[31m" + "s♖" + "\u001B[0m");
+            System.out.print("\u001B[31m" + "t♖" + "\u001B[0m");
         } else if (element instanceof BulletTower) {
-            System.out.print("\u001B[34m" + "f♖" + "\u001B[0m");
+            System.out.print("\u001B[34m" + "b♖" + "\u001B[0m");
         } else {
             System.out.print("--");
         }

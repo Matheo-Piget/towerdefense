@@ -9,6 +9,8 @@ import src.main.java.model.enemies.Dreth;
 import src.main.java.model.enemies.Fyron;
 import src.main.java.model.enemies.Gazer;
 import src.main.java.model.enemies.Kryon;
+import src.main.java.model.enemies.Liche;
+import src.main.java.model.enemies.Zorch;
 import src.main.java.start.Player;
 
 /**
@@ -210,10 +212,7 @@ public class GameMap {
     public void attackEnemies(Player p) {
 
         for (Enemy t : listOfAllEnemies()) {
-            if (t.getRange())
-                t.attaque_loin(this, p);
-            else
-                t.attaque(this, p);
+            t.attaque(this, p);
         }
 
     }
@@ -426,7 +425,7 @@ public class GameMap {
         int mapHeight = tiles.length;
         int numberOfEnemies = 2; // Nombre d'ennemis à placer (à ajuster selon vos besoins)
         Random r = new Random();
-        int random_enemies = (int) (Math.random() * 4);
+        int random_enemies = (int) (Math.random() * 6);
 
         for (int i = 0; i < numberOfEnemies; i++) {
             int randomX = r.nextBoolean() ? 8 : 9;// Position aléatoire sur la dernière colonne de la carte
@@ -445,6 +444,14 @@ public class GameMap {
                     break;
                 case 3:
                     putElem(new Gazer(randomX, randomY));
+                    break;
+
+                case 4:
+                    putElem(new Liche(randomX, randomY));
+                    break;
+
+                case 5:
+                    putElem(new Zorch(randomX, randomY));
                     break;
 
                 default:

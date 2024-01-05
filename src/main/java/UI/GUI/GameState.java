@@ -1,15 +1,18 @@
 package src.main.java.UI.GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -17,6 +20,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.border.Border;
+
+import org.w3c.dom.events.MouseEvent;
+
 import src.main.java.configMap.GameMap;
 import src.main.java.model.Tower;
 import src.main.java.start.Player;
@@ -85,6 +92,14 @@ public class GameState {
                 "src/main/ressources/buttons/towerbuttons/tnt.jpg"
         };
 
+        String[] money_livesImages = {
+
+            "src/main/ressources/elements/dollar.png",
+            "src/main/ressources/elements/heart.png"
+
+
+        };
+
         // Création des boutons pour chaque type de tour
         String t1 = "Fight Tower";
         JButton towerButton1 = createTowerButtonWithImage(t1, towerImages[1], 50, 50);
@@ -104,6 +119,40 @@ public class GameState {
         String t6 = "TnT Tower";
         JButton towerButton6 = createTowerButtonWithImage(t6, towerImages[5], 50, 50);
         topPanel.add(towerButton6);
+
+        // Création des labels pour les informations du joueur (vie et argent)
+        JLabel livesLabel = new JLabel("Lives: " + player.getLives());
+        JLabel moneyLabel = new JLabel("Money: " + player.getMoney());
+
+        // Chargement de l'icône depuis le fichier
+        ImageIcon livesicon = new ImageIcon("src/main/ressources/elements/heart.png");
+
+        // Redimensionnement de l'icône à une taille spécifique
+        Image scaledImage_lives = livesicon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+
+        // Création d'un ImageIcon redimensionné
+        ImageIcon scaledIcon_lives = new ImageIcon(scaledImage_lives);
+
+        // Création d'un JLabel pour afficher l'icône redimensionnée
+        JLabel iconLabel_lives = new JLabel(scaledIcon_lives);
+
+        // Chargement de l'icône depuis le fichier
+        ImageIcon moneyIcon = new ImageIcon("src/main/ressources/elements/dollar.png");
+
+        // Redimensionnement de l'icône à une taille spécifique
+        Image scaledImage_money = moneyIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+
+        // Création d'un ImageIcon redimensionné
+        ImageIcon scaledIcon_money = new ImageIcon(scaledImage_money);
+
+        // Création d'un JLabel pour afficher l'icône redimensionnée
+        JLabel iconLabel_money = new JLabel(scaledIcon_money);
+
+        // Ajout des labels à côté des boutons dans le panneau supérieur
+        topPanel.add(iconLabel_lives);
+        topPanel.add(livesLabel);
+        topPanel.add(iconLabel_money);
+        topPanel.add(moneyLabel);
 
         topPanel.add(Box.createHorizontalStrut(10));
         topPanel.setPreferredSize(new Dimension(1, 200));
@@ -125,7 +174,6 @@ public class GameState {
         JButton button = new JButton(towerType);
 
         try {
-            // Chargement de l'image et redimensionnement
             Image originalImage = ImageIO.read(new File(imagePath));
             Image resizedImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
             ImageIcon resizedIcon = new ImageIcon(resizedImage);
@@ -133,6 +181,10 @@ public class GameState {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Ajout d'une bordure arrondie aux boutons
+        Border roundedBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
+        button.setBorder(BorderFactory.createCompoundBorder(roundedBorder, BorderFactory.createEmptyBorder(10, 15, 10, 15)));
 
         // Action lorsqu'un bouton de tour est cliqué
         button.addActionListener(new ActionListener() {
