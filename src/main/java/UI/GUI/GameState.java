@@ -77,12 +77,12 @@ public class GameState {
 
         // Chemins des images des boutons de tour
         String[] towerImages = {
-                "src/main/ressources/buttons/towerbuttons/bullet.jpg",
-                "src/main/ressources/buttons/towerbuttons/fight.jpg",
-                "src/main/ressources/buttons/towerbuttons/nuke.jpg",
-                "src/main/ressources/buttons/towerbuttons/sniper.jpg",
-                "src/main/ressources/buttons/towerbuttons/speed.jpg",
-                "src/main/ressources/buttons/towerbuttons/tnt.jpg"
+                "src/main/ressources/buttons/towerbuttons/bullettower.jpg",
+                "src/main/ressources/buttons/towerbuttons/fighttower.jpg",
+                "src/main/ressources/buttons/towerbuttons/nuketower.jpg",
+                "src/main/ressources/buttons/towerbuttons/snipertower.jpg",
+                "src/main/ressources/buttons/towerbuttons/speedtower.jpg",
+                "src/main/ressources/buttons/towerbuttons/tnttower.jpg"
         };
 
         // Création des boutons pour chaque type de tour

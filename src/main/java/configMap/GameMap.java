@@ -5,10 +5,10 @@ import java.util.Random;
 
 import src.main.java.UI.TerminalUI;
 import src.main.java.model.*;
-import src.main.java.model.enemies.MediumEnemy;
-import src.main.java.model.enemies.RangeEnemy;
-import src.main.java.model.enemies.StrongEnemy;
-import src.main.java.model.enemies.WeakEnemy;
+import src.main.java.model.enemies.Dreth;
+import src.main.java.model.enemies.Fyron;
+import src.main.java.model.enemies.Gazer;
+import src.main.java.model.enemies.Kryon;
 import src.main.java.start.Player;
 
 /**
@@ -56,11 +56,11 @@ public class GameMap {
      * ennemi on parle
      */
     private int typeE(Enemy e) {
-        if (e instanceof WeakEnemy)
+        if (e instanceof Kryon)
             return 1;
-        if (e instanceof MediumEnemy)
+        if (e instanceof Dreth)
             return 2;
-        if (e instanceof RangeEnemy)
+        if (e instanceof Fyron)
             return 3;
         else
             return 4;
@@ -434,21 +434,21 @@ public class GameMap {
 
             switch (random_enemies) { // place un enemie alétoire parmit tout les types d'enemies possible
                 case 0:
-                    putElem(new WeakEnemy(randomX, randomY));
+                    putElem(new Kryon(randomX, randomY));
                     break;
 
                 case 1:
-                    putElem(new MediumEnemy(randomX, randomY));
+                    putElem(new Dreth(randomX, randomY));
                     break;
                 case 2:
-                    putElem(new RangeEnemy(randomX, randomY));
+                    putElem(new Fyron(randomX, randomY));
                     break;
                 case 3:
-                    putElem(new StrongEnemy(randomX, randomY));
+                    putElem(new Gazer(randomX, randomY));
                     break;
 
                 default:
-                    putElem(new WeakEnemy(randomX, randomY));
+                    putElem(new Kryon(randomX, randomY));
                     break;
             }
 

@@ -1,14 +1,14 @@
 package src.main.java.configMap;
 
 import src.main.java.model.*;
-import src.main.java.model.enemies.MediumEnemy;
-import src.main.java.model.enemies.RangeEnemy;
-import src.main.java.model.enemies.StrongEnemy;
-import src.main.java.model.enemies.WeakEnemy;
-import src.main.java.model.towers.FastTower;
-import src.main.java.model.towers.MediumTower;
-import src.main.java.model.towers.StrongTower;
-import src.main.java.model.towers.WeakTower;
+import src.main.java.model.enemies.Dreth;
+import src.main.java.model.enemies.Fyron;
+import src.main.java.model.enemies.Gazer;
+import src.main.java.model.enemies.Kryon;
+import src.main.java.model.towers.BulletTower;
+import src.main.java.model.towers.SniperTower;
+import src.main.java.model.towers.TntTower;
+import src.main.java.model.towers.FigthTower;
 
 /**
  * La classe Cellule représente une cellule de la carte du jeu.
@@ -57,21 +57,21 @@ public class Cellule {
      * "\u001B[31m" désigne la couleur rouge
      */
     public void affiche() {
-        if (element instanceof WeakEnemy) {
+        if (element instanceof Kryon) {
             System.out.print("\u001B[32m" + "wE" + "\u001B[0m");
-        } else if (element instanceof MediumEnemy) {
+        } else if (element instanceof Dreth) {
             System.out.print("\u001B[33m" + "mE" + "\u001B[0m");
-        } else if (element instanceof RangeEnemy) {
+        } else if (element instanceof Fyron) {
             System.out.print("\u001B[34m" + "rE" + "\u001B[0m");
-        } else if (element instanceof StrongEnemy) {
+        } else if (element instanceof Gazer) {
             System.out.print("\u001B[31m" + "sE" + "\u001B[0m");
-        } else if (element instanceof WeakTower) {
+        } else if (element instanceof FigthTower) {
             System.out.print("\u001B[32m" + "w♖" + "\u001B[0m");
-        } else if (element instanceof MediumTower) {
+        } else if (element instanceof SniperTower) {
             System.out.print("\u001B[33m" + "m♖" + "\u001B[0m");
-        } else if (element instanceof StrongTower) {
+        } else if (element instanceof TntTower) {
             System.out.print("\u001B[31m" + "s♖" + "\u001B[0m");
-        } else if (element instanceof FastTower) {
+        } else if (element instanceof BulletTower) {
             System.out.print("\u001B[34m" + "f♖" + "\u001B[0m");
         } else {
             System.out.print("--");
