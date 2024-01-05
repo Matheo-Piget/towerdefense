@@ -125,7 +125,7 @@ public class GameState {
         JLabel moneyLabel = new JLabel("Money: " + player.getMoney());
 
         // Chargement de l'icône depuis le fichier
-        ImageIcon livesicon = new ImageIcon("src/main/ressources/elements/heart.png");
+        ImageIcon livesicon = new ImageIcon(money_livesImages[1]);
 
         // Redimensionnement de l'icône à une taille spécifique
         Image scaledImage_lives = livesicon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
@@ -137,7 +137,7 @@ public class GameState {
         JLabel iconLabel_lives = new JLabel(scaledIcon_lives);
 
         // Chargement de l'icône depuis le fichier
-        ImageIcon moneyIcon = new ImageIcon("src/main/ressources/elements/dollar.png");
+        ImageIcon moneyIcon = new ImageIcon(money_livesImages[0]);
 
         // Redimensionnement de l'icône à une taille spécifique
         Image scaledImage_money = moneyIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
@@ -203,9 +203,15 @@ public class GameState {
                 gameMapPanel.repaint();
                 enemySpawnCounter++;
                 if (enemySpawnCounter >= enemySpawnInterval) {
-                    updateGame();
+                    gameMap.spawnNewEnemies();
                     enemySpawnCounter = 0;
                 }
+
+                gameMap.attackTowers();
+                gameMap.attackEnemies(player);
+                gameMap.removeDeadEnemies(); // on supprime tout les enemis mort
+                gameMap.removeDeadTowers(); // meme chose pour les tours
+                gameMap.moveAllEnemies(); // on déplace tout les enemis
             }
         });
         timer.start();
