@@ -510,4 +510,12 @@ public class GameMap {
 
     }
 
+    public void reset() {
+
+        for(Enemy e : listOfAllEnemies()) removeElem(e);
+        for (Tower t : listOfAllTowers()) removeElem(t);
+        
+
+    }
+
 }

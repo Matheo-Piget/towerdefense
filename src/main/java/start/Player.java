@@ -53,6 +53,13 @@ public class Player {
 
     }
 
+    public void reset(){
+
+        lives = 10;
+        money = 200;
+
+    }
+
     /** Affichage des caractéristiques du joueur */
 
     public void affiche() {

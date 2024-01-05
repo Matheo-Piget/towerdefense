@@ -238,6 +238,8 @@ public class GUI {
         return optionsPanel;
     }
 
+    
+
     /**
      * méthode qui ajoute un boutton au panel mis en parametre, avec une image et un
      * listener mis en parametre
