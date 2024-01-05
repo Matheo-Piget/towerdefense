@@ -4,6 +4,6 @@ import src.main.java.model.Tower;
 
 public class FigthTower extends Tower {
     public FigthTower(int x, int y) {
-        super(10, 2, 1, x, y);
+        super(25, 5, 1, x, y);
     }
 }

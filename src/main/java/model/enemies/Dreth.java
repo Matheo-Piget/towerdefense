@@ -4,6 +4,6 @@ import src.main.java.model.Enemy;
 
 public class Dreth extends Enemy {
     public Dreth(int x, int y) {
-        super(20, 3, 2, x, y, false);
+        super(10, 10, 1, x, y, false);
     }
 }
