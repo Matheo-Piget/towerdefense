@@ -51,7 +51,7 @@ public class GameState {
     public GameState(GameMap map, Player player) {
         gameMap = map;
         this.player = player;
-        gameMapPanel = new GameMapPanel(map); // Initialise le panneau de la carte du jeu
+        gameMapPanel = new GameMapPanel(map, this.player); // Initialise le panneau de la carte du jeu
 
         // Chargement de l'image de fond
         try {

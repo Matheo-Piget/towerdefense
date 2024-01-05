@@ -17,6 +17,7 @@ import src.main.java.configMap.GameMap;
 import src.main.java.model.*;
 import src.main.java.model.enemies.*;
 import src.main.java.model.towers.*;
+import src.main.java.start.Player;
 
 /**
  * Panel représentant la carte de jeu et gérant les interactions avec celle-ci.
@@ -30,6 +31,7 @@ public class GameMapPanel extends JPanel {
     private Map<String, Image> towerImages;
     private Image grass;
     private int cellWidth;
+    private Player player;
     private int cellHeight;
     private String towerToPlace;
     private boolean isPlacingTower = false;
@@ -40,8 +42,9 @@ public class GameMapPanel extends JPanel {
      * 
      * @param gameMap La carte de jeu.
      */
-    public GameMapPanel(GameMap gameMap) {
+    public GameMapPanel(GameMap gameMap, Player p) {
         this.gameMap = gameMap;
+        this.player = p;
         enemiesImages = new HashMap<>();
         towerImages = new HashMap<>();
         towerToPlace = null;
@@ -141,8 +144,49 @@ public class GameMapPanel extends JPanel {
             int cellY = y / cellHeight;
 
             if (cellX >= 0 && cellX < gameMap.getCols() && cellY >= 0 && cellY < gameMap.getRows()) {
-                // Utilisation du type de tour sélectionné depuis GameState pour placer la tour
-                switch (towerToPlace) {
+                // Obtenez le coût de la tour à placer
+                int towerCost = getTowerCost(towerToPlace);
+
+                // Vérifiez si le joueur a suffisamment d'argent pour placer la tour
+                if (towerCost <= player.getMoney()) {
+                    // Placez la tour car le joueur a assez d'argent
+                    placeTower(cellX, cellY);
+                    player.setMoney(player.getMoney()-towerCost); // Déduisez le coût de la tour de l'argent du joueur
+                } else {
+                    
+                    return;
+                }
+            }
+        
+        }
+        repaint();
+    }
+
+    // Méthode pour obtenir le coût d'une tour en fonction de son type
+    private int getTowerCost(String towerType) {
+        // Mettez en place une logique pour obtenir le coût de chaque type de tour
+        // Retournez le coût approprié
+        switch (towerType) {
+            case "Fight Tower":
+                return 40;
+            case "Bullet Tower":
+                return 50;
+            case "Nuke Tower":
+                return 300;
+            case "Sniper Tower":
+                return 80;
+            case "Speed Tower":
+                return 75;
+            case "Tnt Tower":
+                return 220;
+            
+        }
+        return 0; // Si le type de tour n'est pas reconnu, retournez 0 ou un autre montant par défaut
+    }
+
+    // Méthode pour placer la tour
+    private void placeTower(int cellX, int cellY) {
+        switch (towerToPlace) {
                     case "Fight Tower":
                         gameMap.putElem(new FigthTower(cellY, cellX));
                         break;
@@ -164,9 +208,6 @@ public class GameMapPanel extends JPanel {
                     default:
                         break;
                 }
-            }
-        }
-        repaint();
     }
 
     /**
