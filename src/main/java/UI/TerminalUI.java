@@ -5,8 +5,10 @@ import java.util.Scanner;
 import src.main.java.configMap.GameMap;
 import src.main.java.model.towers.BulletTower;
 import src.main.java.model.towers.SniperTower;
+import src.main.java.model.towers.SpeedTower;
 import src.main.java.model.towers.TntTower;
 import src.main.java.model.towers.FigthTower;
+import src.main.java.model.towers.NukeTower;
 import src.main.java.start.Player;
 
 public class TerminalUI {
@@ -39,7 +41,23 @@ public class TerminalUI {
 
         System.out.println("===== TYPES DE TOURS =====");
 
+        System.out.println("Name ==== Lives ==== Cost ==== Damage");
+        System.out.println(" Fight Tower : 25, 40, 5");
+        System.out.println(" Bullet Tower : 10, 50, 5");
+        System.out.println(" Nuke Tower : 60, 200, 10");
+        System.out.println(" Snioer Tower : 10, 80, 10");
+        System.out.println(" Speed Tower : 15, 75, 10");
+        System.out.println(" Tnt Tower : 1, 220, 70");
+
         System.out.println("===== TYPES D'ENNEMIS =====");
+
+        System.out.println("Name ==== Lives ==== Damage");
+        System.out.println(" Dreth : 10, 10");
+        System.out.println("  Fyron : 20, 10");
+        System.out.println(" Gazer : 10, 5");
+        System.out.println(" Kryon : 70, 30");
+        System.out.println(" Liche : 50, 20");
+        System.out.println(" Zorch : 10, 2");
 
         System.out.println("Insérez (M) pour revenir au menu principal.");
 
@@ -166,7 +184,7 @@ public class TerminalUI {
         switch (reponse) {
             case "oui":
                 System.out.println("\033\143");
-                TerminalUI new_partie = new TerminalUI(new GameMap(5, 10), new Player(50, 10));
+                TerminalUI new_partie = new TerminalUI(new GameMap(5, 10), new Player(200, 10));
                 new_partie.start();
 
                 break;
@@ -228,7 +246,7 @@ public class TerminalUI {
 
         boolean fin = true;
         System.out.println(
-                "Choisissez quelle type de tour vous voulez placer : (1) Petite Tour,  (2) Tour Moyenne (3), Tour Rapide, (4) Tour Puissante :");
+                "Choisissez quelle type de tour vous voulez placer : (1) Fight Tower,  (2) Bullet Tower, (3) Nuke tower, (4) Sniper Tower, (5) Speed Tower, (6) Tnt Tower :");
         int choix_tours;
 
         while (fin) {
@@ -238,14 +256,14 @@ public class TerminalUI {
             switch (choix_tours) {
                 case 1:
 
-                    if (player.getMoney() >= 5) {
+                    if (player.getMoney() >= 40) {
 
                         System.out.println("Choisissez maintenant les coordonnées :");
                         int x = scanner.nextInt();
                         int y = scanner.nextInt();
                         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
                         map.putElem(new FigthTower(y, x));
-                        player.setMoney(player.getMoney() - 5);
+                        player.setMoney(player.getMoney() - 40);
                         fin = false;
 
                     } else {
@@ -258,14 +276,14 @@ public class TerminalUI {
 
                 case 2:
 
-                    if (player.getMoney() >= 10) {
+                    if (player.getMoney() >= 50) {
 
                         System.out.println("Choisissez maintenant les coordonnées :");
                         int x = scanner.nextInt();
                         int y = scanner.nextInt();
                         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-                        map.putElem(new SniperTower(y, x));
-                        player.setMoney(player.getMoney() - 10);
+                        map.putElem(new BulletTower(y, x));
+                        player.setMoney(player.getMoney() - 50);
                         fin = false;
 
                     } else {
@@ -278,14 +296,14 @@ public class TerminalUI {
 
                 case 3:
 
-                    if (player.getMoney() >= 15) {
+                    if (player.getMoney() >= 300) {
 
                         System.out.println("Choisissez maintenant les coordonnées :");
                         int x = scanner.nextInt();
                         int y = scanner.nextInt();
                         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-                        map.putElem(new BulletTower(y, x));
-                        player.setMoney(player.getMoney() - 15);
+                        map.putElem(new NukeTower(y, x));
+                        player.setMoney(player.getMoney() - 80);
                         fin = false;
 
                     } else {
@@ -298,14 +316,54 @@ public class TerminalUI {
 
                 case 4:
 
-                    if (player.getMoney() >= 20) {
+                    if (player.getMoney() >= 80) {
+
+                        System.out.println("Choisissez maintenant les coordonnées :");
+                        int x = scanner.nextInt();
+                        int y = scanner.nextInt();
+                        // Logique pour placer la tour à l'emplacement (x, y) sur la carte
+                        map.putElem(new SniperTower(y, x));
+                        player.setMoney(player.getMoney() - 80);
+                        fin = false;
+
+                    } else {
+
+                        System.out.println("Vous n'avez pas assez d'argent");
+
+                    }
+
+                    break;
+
+                case 5:
+
+                    if (player.getMoney() >= 75) {
+
+                        System.out.println("Choisissez maintenant les coordonnées :");
+                        int x = scanner.nextInt();
+                        int y = scanner.nextInt();
+                        // Logique pour placer la tour à l'emplacement (x, y) sur la carte
+                        map.putElem(new SpeedTower(y, x));
+                        player.setMoney(player.getMoney() - 75);
+                        fin = false;
+
+                    } else {
+
+                        System.out.println("Vous n'avez pas assez d'argent");
+
+                    }
+
+                    break;
+
+                case 6:
+
+                    if (player.getMoney() >= 220) {
 
                         System.out.println("Choisissez maintenant les coordonnées :");
                         int x = scanner.nextInt();
                         int y = scanner.nextInt();
                         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
                         map.putElem(new TntTower(y, x));
-                        player.setMoney(player.getMoney() - 20);
+                        player.setMoney(player.getMoney() - 220);
                         fin = false;
 
                     } else {
@@ -317,7 +375,7 @@ public class TerminalUI {
                     break;
 
                 default:
-                    System.out.println("Veuillez selectionnez un nombre en 1 et 4 : ");
+                    System.out.println("Veuillez selectionnez un nombre en 1 et 6 : ");
                     break;
             }
 
