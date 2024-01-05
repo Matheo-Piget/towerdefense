@@ -125,23 +125,23 @@ public class GameMapPanel extends JPanel {
             if (cellX >= 0 && cellX < gameMap.getCols() && cellY >= 0 && cellY < gameMap.getRows()) {
                 // Utilisation du type de tour sélectionné depuis GameState pour placer la tour
                 switch (towerToPlace) {
-                    case "Tower 1":
+                    case "Fight Tower":
+                        gameMap.putElem(new Tower(25, 5, 3, cellY, cellX));
+                        break;
+                    case "Bullet Tower":
+                        gameMap.putElem(new Tower(10, 5, 3, cellY, cellX));
+                        break;
+                    case "Nuke Tower":
+                        gameMap.putElem(new Tower(60, 10, 3, cellY, cellX));
+                        break;
+                    case "Sniper Tower":
                         gameMap.putElem(new Tower(10, 10, 3, cellY, cellX));
                         break;
-                    case "Tower 2":
-                        gameMap.putElem(new Tower(10, 10, 3, cellY, cellX));
+                    case "Speed Tower":
+                        gameMap.putElem(new Tower(15, 10, 3, cellY, cellX));
                         break;
-                    case "Tower 3":
-                        gameMap.putElem(new Tower(10, 10, 3, cellY, cellX));
-                        break;
-                    case "Tower 4":
-                        gameMap.putElem(new Tower(10, 10, 3, cellY, cellX));
-                        break;
-                    case "Tower 5":
-                        gameMap.putElem(new Tower(10, 10, 3, cellY, cellX));
-                        break;
-                    case "Tower 6":
-                        gameMap.putElem(new Tower(10, 10, 3, cellY, cellX));
+                    case "TnT Tower":
+                        gameMap.putElem(new Tower(1, 70, 3, cellY, cellX));
                         break;
                     default:
                         break;
@@ -165,8 +165,9 @@ public class GameMapPanel extends JPanel {
      * @param y Coordonnée y de la souris.
      */
     private void updateHighlightedCell(int x, int y) {
-        if (cellHeight == 0 || cellWidth == 0) return;
-    
+        if (cellHeight == 0 || cellWidth == 0)
+            return;
+
         int cellX = x / cellWidth;
         int cellY = y / cellHeight;
 
@@ -175,9 +176,8 @@ public class GameMapPanel extends JPanel {
             highlightedCellY = cellY;
             repaint();
         }
-        
-    }
 
+    }
 
     /**
      * Redéfinition de paintComponent pour dessiner les éléments de la carte.
@@ -198,9 +198,8 @@ public class GameMapPanel extends JPanel {
                 int y = j * cellHeight;
 
                 g.drawImage(grass, x, y, cellWidth, cellHeight, this);
-                //else g.drawImage(dirt, x, y, cellWidth, cellHeight, this);
+                // else g.drawImage(dirt, x, y, cellWidth, cellHeight, this);
 
-                
             }
         }
 
@@ -230,7 +229,7 @@ public class GameMapPanel extends JPanel {
         if (highlightedCellX != -1 && highlightedCellY != -1) {
             g.setColor(new Color(255, 255, 0, 100)); // Jaune avec opacité réduite
             g.fillRect(highlightedCellX * cellWidth, highlightedCellY * cellHeight, cellWidth, cellHeight);
-    
+
         }
     }
 }

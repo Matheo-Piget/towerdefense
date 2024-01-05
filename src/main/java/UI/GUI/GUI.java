@@ -8,6 +8,13 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.border.EmptyBorder;
 
 import src.main.java.configMap.GameMap;
@@ -27,6 +34,8 @@ public class GUI {
     private CardLayout cardLayout;
     private GameState gameState; // Référence à l'état du jeu
 
+    private Clip clip; // Pour la musique (TODO) je sais pas si on à le droit d'utiliser Clip :/
+
     /**
      * Constructeur de GUI
      */
@@ -40,6 +49,13 @@ public class GUI {
         frame.setSize(new Dimension(1550, 800));
         frame.setLocationRelativeTo(null);
 
+        // Pour définir l'icone de la fenêtre
+        ImageIcon icone = new ImageIcon("src/main/ressources/elements/logo.png");
+        frame.setIconImage(icone.getImage());
+
+        // Pour lancer la musique du main_menu
+        playSpecificMusic("src/main/ressources/music/mainmenumusic.wav");
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
         // Le bloc à ajouter pour mettre le plein écran (à faire à la fin du projet
         // TODO)
         // frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -100,10 +116,10 @@ public class GUI {
         return menuPanel;
     }
 
-    public JPanel createMainPanel(){
+    public JPanel createMainPanel() {
 
         return new JPanel(new BorderLayout()) { // on créer un panel general pour mettre une image en fond pour le
-                                                     // menu
+                                                // menu
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -148,48 +164,48 @@ public class GUI {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 try {
-                    Image backgroundImage = ImageIO.read(new File("src/main/ressources/menu/ingame.jpg"));
+                    Image backgroundImage = ImageIO.read(new File("src/main/ressources/menu/rules.jpg"));
                     g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         };
-    
+
         JPanel empty = new JPanel();
         empty.setOpaque(false);
-    
+
         rulesPanel.add(empty, BorderLayout.NORTH);
         rulesPanel.add(empty, BorderLayout.SOUTH);
         rulesPanel.add(empty, BorderLayout.EAST);
         rulesPanel.add(empty, BorderLayout.WEST);
-    
+
         JPanel centerPanel = new JPanel(new GridLayout(5, 1));
         centerPanel.setOpaque(false);
-    
+
         for (int i = 0; i < 4; i++) {
             empty = new JPanel();
             empty.setOpaque(false);
             centerPanel.add(empty);
         }
-    
+
         rulesPanel.add(centerPanel, BorderLayout.CENTER);
-    
+
         try {
-            Image img = ImageIO.read(new File("src/main/ressources/buttons/gamebuttons/start.png"));
-            ImageIcon icon = new ImageIcon(img.getScaledInstance(300, 70, Image.SCALE_SMOOTH));
-    
+            Image img = ImageIO.read(new File("src/main/ressources/buttons/gamebuttons/logo.png"));
+            ImageIcon icon = new ImageIcon(img.getScaledInstance(120, 120, Image.SCALE_SMOOTH));
+
             JButton startButton = new JButton(icon);
             startButton.setBorderPainted(false);
             startButton.setFocusPainted(false);
             startButton.setContentAreaFilled(false);
-    
+
             startButton.addActionListener(e -> startGame());
             centerPanel.add(startButton);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    
+
         return rulesPanel;
     }
 
@@ -261,23 +277,55 @@ public class GUI {
         cardLayout.show(cardPanel, cardName);
     }
 
+    /** Jouer un fichier audio (pour les musiques) */
+    private void playSpecificMusic(String cheminMusique) {
+        try {
+            File fichierAudio = new File(cheminMusique);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(fichierAudio);
+
+            AudioFormat format = audioStream.getFormat();
+
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+            clip = (Clip) AudioSystem.getLine(info);
+
+            clip.open(audioStream);
+            clip.start();
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /** Pour arrêter la musique */
+    private void stopSpecificMusic() {
+        if (clip != null && clip.isRunning()) {
+            clip.stop();
+        }
+    }
+
     /**
      * lance le jeu
      */
     public void startGame() {
+
         // Création de l'état du jeu
         gameState = new GameState(map, player);
         cardPanel.add(gameState.getGamePanel(), "Game");
         showCard("Game");
         cardPanel.setVisible(true);
         cardPanel.setOpaque(false);
+
+        stopSpecificMusic();
+        playSpecificMusic("src/main/ressources/music/ingamemusic.wav");
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+
         gameState.startGameLoop();
+
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             GUI gui = new GUI();
-            gui.startGUIGame(new GameMap(5, 10), new Player(1000, 3));
+            gui.startGUIGame(new GameMap(5, 10), new Player(200, 10));
         });
     }
 }
