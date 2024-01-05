@@ -87,10 +87,10 @@ public class GameState {
 
         // Création des boutons pour chaque type de tour
         String t1 = "Fight Tower";
-        JButton towerButton1 = createTowerButtonWithImage(t1, towerImages[0], 50, 50);
+        JButton towerButton1 = createTowerButtonWithImage(t1, towerImages[1], 50, 50);
         topPanel.add(towerButton1);
         String t2 = "Bullet Tower";
-        JButton towerButton2 = createTowerButtonWithImage(t2, towerImages[1], 50, 50);
+        JButton towerButton2 = createTowerButtonWithImage(t2, towerImages[0], 50, 50);
         topPanel.add(towerButton2);
         String t3 = "Nuke Tower";
         JButton towerButton3 = createTowerButtonWithImage(t3, towerImages[2], 50, 50);
