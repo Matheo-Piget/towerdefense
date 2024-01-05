@@ -16,12 +16,7 @@ import javax.swing.JPanel;
 import src.main.java.configMap.GameMap;
 import src.main.java.model.*;
 import src.main.java.model.enemies.*;
-import src.main.java.model.towers.BulletTower;
-import src.main.java.model.towers.FigthTower;
-import src.main.java.model.towers.NukeTower;
-import src.main.java.model.towers.SniperTower;
-import src.main.java.model.towers.SpeedTower;
-import src.main.java.model.towers.TntTower;
+import src.main.java.model.towers.*;
 
 /**
  * Panel représentant la carte de jeu et gérant les interactions avec celle-ci.
