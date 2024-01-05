@@ -37,6 +37,8 @@ public class GameState {
     private Image fond;
     int enemySpawnInterval = 15;
     int enemySpawnCounter = 0;
+    private JLabel livesLabel;
+    private JLabel moneyLabel;
 
     /**
      * Constructeur prenant la carte du jeu et le joueur.
@@ -118,8 +120,8 @@ public class GameState {
         topPanel.add(towerButton6);
 
         // Création des labels pour les informations du joueur (vie et argent)
-        JLabel livesLabel = new JLabel("Lives: " + player.getLives());
-        JLabel moneyLabel = new JLabel("Money: " + player.getMoney());
+        livesLabel = new JLabel("Lives: " + player.getLives());
+        moneyLabel = new JLabel("Money: " + player.getMoney());
 
         // Chargement de l'icône depuis le fichier
         ImageIcon livesicon = new ImageIcon(money_livesImages[1]);
@@ -200,19 +202,31 @@ public class GameState {
                 gameMapPanel.repaint();
                 enemySpawnCounter++;
                 if (enemySpawnCounter >= enemySpawnInterval) {
-                    gameMap.spawnNewEnemies();
+                    player.setMoney(gameMap.update(player)+ player.getMoney());
                     enemySpawnCounter = 0;
                 }
 
-                gameMap.attackTowers();
-                gameMap.attackEnemies(player);
-                gameMap.removeDeadEnemies(); // on supprime tout les enemis mort
-                gameMap.removeDeadTowers(); // meme chose pour les tours
-                gameMap.moveAllEnemies(); // on déplace tout les enemis
+                 // Mettre à jour les valeurs des étiquettes
+                updatePlayerInfoLabels();
             }
         });
         timer.start();
     }
+
+    // Méthode pour mettre à jour les valeurs des étiquettes de vies et d'argent
+private void updatePlayerInfoLabels() {
+    // Récupérer les nouvelles valeurs du joueur
+    int lives = player.getLives();
+    int money = player.getMoney();
+
+    // Mettre à jour les étiquettes avec les nouvelles valeurs
+    livesLabel.setText("Lives: " + lives);
+    moneyLabel.setText("Money: " + money);
+
+    // Actualiser l'affichage
+    gamePanel.revalidate();
+    gamePanel.repaint();
+}
 
     // Renvoie le panneau de jeu
     public JPanel getGamePanel() {
