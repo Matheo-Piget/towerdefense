@@ -15,6 +15,13 @@ import javax.swing.JPanel;
 
 import src.main.java.configMap.GameMap;
 import src.main.java.model.*;
+import src.main.java.model.enemies.*;
+import src.main.java.model.towers.BulletTower;
+import src.main.java.model.towers.FigthTower;
+import src.main.java.model.towers.NukeTower;
+import src.main.java.model.towers.SniperTower;
+import src.main.java.model.towers.SpeedTower;
+import src.main.java.model.towers.TntTower;
 
 /**
  * Panel représentant la carte de jeu et gérant les interactions avec celle-ci.
@@ -22,10 +29,10 @@ import src.main.java.model.*;
 public class GameMapPanel extends JPanel {
 
     private GameMap gameMap;
-    private Image towerImage;
     private int highlightedCellX = -1;
     private int highlightedCellY = -1;
     private Map<String, Image> enemiesImages;
+    private Map<String, Image> towerImages;
     private Image grass;
     private int cellWidth;
     private int cellHeight;
@@ -41,6 +48,7 @@ public class GameMapPanel extends JPanel {
     public GameMapPanel(GameMap gameMap) {
         this.gameMap = gameMap;
         enemiesImages = new HashMap<>();
+        towerImages = new HashMap<>();
         towerToPlace = null;
         isPlacingTower = false;
 
@@ -53,7 +61,22 @@ public class GameMapPanel extends JPanel {
      */
     private void initializeImages() {
         try {
-            towerImage = ImageIO.read(new File("src/main/ressources/towers/fighttower.png"));
+            
+            Image tntTower = ImageIO.read(new File("src/main/ressources/towers/bullettower.png"));
+            Image fightTower = ImageIO.read(new File("src/main/ressources/towers/fighttower.png"));
+            Image sniperTower = ImageIO.read(new File("src/main/ressources/towers/snipertower.png"));
+            Image nukeTower = ImageIO.read(new File("src/main/ressources/towers/nucleartower.png"));
+            Image speedTower = ImageIO.read(new File("src/main/ressources/towers/speedtower.png"));
+            Image bulletTower = ImageIO.read(new File("src/main/ressources/towers/bullettower.png"));
+
+            towerImages.put("tntTower", tntTower);
+            towerImages.put("fightTower", fightTower);
+            towerImages.put("sniperTower", sniperTower);
+            towerImages.put("nukeTower", nukeTower);
+            towerImages.put("speedTower", speedTower);
+            towerImages.put("bulletTower", bulletTower);
+            
+
             grass = ImageIO.read(new File("src/main/ressources/elements/grass.jpg"));
 
             Image enemyDreth = ImageIO.read(new File("src/main/ressources/mobs/dreth.png"));
@@ -126,22 +149,22 @@ public class GameMapPanel extends JPanel {
                 // Utilisation du type de tour sélectionné depuis GameState pour placer la tour
                 switch (towerToPlace) {
                     case "Fight Tower":
-                        gameMap.putElem(new Tower(25, 5, 3, cellY, cellX));
+                        gameMap.putElem(new FigthTower(cellY, cellX));
                         break;
                     case "Bullet Tower":
-                        gameMap.putElem(new Tower(10, 5, 3, cellY, cellX));
+                        gameMap.putElem(new BulletTower(cellY, cellX));
                         break;
                     case "Nuke Tower":
-                        gameMap.putElem(new Tower(60, 10, 3, cellY, cellX));
+                        gameMap.putElem(new NukeTower(cellY, cellX));
                         break;
                     case "Sniper Tower":
-                        gameMap.putElem(new Tower(10, 10, 3, cellY, cellX));
+                        gameMap.putElem(new SniperTower(cellY, cellX));
                         break;
                     case "Speed Tower":
-                        gameMap.putElem(new Tower(15, 10, 3, cellY, cellX));
+                        gameMap.putElem(new SpeedTower(cellY, cellX));
                         break;
                     case "TnT Tower":
-                        gameMap.putElem(new Tower(1, 70, 3, cellY, cellX));
+                        gameMap.putElem(new TntTower(cellY, cellX));
                         break;
                     default:
                         break;
@@ -198,7 +221,6 @@ public class GameMapPanel extends JPanel {
                 int y = j * cellHeight;
 
                 g.drawImage(grass, x, y, cellWidth, cellHeight, this);
-                // else g.drawImage(dirt, x, y, cellWidth, cellHeight, this);
 
             }
         }
@@ -208,7 +230,18 @@ public class GameMapPanel extends JPanel {
             int towerX = t.getX() * cellWidth;
             int towerY = t.getY() * cellHeight;
 
-            g.drawImage(towerImage, towerX, towerY, cellWidth, cellHeight, this);
+            if (t instanceof FigthTower)
+                g.drawImage(towerImages.get("fightTower"), towerX, towerY, cellWidth, cellHeight, this);
+            if (t instanceof BulletTower)
+                g.drawImage(towerImages.get("bulletTower"), towerX, towerY, cellWidth, cellHeight, this);
+            if (t instanceof NukeTower)
+                g.drawImage(towerImages.get("nukeTower"), towerX, towerY, cellWidth, cellHeight, this);
+            if (t instanceof SniperTower)
+                g.drawImage(towerImages.get("sniperTower"), towerX, towerY, cellWidth, cellHeight, this);
+            if (t instanceof SpeedTower)
+                g.drawImage(towerImages.get("speedTower"), towerX, towerY, cellWidth, cellHeight, this);
+            if (t instanceof TntTower)
+                g.drawImage(towerImages.get("tntTower"), towerX, towerY, cellWidth, cellHeight, this);
         }
 
         // Dessine les ennemis sur la carte
@@ -216,15 +249,18 @@ public class GameMapPanel extends JPanel {
             int enemyX = enemy.getX() * cellWidth;
             int enemyY = enemy.getY() * cellHeight;
 
-            if (enemy instanceof Enemy)
+            if (enemy instanceof Dreth)
                 g.drawImage(enemiesImages.get("enemyDreth"), enemyX, enemyY, cellWidth, cellHeight, this);
-            // if(enemy instanceof StrongEnemy)
-            // g.drawImage(enemiesImages.get("StrongEnemy"), enemyX, enemyY, cellWidth,
-            // cellHeight, this);
-            // if(enemy instanceof WeakEnemy) g.drawImage(enemiesImages.get("WeakEnemy"),
-            // enemyX, enemyY, cellWidth, cellHeight, this);
-            // if(enemy instanceof RangeEnemy) g.drawImage(enemiesImages.get("RangeEnemy"),
-            // enemyX, enemyY, cellWidth, cellHeight, this);
+            if (enemy instanceof Zorch)
+                g.drawImage(enemiesImages.get("enemyZorch"), enemyX, enemyY, cellWidth, cellHeight, this);
+            if (enemy instanceof Fyron)
+                g.drawImage(enemiesImages.get("enemyFyron"), enemyX, enemyY, cellWidth, cellHeight, this);
+            if (enemy instanceof Gazer)
+                g.drawImage(enemiesImages.get("enemyGazer"), enemyX, enemyY, cellWidth, cellHeight, this);
+            if (enemy instanceof Kryon)
+                g.drawImage(enemiesImages.get("enelyKryon"), enemyX, enemyY, cellWidth, cellHeight, this);
+            if (enemy instanceof Liche)
+                g.drawImage(enemiesImages.get("enemyLIche"), enemyX, enemyY, cellWidth, cellHeight, this);
         }
         if (highlightedCellX != -1 && highlightedCellY != -1) {
             g.setColor(new Color(255, 255, 0, 100)); // Jaune avec opacité réduite
