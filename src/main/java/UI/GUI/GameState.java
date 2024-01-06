@@ -179,6 +179,20 @@ public class GameState {
     private JButton createTowerButtonWithImage(String towerType, String imagePath, int width, int height) {
         JButton button = new JButton(towerType);
 
+        button.setBackground(Color.WHITE); // Couleur de fond
+        button.setOpaque(true); // Rend le fond visible
+
+        // Ajouter un effet de survol
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(Color.LIGHT_GRAY); // Change la couleur de fond lorsqu'on survole le bouton
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(Color.WHITE); // Rétablit la couleur de fond initiale quand on quitte le bouton
+            }
+        });
+
         try {
             Image originalImage = ImageIO.read(new File(imagePath));
             Image resizedImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
