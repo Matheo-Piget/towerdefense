@@ -258,9 +258,13 @@ public class GameState {
         JButton restartButton = new JButton("Rejouer");
         restartButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Code pour relancer le jeu ici, par exemple réinitialisation des valeurs
-                // ou redémarrage du timer, etc.
-                // Vous pouvez appeler une méthode de réinitialisation du jeu ici
+                player.reset();
+                gameMap.reset();
+                gamePanel.remove(gameOverLabel);
+                gamePanel.remove(restartButton);
+                gamePanel.repaint();
+                
+                startGameLoop();
             }
         });
 
