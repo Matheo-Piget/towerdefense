@@ -3,6 +3,7 @@ package src.main.java.UI.GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -79,8 +80,7 @@ public class GameState {
                 }
             }
         };
-        topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
-        topPanel.add(Box.createHorizontalStrut(10));
+        topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
         // Chemins des images des boutons de tour
         String[] towerImages = {
@@ -161,7 +161,6 @@ public class GameState {
         topPanel.add(iconLabel_money);
         topPanel.add(moneyLabel);
 
-        topPanel.add(Box.createHorizontalStrut(10));
         topPanel.setPreferredSize(new Dimension(1, 200));
         topPanel.repaint();
         return topPanel;
