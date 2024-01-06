@@ -3,6 +3,7 @@ package src.main.java.UI.GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -122,6 +123,13 @@ public class GameState {
         // Création des labels pour les informations du joueur (vie et argent)
         livesLabel = new JLabel("Lives: " + player.getLives());
         moneyLabel = new JLabel("Money: " + player.getMoney());
+
+        // Définition d'une nouvelle police pour les labels
+        Font customFont = new Font("Arial", Font.BOLD, 16); // Exemple de police (Arial, en gras, taille 16)
+
+        // Application de la police aux labels
+        livesLabel.setFont(customFont);
+        moneyLabel.setFont(customFont);
 
         // Chargement de l'icône depuis le fichier
         ImageIcon livesicon = new ImageIcon(money_livesImages[1]);
