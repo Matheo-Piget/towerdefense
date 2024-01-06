@@ -2,6 +2,7 @@ package src.main.java.UI.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -19,6 +20,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.Border;
@@ -41,6 +43,7 @@ public class GameState {
     int enemySpawnCounter = 0;
     private JLabel livesLabel;
     private JLabel moneyLabel;
+    private JPanel gameOverPanel;
 
     /**
      * Constructeur prenant la carte du jeu et le joueur.
@@ -231,7 +234,7 @@ public class GameState {
                     // Arrêter le timer si le joueur n'a plus de vie
                     ((Timer)e.getSource()).stop();
                     // Autres actions à effectuer lorsque le jeu s'arrête, par exemple afficher un message de fin
-                    System.out.println("Game Over!");
+                    showGameOver();
                 }
 
                  // Mettre à jour les valeurs des étiquettes
@@ -239,6 +242,37 @@ public class GameState {
             }
         });
         timer.start();
+    }
+
+    // Méthode pour afficher l'écran de Game Over
+    private void showGameOver() {
+        // Création d'un nouveau panneau pour l'écran Game Over
+        gameOverPanel = new JPanel();
+        gameOverPanel.setLayout(new BorderLayout());
+
+        // Chargement de l'image de Game Over dans un JLabel
+        ImageIcon gameOverImage = new ImageIcon("src/main/ressources/menu/main_menu_usable.jpg");
+        JLabel gameOverLabel = new JLabel(gameOverImage); 
+
+        // Ajout du bouton de rejouer à ce panneau
+        JButton restartButton = new JButton("Rejouer");
+        restartButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Code pour relancer le jeu ici, par exemple réinitialisation des valeurs
+                // ou redémarrage du timer, etc.
+                // Vous pouvez appeler une méthode de réinitialisation du jeu ici
+            }
+        });
+
+        // Ajout du label et du bouton au panneau
+        gameOverPanel.add(gameOverLabel, BorderLayout.CENTER);
+        gameOverPanel.add(restartButton, BorderLayout.SOUTH);
+        gameOverPanel.setVisible(true);
+
+        // Affichage du panneau Game Over dans la fenêtre de jeu
+        gamePanel.add(gameOverPanel, BorderLayout.CENTER);
+        gamePanel.revalidate();
+        gamePanel.repaint();
     }
 
     // Méthode pour mettre à jour les valeurs des étiquettes de vies et d'argent
