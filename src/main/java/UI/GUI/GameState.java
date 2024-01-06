@@ -267,9 +267,9 @@ public class GameState {
         // Ajout du label et du bouton au panneau
         gameOverPanel.add(gameOverLabel, BorderLayout.CENTER);
         gameOverPanel.add(restartButton, BorderLayout.SOUTH);
-        gameOverPanel.setVisible(true);
 
         // Affichage du panneau Game Over dans la fenêtre de jeu
+        gamePanel.removeAll(); // Supprimez tous les composants de gamePanel avant d'ajouter gameOverPanel
         gamePanel.add(gameOverPanel, BorderLayout.CENTER);
         gamePanel.revalidate();
         gamePanel.repaint();
