@@ -53,6 +53,12 @@ public class Player {
 
     }
 
+    public boolean gameOver(){
+
+        return getLives() <= 0;
+
+    }
+
     public void reset(){
 
         lives = 10;

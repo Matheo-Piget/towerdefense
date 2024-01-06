@@ -227,6 +227,13 @@ public class GameState {
                     enemySpawnCounter = 0;
                 }
 
+                if (player.gameOver()) {
+                    // Arrêter le timer si le joueur n'a plus de vie
+                    ((Timer)e.getSource()).stop();
+                    // Autres actions à effectuer lorsque le jeu s'arrête, par exemple afficher un message de fin
+                    System.out.println("Game Over!");
+                }
+
                  // Mettre à jour les valeurs des étiquettes
                 updatePlayerInfoLabels();
             }
@@ -235,19 +242,19 @@ public class GameState {
     }
 
     // Méthode pour mettre à jour les valeurs des étiquettes de vies et d'argent
-private void updatePlayerInfoLabels() {
-    // Récupérer les nouvelles valeurs du joueur
-    int lives = player.getLives();
-    int money = player.getMoney();
+    private void updatePlayerInfoLabels() {
+        // Récupérer les nouvelles valeurs du joueur
+        int lives = player.getLives();
+        int money = player.getMoney();
 
-    // Mettre à jour les étiquettes avec les nouvelles valeurs
-    livesLabel.setText("Lives: " + lives);
-    moneyLabel.setText("Money: " + money);
+        // Mettre à jour les étiquettes avec les nouvelles valeurs
+        livesLabel.setText("Lives: " + lives);
+        moneyLabel.setText("Money: " + money);
 
-    // Actualiser l'affichage
-    gamePanel.revalidate();
-    gamePanel.repaint();
-}
+        // Actualiser l'affichage
+        gamePanel.revalidate();
+        gamePanel.repaint();
+    }
 
     // Renvoie le panneau de jeu
     public JPanel getGamePanel() {
