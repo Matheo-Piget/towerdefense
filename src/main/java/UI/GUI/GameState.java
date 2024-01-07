@@ -2,6 +2,7 @@ package src.main.java.UI.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -255,25 +256,37 @@ public class GameState {
         JLabel gameOverLabel = new JLabel(gameOverImage); 
 
         // Ajout du bouton de rejouer à ce panneau
-        JButton restartButton = new JButton("Rejouer");
+        JButton restartButton = new JButton(new ImageIcon("src/main/ressources/buttons/gamebuttons/start.png"));
+        restartButton.setOpaque(false);
         restartButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 player.reset();
                 gameMap.reset();
-                gamePanel.remove(gameOverLabel);
-                gamePanel.remove(restartButton);
-                gamePanel.repaint();
-                
+                for (Component comp : gamePanel.getComponents()) {
+
+                    comp.setVisible(true);
+                    
+                }
+                gameOverPanel.setVisible(false); // Cache le panel Game Over
+                restartButton.setVisible(false); // Cache le bouton de redémarrage
+
+                gamePanel.repaint(); // Redessine le panneau de jeu
                 startGameLoop();
+                
             }
         });
+
+        for (Component comp : gamePanel.getComponents()) {
+
+            comp.setVisible(false);
+            
+        }
 
         // Ajout du label et du bouton au panneau
         gameOverPanel.add(gameOverLabel, BorderLayout.CENTER);
         gameOverPanel.add(restartButton, BorderLayout.SOUTH);
 
         // Affichage du panneau Game Over dans la fenêtre de jeu
-        gamePanel.removeAll(); // Supprimez tous les composants de gamePanel avant d'ajouter gameOverPanel
         gamePanel.add(gameOverPanel, BorderLayout.CENTER);
         gamePanel.revalidate();
         gamePanel.repaint();
