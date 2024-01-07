@@ -294,9 +294,9 @@ public class GameMapPanel extends JPanel {
             if (enemy instanceof Gazer)
                 g.drawImage(enemiesImages.get("enemyGazer"), enemyX, enemyY, cellWidth, cellHeight, this);
             if (enemy instanceof Kryon)
-                g.drawImage(enemiesImages.get("enelyKryon"), enemyX, enemyY, cellWidth, cellHeight, this);
+                g.drawImage(enemiesImages.get("enemyKryon"), enemyX, enemyY, cellWidth, cellHeight, this);
             if (enemy instanceof Liche)
-                g.drawImage(enemiesImages.get("enemyLIche"), enemyX, enemyY, cellWidth, cellHeight, this);
+                g.drawImage(enemiesImages.get("enemyLiche"), enemyX, enemyY, cellWidth, cellHeight, this);
         }
         if (highlightedCellX != -1 && highlightedCellY != -1) {
             g.setColor(new Color(255, 255, 0, 100)); // Jaune avec opacité réduite
