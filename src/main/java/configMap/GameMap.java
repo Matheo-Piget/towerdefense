@@ -157,7 +157,7 @@ public class GameMap {
                 }
                 break;
             default:
-                gain = 5; // Valeur par défaut pour éviter les erreurs
+                gain = 25; // Valeur par défaut pour éviter les erreurs
                 break;
         }
         return gain;
