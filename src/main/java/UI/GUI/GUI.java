@@ -116,6 +116,10 @@ public class GUI {
         return menuPanel;
     }
 
+    /**
+     * 
+     * @return un Jpanel avec un fond choisi 
+     */
     public JPanel createMainPanel() {
 
         return new JPanel(new BorderLayout()) { // on créer un panel general pour mettre une image en fond pour le
@@ -158,6 +162,9 @@ public class GUI {
 
     }
 
+    /**
+     * @return un JPanel pour les options 
+     */
     private JPanel createRulesPanel() {
         JPanel rulesPanel = new JPanel(new BorderLayout()) {
             @Override
@@ -237,8 +244,6 @@ public class GUI {
 
         return optionsPanel;
     }
-
-    
 
     /**
      * méthode qui ajoute un boutton au panel mis en parametre, avec une image et un
