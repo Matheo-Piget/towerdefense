@@ -8,6 +8,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -79,8 +80,6 @@ public class GameState {
                 super.paintComponent(g);
                 if (fond != null) {
                     g.drawImage(fond, 0, 0, getWidth(), getHeight(), this);
-                } else {
-                    System.out.println("debug ");
                 }
             }
         };
@@ -247,47 +246,75 @@ public class GameState {
 
     // Méthode pour afficher l'écran de Game Over
     private void showGameOver() {
-        // Création d'un nouveau panneau pour l'écran Game Over
-        gameOverPanel = new JPanel();
-        gameOverPanel.setLayout(new BorderLayout());
+
+        Image gameOver;
 
         // Chargement de l'image de Game Over dans un JLabel
-        ImageIcon gameOverImage = new ImageIcon("src/main/ressources/menu/main_menu_usable.jpg");
-        JLabel gameOverLabel = new JLabel(gameOverImage); 
+        try {
+            
+            gameOver = ImageIO.read(new File("src/main/ressources/menu/main_menu_usable.jpg"));
+            // Création d'un nouveau panneau pour l'écran Game Over
+            JPanel gameOverPanel = new JPanel(){
 
-        // Ajout du bouton de rejouer à ce panneau
-        JButton restartButton = new JButton(new ImageIcon("src/main/ressources/buttons/gamebuttons/start.png"));
-        restartButton.setOpaque(false);
-        restartButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                player.reset();
-                gameMap.reset();
-                for (Component comp : gamePanel.getComponents()) {
+                @Override
+                public void paintComponent(Graphics g){
 
-                    comp.setVisible(true);
+                    super.paintComponent(g);
+
+                    g.drawImage(gameOver, 0, 0, getHeight(), getWidth(), this);
+
+
+                }
+                
+            };
+            gameOverPanel.repaint();
+            gameOverPanel.setLayout(new GridLayout(5, 1));
+        
+
+        
+
+            // Ajout du bouton de rejouer à ce panneau
+            JButton restartButton = new JButton(new ImageIcon("src/main/ressources/buttons/gamebuttons/start.png"));
+            restartButton.setOpaque(false);
+            restartButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    player.reset();
+                    gameMap.reset();
+                    for (Component comp : gamePanel.getComponents()) {
+
+                        comp.setVisible(true);
+                        
+                    }
+                    gameOverPanel.setVisible(false); // Cache le panel Game Over
+                    restartButton.setVisible(false); // Cache le bouton de redémarrage
+
+                    gamePanel.repaint(); // Redessine le panneau de jeu
+                    startGameLoop();
                     
                 }
-                gameOverPanel.setVisible(false); // Cache le panel Game Over
-                restartButton.setVisible(false); // Cache le bouton de redémarrage
+            });
 
-                gamePanel.repaint(); // Redessine le panneau de jeu
-                startGameLoop();
+            for (Component comp : gamePanel.getComponents()) {
+
+                comp.setVisible(false);
                 
             }
-        });
 
-        for (Component comp : gamePanel.getComponents()) {
+            // Ajout du label et du bouton au panneau
+            gameOverPanel.add(new JPanel());
+            gameOverPanel.add(new JPanel());
+            gameOverPanel.add(new JPanel());
+            gameOverPanel.add(new JPanel());
+            gameOverPanel.add(restartButton);
 
-            comp.setVisible(false);
-            
+            // Affichage du panneau Game Over dans la fenêtre de jeu
+            gamePanel.add(gameOverPanel, BorderLayout.CENTER);
+
+        } catch (Exception e){
+
+            e.printStackTrace();
+
         }
-
-        // Ajout du label et du bouton au panneau
-        gameOverPanel.add(gameOverLabel, BorderLayout.CENTER);
-        gameOverPanel.add(restartButton, BorderLayout.SOUTH);
-
-        // Affichage du panneau Game Over dans la fenêtre de jeu
-        gamePanel.add(gameOverPanel, BorderLayout.CENTER);
         gamePanel.revalidate();
         gamePanel.repaint();
     }

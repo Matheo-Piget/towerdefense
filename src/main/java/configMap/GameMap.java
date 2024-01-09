@@ -423,13 +423,15 @@ public class GameMap {
     public void spawnNewEnemies() {
 
         int mapHeight = tiles.length;
-        int numberOfEnemies = 2; // Nombre d'ennemis à placer (à ajuster selon vos besoins)
+        int numberOfEnemies = 2; // Nombre d'ennemis à placer 
         Random r = new Random();
-        int random_enemies = (int) (Math.random() * 6);
+        int random_enemies;
 
         for (int i = 0; i < numberOfEnemies; i++) {
             int randomX = r.nextBoolean() ? 8 : 9;// Position aléatoire sur la dernière colonne de la carte
             int randomY = (int) (Math.random() * mapHeight); // Position aléatoire sur la hauteur de la carte
+
+            random_enemies = (int) (Math.random() * 6);
 
             switch (random_enemies) { // place un enemie alétoire parmit tout les types d'enemies possible
                 case 0:
