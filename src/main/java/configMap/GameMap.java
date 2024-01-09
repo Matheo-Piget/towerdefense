@@ -363,8 +363,12 @@ public class GameMap {
         for (Enemy e : listOfAllEnemies()) {
 
             if (e.getHealth() <= 0) {
-                money_win += moneyOfDeadEnemy(typeE(e));
-                removeElem(e);
+                if(e.getX() != 0){
+                    money_win += moneyOfDeadEnemy(typeE(e));
+                    removeElem(e);
+                }else {
+                    removeElem(e);
+                }
             }
 
         }

@@ -59,12 +59,13 @@ public class Enemy extends Element implements Action {
 
         Tower t = map.findTowerOnSameLine(this);
 
-        if (getX() == 0)
+        if (getX() == 0){
             p.lostLive();
-        if (t == null)
-            return;
-        else if (getX() - t.getX() == 1)
-            t.setHealth(health - getDamage());
+            setHealth(0);
+
+        }
+        if (t == null) return;
+        else if (getX() - t.getX() == 1) t.setHealth(health - getDamage());
 
     }
 
