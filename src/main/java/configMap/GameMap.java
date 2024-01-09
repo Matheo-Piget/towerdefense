@@ -540,6 +540,10 @@ public class GameMap {
 
     }
 
+    /**
+     * supprime tout les enemis et les tours lorsqu'on relance une partie
+     * 
+     */
     public void reset() {
 
         for(Enemy e : listOfAllEnemies()) removeElem(e);

@@ -184,8 +184,9 @@ public class TerminalUI {
         switch (reponse) {
             case "oui":
                 System.out.println("\033\143");
-                TerminalUI new_partie = new TerminalUI(new GameMap(5, 10), new Player(200, 10));
-                new_partie.start();
+                map.reset();
+                player.reset();
+                start();
 
                 break;
 
