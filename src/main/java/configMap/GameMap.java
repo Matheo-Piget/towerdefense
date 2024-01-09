@@ -2,7 +2,6 @@ package src.main.java.configMap;
 
 import java.util.ArrayList;
 import java.util.Random;
-import src.main.java.UI.TerminalUI;
 import src.main.java.model.*;
 import src.main.java.model.enemies.Dreth;
 import src.main.java.model.enemies.Fyron;
