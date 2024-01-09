@@ -144,7 +144,7 @@ public class TerminalUI {
         System.out.print("Entrez votre choix : ");
         choixDifficulte = scanner.nextInt();
 
-        difficulty = choixDifficulte;
+        GameMap.difficulty = choixDifficulte;
 
         System.out.println("Difficulté réglée avec succès !");
         affiche_menu(); // Revenir au menu principal
