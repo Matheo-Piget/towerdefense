@@ -245,6 +245,7 @@ public class GUI {
      * listener mis en parametre
      */
     private void addStyledButton(JPanel panel, String imagePath, ActionListener listener) {
+        JPanel temp = new JPanel(new FlowLayout(FlowLayout.CENTER));
         try {
             Image img = ImageIO.read(new File(imagePath));
             ImageIcon icon = new ImageIcon(img.getScaledInstance(300, 70, Image.SCALE_SMOOTH));
@@ -266,7 +267,10 @@ public class GUI {
                 }
             });
 
-            panel.add(button);
+            temp.setOpaque(false);
+            temp.add(button);
+
+            panel.add(temp);
         } catch (IOException e) {
             e.printStackTrace();
         }

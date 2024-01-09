@@ -261,7 +261,7 @@ public class GameState {
 
                     super.paintComponent(g);
 
-                    g.drawImage(gameOver, 0, 0, getHeight(), getWidth(), this);
+                    g.drawImage(gameOver, 0, 0, getWidth(), getHeight(), this);
 
 
                 }
@@ -274,8 +274,16 @@ public class GameState {
         
 
             // Ajout du bouton de rejouer à ce panneau
-            JButton restartButton = new JButton(new ImageIcon("src/main/ressources/buttons/gamebuttons/start.png"));
+
+            Image img = ImageIO.read(new File("src/main/ressources/buttons/gamebuttons/start.png"));
+            ImageIcon icon = new ImageIcon(img.getScaledInstance(300, 70, Image.SCALE_SMOOTH));
+            JButton restartButton = new JButton(icon);
+            restartButton.setPreferredSize(new Dimension(300, 70));
             restartButton.setOpaque(false);
+            // Création d'un JPanel avec FlowLayout pour encapsuler le bouton
+            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+            buttonPanel.add(restartButton);
+            buttonPanel.setOpaque(false);
             restartButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     player.reset();
@@ -301,11 +309,19 @@ public class GameState {
             }
 
             // Ajout du label et du bouton au panneau
-            gameOverPanel.add(new JPanel());
-            gameOverPanel.add(new JPanel());
-            gameOverPanel.add(new JPanel());
-            gameOverPanel.add(new JPanel());
-            gameOverPanel.add(restartButton);
+            JPanel empty  = new JPanel();
+            empty.setVisible(false);
+            JPanel empty1  = new JPanel();
+            empty1.setVisible(false);
+            JPanel empty2  = new JPanel();
+            empty2.setVisible(false);
+            JPanel empty3  = new JPanel();
+            empty3.setVisible(false);
+            gameOverPanel.add(empty);
+            gameOverPanel.add(empty1);
+            gameOverPanel.add(empty2);
+            gameOverPanel.add(empty3);
+            gameOverPanel.add(buttonPanel);
 
             // Affichage du panneau Game Over dans la fenêtre de jeu
             gamePanel.add(gameOverPanel, BorderLayout.CENTER);
@@ -315,6 +331,7 @@ public class GameState {
             e.printStackTrace();
 
         }
+
         gamePanel.revalidate();
         gamePanel.repaint();
     }
