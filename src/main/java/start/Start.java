@@ -33,7 +33,8 @@ public class Start {
         } else if (choice.equalsIgnoreCase("G")) {
             System.out.println("\033\143");
             System.out.println("Très bien, le jeu va se lancer dans une nouvelle fenêtre.");
-            GUI.main(new String[0]);
+            GUI gui = new GUI();
+            gui.startGUIGame(map, player);
         } else if (choice.equalsIgnoreCase("Q")) {
             System.out.println("\033\143");
             System.out.println("Au revoir !");
