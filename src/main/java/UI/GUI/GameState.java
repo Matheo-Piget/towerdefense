@@ -15,7 +15,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -27,9 +26,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.Border;
-
-import org.w3c.dom.events.MouseEvent;
-
 import src.main.java.configMap.GameMap;
 import src.main.java.start.Player;
 
@@ -37,335 +33,377 @@ import src.main.java.start.Player;
  * Cette classe gère l'état du jeu et la logique de la fenêtre de jeu.
  */
 public class GameState {
-    private GameMap gameMap;
-    private JPanel gamePanel;
-    private GameMapPanel gameMapPanel;
-    private String selectedTowerType;
-    private Player player;
-    private Image fond;
-    int enemySpawnInterval = 15;
-    int enemySpawnCounter = 0;
-    private JLabel livesLabel;
-    private JLabel moneyLabel;
-    private JPanel gameOverPanel;
 
-    /**
-     * Constructeur prenant la carte du jeu et le joueur.
-     * Initialise la carte du jeu avec des ennemis et le panneau de jeu avec des
-     * boutons pour placer des tours.
-     * 
-     * @param map    La carte du jeu.
-     * @param player Le joueur.
-     */
-    public GameState(GameMap map, Player player) {
-        gameMap = map;
-        this.player = player;
-        gameMapPanel = new GameMapPanel(map, this.player); // Initialise le panneau de la carte du jeu
+  private GameMap gameMap;
+  private JPanel gamePanel;
+  private GameMapPanel gameMapPanel;
+  private String selectedTowerType;
+  private Player player;
+  private Image fond;
+  int enemySpawnInterval = 15;
+  int enemySpawnCounter = 0;
+  private JLabel livesLabel;
+  private JLabel moneyLabel;
+  private JPanel gameOverPanel;
 
-        // Chargement de l'image de fond
-        try {
-            fond = ImageIO.read(new File("src/main/ressources/menu/ingame.jpg"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+  /**
+   * Constructeur prenant la carte du jeu et le joueur.
+   * Initialise la carte du jeu avec des ennemis et le panneau de jeu avec des
+   * boutons pour placer des tours.
+   *
+   * @param map    La carte du jeu.
+   * @param player Le joueur.
+   */
+  public GameState(GameMap map, Player player) {
+    gameMap = map;
+    this.player = player;
+    gameMapPanel = new GameMapPanel(map, this.player); // Initialise le panneau de la carte du jeu
 
-        // Création du panneau de boutons pour les tours
-        JPanel topPanel = createTopPanel();
-        createGamePanel(topPanel);
+    // Chargement de l'image de fond
+    try {
+      fond = ImageIO.read(new File("src/main/ressources/menu/ingame.jpg"));
+    } catch (Exception e) {
+      e.printStackTrace();
     }
 
     // Création du panneau de boutons pour les tours
-    private JPanel createTopPanel() {
-        JPanel topPanel = new JPanel() {
-            @Override
-            public void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                if (fond != null) {
-                    g.drawImage(fond, 0, 0, getWidth(), getHeight(), this);
-                }
-            }
-        };
-        topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+    JPanel topPanel = createTopPanel();
+    createGamePanel(topPanel);
+  }
 
-        // Chemins des images des boutons de tour
-        String[] towerImages = {
-                "src/main/ressources/buttons/towerbuttons/bullet.jpg",
-                "src/main/ressources/buttons/towerbuttons/fight.jpg",
-                "src/main/ressources/buttons/towerbuttons/nuke.jpg",
-                "src/main/ressources/buttons/towerbuttons/sniper.jpg",
-                "src/main/ressources/buttons/towerbuttons/speed.jpg",
-                "src/main/ressources/buttons/towerbuttons/tnt.jpg"
-        };
+  // Création du panneau de boutons pour les tours
+  private JPanel createTopPanel() {
+    JPanel topPanel = new JPanel() {
+      @Override
+      public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (fond != null) {
+          g.drawImage(fond, 0, 0, getWidth(), getHeight(), this);
+        }
+      }
+    };
+    topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
-        String[] money_livesImages = {
+    // Chemins des images des boutons de tour
+    String[] towerImages = {
+      "src/main/ressources/buttons/towerbuttons/bullet.jpg",
+      "src/main/ressources/buttons/towerbuttons/fight.jpg",
+      "src/main/ressources/buttons/towerbuttons/nuke.jpg",
+      "src/main/ressources/buttons/towerbuttons/sniper.jpg",
+      "src/main/ressources/buttons/towerbuttons/speed.jpg",
+      "src/main/ressources/buttons/towerbuttons/tnt.jpg",
+    };
 
-            "src/main/ressources/elements/dollar.png",
-            "src/main/ressources/elements/heart.png"
+    String[] money_livesImages = {
+      "src/main/ressources/elements/dollar.png",
+      "src/main/ressources/elements/heart.png",
+    };
 
+    // Création des boutons pour chaque type de tour
+    String t1 = "Fight Tower";
+    JButton towerButton1 = createTowerButtonWithImage(
+      t1,
+      towerImages[1],
+      50,
+      50
+    );
+    topPanel.add(towerButton1);
+    String t2 = "Bullet Tower";
+    JButton towerButton2 = createTowerButtonWithImage(
+      t2,
+      towerImages[0],
+      50,
+      50
+    );
+    topPanel.add(towerButton2);
+    String t3 = "Nuke Tower";
+    JButton towerButton3 = createTowerButtonWithImage(
+      t3,
+      towerImages[2],
+      50,
+      50
+    );
+    topPanel.add(towerButton3);
+    String t4 = "Sniper Tower";
+    JButton towerButton4 = createTowerButtonWithImage(
+      t4,
+      towerImages[3],
+      50,
+      50
+    );
+    topPanel.add(towerButton4);
+    String t5 = "Speed Tower";
+    JButton towerButton5 = createTowerButtonWithImage(
+      t5,
+      towerImages[4],
+      50,
+      50
+    );
+    topPanel.add(towerButton5);
+    String t6 = "TnT Tower";
+    JButton towerButton6 = createTowerButtonWithImage(
+      t6,
+      towerImages[5],
+      50,
+      50
+    );
+    topPanel.add(towerButton6);
 
-        };
+    // Création des labels pour les informations du joueur (vie et argent)
+    livesLabel = new JLabel("Lives: " + player.getLives());
+    moneyLabel = new JLabel("Money: " + player.getMoney());
 
-        // Création des boutons pour chaque type de tour
-        String t1 = "Fight Tower";
-        JButton towerButton1 = createTowerButtonWithImage(t1, towerImages[1], 50, 50);
-        topPanel.add(towerButton1);
-        String t2 = "Bullet Tower";
-        JButton towerButton2 = createTowerButtonWithImage(t2, towerImages[0], 50, 50);
-        topPanel.add(towerButton2);
-        String t3 = "Nuke Tower";
-        JButton towerButton3 = createTowerButtonWithImage(t3, towerImages[2], 50, 50);
-        topPanel.add(towerButton3);
-        String t4 = "Sniper Tower";
-        JButton towerButton4 = createTowerButtonWithImage(t4, towerImages[3], 50, 50);
-        topPanel.add(towerButton4);
-        String t5 = "Speed Tower";
-        JButton towerButton5 = createTowerButtonWithImage(t5, towerImages[4], 50, 50);
-        topPanel.add(towerButton5);
-        String t6 = "TnT Tower";
-        JButton towerButton6 = createTowerButtonWithImage(t6, towerImages[5], 50, 50);
-        topPanel.add(towerButton6);
+    // Définition d'une nouvelle police pour les labels
+    Font customFont = new Font("Arial", Font.BOLD, 16); // Exemple de police (Arial, en gras, taille 16)
 
-        // Création des labels pour les informations du joueur (vie et argent)
-        livesLabel = new JLabel("Lives: " + player.getLives());
-        moneyLabel = new JLabel("Money: " + player.getMoney());
+    // Application de la police aux labels
+    livesLabel.setFont(customFont);
+    moneyLabel.setFont(customFont);
 
-        // Définition d'une nouvelle police pour les labels
-        Font customFont = new Font("Arial", Font.BOLD, 16); // Exemple de police (Arial, en gras, taille 16)
+    // Chargement de l'icône depuis le fichier
+    ImageIcon livesicon = new ImageIcon(money_livesImages[1]);
 
-        // Application de la police aux labels
-        livesLabel.setFont(customFont);
-        moneyLabel.setFont(customFont);
+    // Redimensionnement de l'icône à une taille spécifique
+    Image scaledImage_lives = livesicon
+      .getImage()
+      .getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 
-        // Chargement de l'icône depuis le fichier
-        ImageIcon livesicon = new ImageIcon(money_livesImages[1]);
+    // Création d'un ImageIcon redimensionné
+    ImageIcon scaledIcon_lives = new ImageIcon(scaledImage_lives);
 
-        // Redimensionnement de l'icône à une taille spécifique
-        Image scaledImage_lives = livesicon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+    // Création d'un JLabel pour afficher l'icône redimensionnée
+    JLabel iconLabel_lives = new JLabel(scaledIcon_lives);
 
-        // Création d'un ImageIcon redimensionné
-        ImageIcon scaledIcon_lives = new ImageIcon(scaledImage_lives);
+    // Chargement de l'icône depuis le fichier
+    ImageIcon moneyIcon = new ImageIcon(money_livesImages[0]);
 
-        // Création d'un JLabel pour afficher l'icône redimensionnée
-        JLabel iconLabel_lives = new JLabel(scaledIcon_lives);
+    // Redimensionnement de l'icône à une taille spécifique
+    Image scaledImage_money = moneyIcon
+      .getImage()
+      .getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 
-        // Chargement de l'icône depuis le fichier
-        ImageIcon moneyIcon = new ImageIcon(money_livesImages[0]);
+    // Création d'un ImageIcon redimensionné
+    ImageIcon scaledIcon_money = new ImageIcon(scaledImage_money);
 
-        // Redimensionnement de l'icône à une taille spécifique
-        Image scaledImage_money = moneyIcon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+    // Création d'un JLabel pour afficher l'icône redimensionnée
+    JLabel iconLabel_money = new JLabel(scaledIcon_money);
 
-        // Création d'un ImageIcon redimensionné
-        ImageIcon scaledIcon_money = new ImageIcon(scaledImage_money);
+    // Ajout des labels à côté des boutons dans le panneau supérieur
+    topPanel.add(iconLabel_lives);
+    topPanel.add(livesLabel);
+    topPanel.add(iconLabel_money);
+    topPanel.add(moneyLabel);
 
-        // Création d'un JLabel pour afficher l'icône redimensionnée
-        JLabel iconLabel_money = new JLabel(scaledIcon_money);
+    topPanel.setPreferredSize(new Dimension(1, 200));
+    topPanel.repaint();
+    return topPanel;
+  }
 
-        // Ajout des labels à côté des boutons dans le panneau supérieur
-        topPanel.add(iconLabel_lives);
-        topPanel.add(livesLabel);
-        topPanel.add(iconLabel_money);
-        topPanel.add(moneyLabel);
+  // Création du panneau de jeu avec la carte et les boutons pour les tours
+  private void createGamePanel(JPanel topPanel) {
+    gamePanel = new JPanel();
+    gamePanel.setLayout(new BorderLayout());
+    gamePanel.add(gameMapPanel, BorderLayout.CENTER);
+    gamePanel.add(topPanel, BorderLayout.NORTH);
+  }
 
-        topPanel.setPreferredSize(new Dimension(1, 200));
-        topPanel.repaint();
-        return topPanel;
-    }
+  // Création d'un bouton pour un type de tour spécifique avec une image
+  // redimensionnée
+  private JButton createTowerButtonWithImage(
+    String towerType,
+    String imagePath,
+    int width,
+    int height
+  ) {
+    JButton button = new JButton(towerType);
 
-    // Création du panneau de jeu avec la carte et les boutons pour les tours
-    private void createGamePanel(JPanel topPanel) {
-        gamePanel = new JPanel();
-        gamePanel.setLayout(new BorderLayout());
-        gamePanel.add(gameMapPanel, BorderLayout.CENTER);
-        gamePanel.add(topPanel, BorderLayout.NORTH);
-    }
+    button.setBackground(Color.WHITE); // Couleur de fond
+    button.setOpaque(true); // Rend le fond visible
 
-    // Création d'un bouton pour un type de tour spécifique avec une image
-    // redimensionnée
-    private JButton createTowerButtonWithImage(String towerType, String imagePath, int width, int height) {
-        JButton button = new JButton(towerType);
-
-        button.setBackground(Color.WHITE); // Couleur de fond
-        button.setOpaque(true); // Rend le fond visible
-
-        // Ajouter un effet de survol
-        button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                button.setBackground(Color.LIGHT_GRAY); // Change la couleur de fond lorsqu'on survole le bouton
-            }
-
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                button.setBackground(Color.WHITE); // Rétablit la couleur de fond initiale quand on quitte le bouton
-            }
-        });
-
-        try {
-            Image originalImage = ImageIO.read(new File(imagePath));
-            Image resizedImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-            ImageIcon resizedIcon = new ImageIcon(resizedImage);
-            button.setIcon(resizedIcon);
-        } catch (IOException e) {
-            e.printStackTrace();
+    // Ajouter un effet de survol
+    button.addMouseListener(
+      new java.awt.event.MouseAdapter() {
+        public void mouseEntered(java.awt.event.MouseEvent evt) {
+          button.setBackground(Color.LIGHT_GRAY); // Change la couleur de fond lorsqu'on survole le bouton
         }
 
-        // Ajout d'une bordure arrondie aux boutons
-        Border roundedBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
-        button.setBorder(BorderFactory.createCompoundBorder(roundedBorder, BorderFactory.createEmptyBorder(10, 15, 10, 15)));
+        public void mouseExited(java.awt.event.MouseEvent evt) {
+          button.setBackground(Color.WHITE); // Rétablit la couleur de fond initiale quand on quitte le bouton
+        }
+      }
+    );
 
-        // Action lorsqu'un bouton de tour est cliqué
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                selectedTowerType = towerType;
-                gameMapPanel.setTowerToPlace(towerType);
-            }
-        });
-        return button;
+    try {
+      Image originalImage = ImageIO.read(new File(imagePath));
+      Image resizedImage = originalImage.getScaledInstance(
+        width,
+        height,
+        Image.SCALE_SMOOTH
+      );
+      ImageIcon resizedIcon = new ImageIcon(resizedImage);
+      button.setIcon(resizedIcon);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
 
-    // Démarre la boucle de jeu avec un Timer
-    public void startGameLoop() {
-        Timer timer = new Timer(200, new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                gameMapPanel.repaint();
-                enemySpawnCounter++;
-                if (enemySpawnCounter >= enemySpawnInterval) {
-                    player.setMoney(gameMap.update(player)+ player.getMoney());
-                    enemySpawnCounter = 0;
-                }
+    // Ajout d'une bordure arrondie aux boutons
+    Border roundedBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
+    button.setBorder(
+      BorderFactory.createCompoundBorder(
+        roundedBorder,
+        BorderFactory.createEmptyBorder(10, 15, 10, 15)
+      )
+    );
 
-                if (player.gameOver()) {
-                    // Arrêter le timer si le joueur n'a plus de vie
-                    ((Timer)e.getSource()).stop();
-                    // Autres actions à effectuer lorsque le jeu s'arrête, par exemple afficher un message de fin
-                    showGameOver();
-                }
+    // Action lorsqu'un bouton de tour est cliqué
+    button.addActionListener(
+      new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          selectedTowerType = towerType;
+          gameMapPanel.setTowerToPlace(towerType);
+        }
+      }
+    );
+    return button;
+  }
 
-                 // Mettre à jour les valeurs des étiquettes
-                updatePlayerInfoLabels();
-            }
-        });
-        timer.start();
-    }
+  // Démarre la boucle de jeu avec un Timer
+  public void startGameLoop() {
+    Timer timer = new Timer(
+      200,
+      new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          gameMapPanel.repaint();
+          enemySpawnCounter++;
+          if (enemySpawnCounter >= enemySpawnInterval) {
+            player.setMoney(gameMap.update(player) + player.getMoney());
+            enemySpawnCounter = 0;
+          }
 
-    // Méthode pour afficher l'écran de Game Over
-    private void showGameOver() {
+          if (player.gameOver()) {
+            // Arrêter le timer si le joueur n'a plus de vie
+            ((Timer) e.getSource()).stop();
+            // Autres actions à effectuer lorsque le jeu s'arrête, par exemple afficher un
+            // message de fin
+            showGameOver();
+          }
 
-        Image gameOver;
+          // Mettre à jour les valeurs des étiquettes
+          updatePlayerInfoLabels();
+        }
+      }
+    );
+    timer.start();
+  }
 
-        // Chargement de l'image de Game Over dans un JLabel
-        try {
-            
-            gameOver = ImageIO.read(new File("src/main/ressources/menu/main_menu_usable.jpg"));
-            // Création d'un nouveau panneau pour l'écran Game Over
-            JPanel gameOverPanel = new JPanel(){
+  // Méthode pour afficher l'écran de Game Over
+  private void showGameOver() {
+    Image gameOver;
 
-                @Override
-                public void paintComponent(Graphics g){
+    // Chargement de l'image de Game Over dans un JLabel
+    try {
+      gameOver =
+        ImageIO.read(new File("src/main/ressources/menu/main_menu_usable.jpg"));
+      // Création d'un nouveau panneau pour l'écran Game Over
+      JPanel gameOverPanel = new JPanel() {
+        @Override
+        public void paintComponent(Graphics g) {
+          super.paintComponent(g);
 
-                    super.paintComponent(g);
+          g.drawImage(gameOver, 0, 0, getWidth(), getHeight(), this);
+        }
+      };
+      gameOverPanel.repaint();
+      gameOverPanel.setLayout(new GridLayout(5, 1));
 
-                    g.drawImage(gameOver, 0, 0, getWidth(), getHeight(), this);
+      // Ajout du bouton de rejouer à ce panneau
 
-
-                }
-                
-            };
-            gameOverPanel.repaint();
-            gameOverPanel.setLayout(new GridLayout(5, 1));
-        
-
-        
-
-            // Ajout du bouton de rejouer à ce panneau
-
-            Image img = ImageIO.read(new File("src/main/ressources/buttons/gamebuttons/start.png"));
-            ImageIcon icon = new ImageIcon(img.getScaledInstance(300, 70, Image.SCALE_SMOOTH));
-            JButton restartButton = new JButton(icon);
-            restartButton.setPreferredSize(new Dimension(300, 70));
-            restartButton.setOpaque(false);
-            // Création d'un JPanel avec FlowLayout pour encapsuler le bouton
-            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            buttonPanel.add(restartButton);
-            buttonPanel.setOpaque(false);
-            restartButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    player.reset();
-                    gameMap.reset();
-                    for (Component comp : gamePanel.getComponents()) {
-
-                        comp.setVisible(true);
-                        
-                    }
-                    gameOverPanel.setVisible(false); // Cache le panel Game Over
-                    restartButton.setVisible(false); // Cache le bouton de redémarrage
-
-                    gamePanel.repaint(); // Redessine le panneau de jeu
-                    startGameLoop();
-                    
-                }
-            });
-
+      Image img = ImageIO.read(
+        new File("src/main/ressources/buttons/gamebuttons/start.png")
+      );
+      ImageIcon icon = new ImageIcon(
+        img.getScaledInstance(300, 70, Image.SCALE_SMOOTH)
+      );
+      JButton restartButton = new JButton(icon);
+      restartButton.setPreferredSize(new Dimension(300, 70));
+      restartButton.setOpaque(false);
+      // Création d'un JPanel avec FlowLayout pour encapsuler le bouton
+      JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+      buttonPanel.add(restartButton);
+      buttonPanel.setOpaque(false);
+      restartButton.addActionListener(
+        new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+            player.reset();
+            gameMap.reset();
             for (Component comp : gamePanel.getComponents()) {
-
-                comp.setVisible(false);
-                
+              comp.setVisible(true);
             }
+            gameOverPanel.setVisible(false); // Cache le panel Game Over
+            restartButton.setVisible(false); // Cache le bouton de redémarrage
 
-            // Ajout du label et du bouton au panneau
-            JPanel empty  = new JPanel();
-            empty.setVisible(false);
-            JPanel empty1  = new JPanel();
-            empty1.setVisible(false);
-            JPanel empty2  = new JPanel();
-            empty2.setVisible(false);
-            JPanel empty3  = new JPanel();
-            empty3.setVisible(false);
-            gameOverPanel.add(empty);
-            gameOverPanel.add(empty1);
-            gameOverPanel.add(empty2);
-            gameOverPanel.add(empty3);
-            gameOverPanel.add(buttonPanel);
-
-            // Affichage du panneau Game Over dans la fenêtre de jeu
-            gamePanel.add(gameOverPanel, BorderLayout.CENTER);
-
-        } catch (Exception e){
-
-            e.printStackTrace();
-
+            gamePanel.repaint(); // Redessine le panneau de jeu
+            startGameLoop();
+          }
         }
+      );
 
-        gamePanel.revalidate();
-        gamePanel.repaint();
+      for (Component comp : gamePanel.getComponents()) {
+        comp.setVisible(false);
+      }
+
+      // Ajout du label et du bouton au panneau
+      JPanel empty = new JPanel();
+      empty.setVisible(false);
+      JPanel empty1 = new JPanel();
+      empty1.setVisible(false);
+      JPanel empty2 = new JPanel();
+      empty2.setVisible(false);
+      JPanel empty3 = new JPanel();
+      empty3.setVisible(false);
+      gameOverPanel.add(empty);
+      gameOverPanel.add(empty1);
+      gameOverPanel.add(empty2);
+      gameOverPanel.add(empty3);
+      gameOverPanel.add(buttonPanel);
+
+      // Affichage du panneau Game Over dans la fenêtre de jeu
+      gamePanel.add(gameOverPanel, BorderLayout.CENTER);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
 
-    // Méthode pour mettre à jour les valeurs des étiquettes de vies et d'argent
-    private void updatePlayerInfoLabels() {
-        // Récupérer les nouvelles valeurs du joueur
-        int lives = player.getLives();
-        int money = player.getMoney();
+    gamePanel.revalidate();
+    gamePanel.repaint();
+  }
 
-        // Mettre à jour les étiquettes avec les nouvelles valeurs
-        livesLabel.setText("Lives: " + lives);
-        moneyLabel.setText("Money: " + money);
+  // Méthode pour mettre à jour les valeurs des étiquettes de vies et d'argent
+  private void updatePlayerInfoLabels() {
+    // Récupérer les nouvelles valeurs du joueur
+    int lives = player.getLives();
+    int money = player.getMoney();
 
-        // Actualiser l'affichage
-        gamePanel.revalidate();
-        gamePanel.repaint();
-    }
+    // Mettre à jour les étiquettes avec les nouvelles valeurs
+    livesLabel.setText("Lives: " + lives);
+    moneyLabel.setText("Money: " + money);
 
-    // Renvoie le panneau de jeu
-    public JPanel getGamePanel() {
-        return gamePanel;
-    }
+    // Actualiser l'affichage
+    gamePanel.revalidate();
+    gamePanel.repaint();
+  }
 
-    // Met à jour le jeu en déplaçant les ennemis et en ajoutant de nouveaux ennemis
-    public void updateGame() {
-        gameMap.update(player);
-    }
+  // Renvoie le panneau de jeu
+  public JPanel getGamePanel() {
+    return gamePanel;
+  }
 
-    // Renvoie le type de tour sélectionné
-    public String getSelectedTowerType() {
-        return selectedTowerType;
-    }
+  // Met à jour le jeu en déplaçant les ennemis et en ajoutant de nouveaux ennemis
+  public void updateGame() {
+    gameMap.update(player);
+  }
 
+  // Renvoie le type de tour sélectionné
+  public String getSelectedTowerType() {
+    return selectedTowerType;
+  }
 }
