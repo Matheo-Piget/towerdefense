@@ -22,7 +22,11 @@
 - 🪄 Attention tout de même car certains ennemis sont plus fort que d'autre et il vous faudra gérer cette différence en utilisant correctement votre argent
 
 ## 📌 Captures d'Écran
-A METTRE A LA FIN
+***Menu Principal :*** 
+![Illustration2](https://i.ibb.co/BzQLfWF/1.png)
+
+***Dans une partie de ProtectiveTowers : *** 
+![Illustration2](https://i.ibb.co/yntPPFm/3.png)
 
 ## 📌 Prérequis
 
