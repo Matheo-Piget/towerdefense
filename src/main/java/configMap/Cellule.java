@@ -1,14 +1,8 @@
 package src.main.java.configMap;
 
 import src.main.java.model.*;
-import src.main.java.model.enemies.Dreth;
-import src.main.java.model.enemies.Fyron;
-import src.main.java.model.enemies.Gazer;
-import src.main.java.model.enemies.Kryon;
-import src.main.java.model.towers.BulletTower;
-import src.main.java.model.towers.SniperTower;
-import src.main.java.model.towers.TntTower;
-import src.main.java.model.towers.FightTower;
+import src.main.java.model.enemies.*;
+import src.main.java.model.towers.*;
 
 /**
  * La classe Cellule représente une cellule de la carte du jeu.
@@ -58,13 +52,17 @@ public class Cellule {
      */
     public void affiche() {
         if (element instanceof Kryon) {
-            System.out.print("\u001B[32m" + "kr" + "\u001B[0m");
+            System.out.print("\u001B[32m" + "Kr" + "\u001B[0m");
         } else if (element instanceof Dreth) {
-            System.out.print("\u001B[33m" + "dr" + "\u001B[0m");
+            System.out.print("\u001B[33m" + "Dr" + "\u001B[0m");
         } else if (element instanceof Fyron) {
-            System.out.print("\u001B[34m" + "fy" + "\u001B[0m");
+            System.out.print("\u001B[34m" + "Fy" + "\u001B[0m");
         } else if (element instanceof Gazer) {
             System.out.print("\u001B[31m" + "Ga" + "\u001B[0m");
+        } else if (element instanceof Liche) {
+            System.out.print("\u001B[31m" + "Li" + "\u001B[0m");
+        } else if (element instanceof Zorch) {
+            System.out.print("\u001B[31m" + "Zo" + "\u001B[0m");
         } else if (element instanceof FightTower) {
             System.out.print("\u001B[32m" + "f♖" + "\u001B[0m");
         } else if (element instanceof SniperTower) {
@@ -73,6 +71,10 @@ public class Cellule {
             System.out.print("\u001B[31m" + "t♖" + "\u001B[0m");
         } else if (element instanceof BulletTower) {
             System.out.print("\u001B[34m" + "b♖" + "\u001B[0m");
+        } else if (element instanceof NukeTower) {
+            System.out.print("\u001B[34m" + "n♖" + "\u001B[0m");
+        } else if (element instanceof SpeedTower) {
+            System.out.print("\u001B[34m" + "s♖" + "\u001B[0m");
         } else {
             System.out.print("--");
         }

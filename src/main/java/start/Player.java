@@ -1,6 +1,5 @@
 package src.main.java.start;
 
-import src.main.java.UI.TerminalUI;
 import src.main.java.configMap.GameMap;
 
 /**
@@ -63,7 +62,7 @@ public class Player {
 
     public void reset() {
 
-        lives = 10;
+        ajustLifeAccordingDifficulty();;
         money = 700;
         score = 0;
 

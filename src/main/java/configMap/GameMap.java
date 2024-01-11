@@ -3,14 +3,8 @@ package src.main.java.configMap;
 import java.util.ArrayList;
 import java.util.Random;
 
-import src.main.java.UI.TerminalUI;
 import src.main.java.model.*;
-import src.main.java.model.enemies.Dreth;
-import src.main.java.model.enemies.Fyron;
-import src.main.java.model.enemies.Gazer;
-import src.main.java.model.enemies.Kryon;
-import src.main.java.model.enemies.Liche;
-import src.main.java.model.enemies.Zorch;
+import src.main.java.model.enemies.*;
 import src.main.java.start.Player;
 
 /**
@@ -46,10 +40,22 @@ public class GameMap {
         }
     }
 
+    /**
+     * 
+     * 
+     * 
+     * @return le nombre de rangés de la map
+     */
     public int getRows() {
         return tiles.length;
     }
 
+    /**
+     * 
+     * 
+     * 
+     * @return le nombre de colonnes de la map
+     */
     public int getCols() {
         return tiles[0].length;
     }
@@ -65,8 +71,12 @@ public class GameMap {
             return 2;
         if (e instanceof Fyron)
             return 3;
-        else
+        if (e instanceof Zorch)
             return 4;
+        if (e instanceof Gazer)
+            return 5;
+        else
+            return 6;
     }
 
     /**
@@ -74,7 +84,7 @@ public class GameMap {
      * case 1 : pour le niveau facile
      * case 2 : pour le niveau moyen
      * case 3 : pour le niveau difficile
-     * TODO A MODIFIER POUR EQUILIBRER LE JEU
+     * @return retourne l'argent gagné par le joueur en fonction de l'enemi tuer 
      */
     public int moneyOfDeadEnemy(int choiceEnemy) {
         int gain = 0;
@@ -82,22 +92,22 @@ public class GameMap {
             case 1:
                 switch (choiceEnemy) {
                     case 1:
-                        gain = 10;
-                        break;
-                    case 2:
-                        gain = 100;
-                        break;
-                    case 3:
-                        gain = 50;
-                        break;
-                    case 4:
                         gain = 200;
                         break;
+                    case 2:
+                        gain = 10;
+                        break;
+                    case 3:
+                        gain = 100;
+                        break;
+                    case 4:
+                        gain = 20;
+                        break;
                     case 5:
-                        gain = 150;
+                        gain = 50;
                         break;
                     case 6:
-                        gain = 20;
+                        gain = 150;
                         break;
                     default:
                         break;
@@ -106,22 +116,22 @@ public class GameMap {
             case 2:
                 switch (choiceEnemy) {
                     case 1:
-                        gain = 7;
-                        break;
-                    case 2:
-                        gain = 75;
-                        break;
-                    case 3:
-                        gain = 45;
-                        break;
-                    case 4:
                         gain = 150;
                         break;
+                    case 2:
+                        gain = 7;
+                        break;
+                    case 3:
+                        gain = 75;
+                        break;
+                    case 4:
+                        gain = 15;
+                        break;
                     case 5:
-                        gain = 100;
+                        gain = 40;
                         break;
                     case 6:
-                        gain = 15;
+                        gain = 100;
                         break;
                     default:
                         break;
@@ -130,22 +140,22 @@ public class GameMap {
             case 3:
                 switch (choiceEnemy) {
                     case 1:
-                        gain = 5;
-                        break;
-                    case 2:
-                        gain = 50;
-                        break;
-                    case 3:
-                        gain = 25;
-                        break;
-                    case 4:
                         gain = 100;
                         break;
+                    case 2:
+                        gain = 5;
+                        break;
+                    case 3:
+                        gain = 50;
+                        break;
+                    case 4:
+                        gain = 10;
+                        break;
                     case 5:
-                        gain = 75;
+                        gain = 30;
                         break;
                     case 6:
-                        gain = 10;
+                        gain = 75;
                         break;
                     default:
                         break;
@@ -226,7 +236,6 @@ public class GameMap {
 
     /**
      * Méthode qui fait attaquer tous les ennemis présents sur la carte
-     * Nuance qui vérifie si l'ennemi est à distance ou non
      */
     public void attackEnemies(Player p) {
 

@@ -14,7 +14,6 @@ public class Start {
     public Start() {
         map = new GameMap(5, 10);
         player = new Player(700, 10);
-        terminalUI = new TerminalUI(map, player);
     }
 
     public void startGame() {
@@ -29,7 +28,8 @@ public class Start {
 
         if (choice.equalsIgnoreCase("T")) {
             System.out.println("\033\143");
-            terminalUI.startTerminalGame(map, player);
+            var party = new TerminalUI(map, player);
+            party.startTerminalGame(map, player);
         } else if (choice.equalsIgnoreCase("G")) {
             System.out.println("\033\143");
             System.out.println("Très bien, le jeu va se lancer dans une nouvelle fenêtre.");
