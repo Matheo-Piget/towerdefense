@@ -125,6 +125,9 @@ public class TerminalUI {
         }
     }
 
+    /**
+     * Panneau pour choisir la difficulté
+     */
     private void chooseDifficulty() {
 
         int choixDifficulte;
@@ -195,6 +198,11 @@ public class TerminalUI {
 
     }
 
+    /**
+     * Montre le menu pour chaque frame
+     * 
+     * 
+     */
     private void displayInGameMenu() {
         int choice;
 
