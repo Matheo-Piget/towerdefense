@@ -302,8 +302,6 @@ public class GameState {
         gamePanel.repaint();
     }
 
-    int n = 0;
-
     // Méthode pour mettre à jour les valeurs des étiquettes de vies et d'argent
     private void updatePlayerInfoLabels() {
         // Récupérer les nouvelles valeurs du joueur
