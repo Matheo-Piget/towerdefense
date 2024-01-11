@@ -8,7 +8,7 @@ import src.main.java.model.enemies.Kryon;
 import src.main.java.model.towers.BulletTower;
 import src.main.java.model.towers.SniperTower;
 import src.main.java.model.towers.TntTower;
-import src.main.java.model.towers.FigthTower;
+import src.main.java.model.towers.FightTower;
 
 /**
  * La classe Cellule représente une cellule de la carte du jeu.
@@ -65,7 +65,7 @@ public class Cellule {
             System.out.print("\u001B[34m" + "fy" + "\u001B[0m");
         } else if (element instanceof Gazer) {
             System.out.print("\u001B[31m" + "Ga" + "\u001B[0m");
-        } else if (element instanceof FigthTower) {
+        } else if (element instanceof FightTower) {
             System.out.print("\u001B[32m" + "f♖" + "\u001B[0m");
         } else if (element instanceof SniperTower) {
             System.out.print("\u001B[33m" + "s♖" + "\u001B[0m");

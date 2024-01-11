@@ -7,7 +7,7 @@ import src.main.java.model.towers.BulletTower;
 import src.main.java.model.towers.SniperTower;
 import src.main.java.model.towers.SpeedTower;
 import src.main.java.model.towers.TntTower;
-import src.main.java.model.towers.FigthTower;
+import src.main.java.model.towers.FightTower;
 import src.main.java.model.towers.NukeTower;
 import src.main.java.start.Player;
 
@@ -260,7 +260,7 @@ public class TerminalUI {
                         int x = scanner.nextInt();
                         int y = scanner.nextInt();
                         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
-                        map.putElem(new FigthTower(y, x));
+                        map.putElem(new FightTower(y, x));
                         player.setMoney(player.getMoney() - 40);
                         fin = false;
 

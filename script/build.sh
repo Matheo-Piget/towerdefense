@@ -8,18 +8,39 @@ echo "Construction des classes en cours..."
 
 javac src/main/java/configMap/Cellule.java
 javac src/main/java/configMap/GameMap.java
+
+javac src/main/java/launchsounds/ActionSound.java
+javac src/main/java/launchsounds/MusicAndSound.java
+
+javac src/main/java/model/enemies/Dreth.java
+javac src/main/java/model/enemies/Fyron.java
+javac src/main/java/model/enemies/Gazer.java
+javac src/main/java/model/enemies/Kryon.java
+javac src/main/java/model/enemies/Liche.java
+javac src/main/java/model/enemies/Zorch.java
+
+javac src/main/java/model/towers/BulletTower.java
+javac src/main/java/model/towers/FightTower.java
+javac src/main/java/model/towers/NukeTower.java
+javac src/main/java/model/towers/SniperTower.java
+javac src/main/java/model/towers/SpeedTower.java
+javac src/main/java/model/towers/TntTower.java
+
 javac src/main/java/model/Element.java
 javac src/main/java/model/Enemy.java
 javac src/main/java/model/Tower.java
+
 javac src/main/java/start/Player.java
 javac src/main/java/start/Start.java
+
 javac src/main/java/UI/TerminalUI.java
+
 javac src/main/java/UI/GUI/GUI.java
+javac src/main/java/UI/GUI/GameMapPanel.java
+javac src/main/java/UI/GUI/GameState.java
+
 
 echo "Compilation des classes terminé"
-
-
-
 
 # On créé un répertoire build et on met toute l'arborescence sur projet dedans
 echo "Création du répertoire build et déplacement dans celui-ci..."
@@ -32,7 +53,6 @@ mkdir start
 mkdir UI
 cd UI && mkdir GUI
 cd ../../../../..
-
 
 
 

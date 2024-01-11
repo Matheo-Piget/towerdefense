@@ -188,7 +188,7 @@ public class GameMapPanel extends JPanel {
     private void placeTower(int cellX, int cellY) {
         switch (towerToPlace) {
             case "Fight Tower":
-                gameMap.putElem(new FigthTower(cellY, cellX));
+                gameMap.putElem(new FightTower(cellY, cellX));
                 break;
             case "Bullet Tower":
                 gameMap.putElem(new BulletTower(cellY, cellX));
@@ -266,7 +266,7 @@ public class GameMapPanel extends JPanel {
             int towerX = t.getX() * cellWidth;
             int towerY = t.getY() * cellHeight;
 
-            if (t instanceof FigthTower)
+            if (t instanceof FightTower)
                 g.drawImage(towerImages.get("fightTower"), towerX, towerY, cellWidth, cellHeight, this);
             if (t instanceof BulletTower)
                 g.drawImage(towerImages.get("bulletTower"), towerX, towerY, cellWidth, cellHeight, this);
