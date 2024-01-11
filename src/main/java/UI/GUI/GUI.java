@@ -243,11 +243,28 @@ public class GUI {
         JPanel empty2 = new JPanel();
         empty2.setOpaque(false);
 
+        JPanel empty3 = new JPanel();
+        empty3.setOpaque(false);
+        JPanel empty4 = new JPanel();
+        empty4.setOpaque(false);
+        JPanel empty5 = new JPanel();
+        empty5.setOpaque(false);
+
         optionsPanel.add(empty);
 
+        JPanel difficulty = new JPanel(new GridLayout(1, 6));
+        difficulty.add(empty3);
+        difficulty.add(empty4);
+        difficulty.setOpaque(false);
 
         
         addStyledButton(optionsPanel, "src/main/ressources/buttons/gamebuttons/mute.png", e -> stopSpecificMusic());
+
+        addStyledButton(difficulty, "src/main/ressources/buttons/gamebuttons/easy.png", e -> GameMap.difficulty = 1);
+        addStyledButton(difficulty, "src/main/ressources/buttons/gamebuttons/medium.png", e -> GameMap.difficulty = 2);
+        addStyledButton(difficulty, "src/main/ressources/buttons/gamebuttons/hard.png", e -> GameMap.difficulty = 3);
+
+        optionsPanel.add(difficulty);
 
         return optionsPanel;
     }
@@ -262,7 +279,7 @@ public class GUI {
             JPanel temp = new JPanel(new FlowLayout());
             temp.setOpaque(false);
             Image img = ImageIO.read(new File(imagePath));
-            if(imagePath == "src/main/ressources/buttons/gamebuttons/mute.png"){icon = new ImageIcon(img.getScaledInstance(100, 100, Image.SCALE_SMOOTH));}
+            if(imagePath == "src/main/ressources/buttons/gamebuttons/mute.png" || imagePath == "src/main/ressources/buttons/gamebuttons/easy.png" || imagePath == "src/main/ressources/buttons/gamebuttons/medium.png" ||imagePath == "src/main/ressources/buttons/gamebuttons/hard.png" ){icon = new ImageIcon(img.getScaledInstance(100, 100, Image.SCALE_SMOOTH));}
             else {icon = new ImageIcon(img.getScaledInstance(300, 70, Image.SCALE_SMOOTH));}
 
             JButton button = new JButton(icon);
