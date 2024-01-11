@@ -6,7 +6,7 @@ build(){
     echo "Construction des classes en cours..."
     javac src/main/java/*/*.java
     javac src/main/java/*/*/*.java
-    echo "Fin du script buid.sh, pour lancer le programme, veuillez executer le script run.sh"
+    echo "Fin du script build.sh, pour lancer le programme, veuillez executer le script run.sh"
 }
 
 remove(){
