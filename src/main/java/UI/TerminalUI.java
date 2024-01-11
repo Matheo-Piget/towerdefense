@@ -3,12 +3,7 @@ package src.main.java.UI;
 import java.util.Scanner;
 
 import src.main.java.configMap.GameMap;
-import src.main.java.model.towers.BulletTower;
-import src.main.java.model.towers.SniperTower;
-import src.main.java.model.towers.SpeedTower;
-import src.main.java.model.towers.TntTower;
-import src.main.java.model.towers.FightTower;
-import src.main.java.model.towers.NukeTower;
+import src.main.java.model.towers.*;
 import src.main.java.start.Player;
 
 public class TerminalUI {
@@ -17,6 +12,12 @@ public class TerminalUI {
     Player player;
     private final Scanner scanner;
 
+    /**
+     * constructeur de TerminalUI
+     * 
+     * @param map
+     * @param player
+     */
     public TerminalUI(GameMap map, Player player) {
 
         this.map = map;
@@ -26,7 +27,13 @@ public class TerminalUI {
 
     }
 
-    public void affiche_règles() {
+
+    /**
+     * 
+     * afffiche les règles
+     */
+
+    public void showRules() {
 
         System.out.println("\033\143");
         System.out.println("===== RÈGLES DU JEU =====");
@@ -51,7 +58,7 @@ public class TerminalUI {
 
         System.out.println("Name ==== Lives ==== Damage");
         System.out.println(" Dreth : 10, 10");
-        System.out.println("  Fyron : 20, 10");
+        System.out.println(" Fyron : 20, 10");
         System.out.println(" Gazer : 10, 5");
         System.out.println(" Kryon : 70, 30");
         System.out.println(" Liche : 50, 20");
@@ -62,14 +69,18 @@ public class TerminalUI {
         String choix = scanner.nextLine();
         if (choix.equalsIgnoreCase("M")) {
             System.out.println("\033\143");
-            affiche_menu();
+            showMenu();
         } else {
             System.out.println("Choix invalide. Veuillez choisir une option valide.");
         }
 
     }
 
-    public void affiche_menu() {
+    /**
+     * 
+     * affiche le menu
+     */
+    public void showMenu() {
         int choix;
 
         System.out.println("===== MENU DU JEU =====");
@@ -93,10 +104,10 @@ public class TerminalUI {
                 System.out.println("Reprise du jeu");
                 break;
             case 3:
-                gererOptions();
+                showOption();
                 break;
             case 4:
-                affiche_règles();
+                showRules();
                 break;
             case 5:
                 System.out.println("Scores du jeu");
@@ -110,7 +121,12 @@ public class TerminalUI {
         }
     }
 
-    private void gererOptions() {
+    /**
+     * 
+     * 
+     * affiche les options 
+     */
+    private void showOption() {
 
         int choixOption;
 
@@ -122,7 +138,7 @@ public class TerminalUI {
 
         switch (choixOption) {
             case 1:
-                choisirDifficulte();
+                chooseDifficulty();
                 break;
             default:
                 System.out.println("Choix invalide.");
@@ -130,7 +146,10 @@ public class TerminalUI {
         }
     }
 
-    private void choisirDifficulte() {
+    /**
+     * Panneau pour choisir la difficulté
+     */
+    private void chooseDifficulty() {
 
         int choixDifficulte;
 
@@ -145,12 +164,12 @@ public class TerminalUI {
         GameMap.difficulty = choixDifficulte;
 
         System.out.println("Difficulté réglée avec succès !");
-        affiche_menu(); // Revenir au menu principal
+        showMenu(); // Revenir au menu principal
     }
 
     public void startTerminalGame() {
 
-        affiche_menu(); // au démarrage on affiche le menu
+        showMenu(); // au démarrage on affiche le menu
 
     }
 
@@ -200,6 +219,11 @@ public class TerminalUI {
 
     }
 
+    /**
+     * Montre le menu pour chaque frame
+     * 
+     * 
+     */
     private void displayInGameMenu() {
         int choice;
 
@@ -227,7 +251,7 @@ public class TerminalUI {
 
                 case 3:
                     System.out.println("\033\143");
-                    affiche_menu();
+                    showMenu();
                     break;
 
                 default:
@@ -301,7 +325,7 @@ public class TerminalUI {
                         int y = scanner.nextInt();
                         // Logique pour placer la tour à l'emplacement (x, y) sur la carte
                         map.putElem(new NukeTower(y, x));
-                        player.setMoney(player.getMoney() - 80);
+                        player.setMoney(player.getMoney() - 300);
                         fin = false;
 
                     } else {
