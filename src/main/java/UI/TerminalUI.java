@@ -12,6 +12,12 @@ public class TerminalUI {
     Player player;
     private final Scanner scanner;
 
+    /**
+     * constructeur de TerminalUI
+     * 
+     * @param map
+     * @param player
+     */
     public TerminalUI(GameMap map, Player player) {
 
         this.map = map;
@@ -20,6 +26,12 @@ public class TerminalUI {
                                                // terminal de l'utitlisateur
 
     }
+
+
+    /**
+     * 
+     * afffiche les règles
+     */
 
     public void showRules() {
 
@@ -64,6 +76,10 @@ public class TerminalUI {
 
     }
 
+    /**
+     * 
+     * affiche le menu
+     */
     public void showMenu() {
         int choix;
 
@@ -105,6 +121,11 @@ public class TerminalUI {
         }
     }
 
+    /**
+     * 
+     * 
+     * affiche les options 
+     */
     private void showOption() {
 
         int choixOption;
