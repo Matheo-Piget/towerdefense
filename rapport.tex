@@ -19,7 +19,8 @@
 
 \maketitle
 
-a faire sommaire 
+\tableofcontents
+\newpage
 
 \section{Introduction}
 Le jeu de Tower Defense que nous avons dévélopper dans le cadre de ce projet est une expérience captivante mêlant stratégie, action, et créativité. Plongé dans un univers unique, le joueur est chargé de défendre son territoire contre des vagues incessantes d'ennemis. L'objectif est de prévenir l'invasion en plaçant judicieusement des tours de défense tout en exploitant des tactiques astucieuses. Le jeu ce sépare en plusieurs fonctionalités : \\
@@ -27,8 +28,6 @@ Le jeu de Tower Defense que nous avons dévélopper dans le cadre de ce projet e
 - Un systèmes de construction de tours, toutes avec des caractéristique spécial et unique \\
 - Des enemis variés, des vagues d'enemis au différentes caractéristiques attaque le joueur\\
 - Une interface simplet et intuitive pour ne pas perdre le joueur
-
-\section{Besoins et Objectifs du projet}
 
 \subsection{Contexte}
 
@@ -61,7 +60,7 @@ Rendre un projet sans bug et complet au minima demandé(version terminal) était
 
 Le partage des taches et une organisation précises sont nécéssaire et ont été nos principaux objectifs, une séparation des taches est un éléments essentiel afin de bien progresser dans le projet.
 
-\section{Gestion de projet}
+\section{Gestion du projet}
 
 \subsection{Méthode}
 
@@ -144,9 +143,9 @@ Cette organisation structurée facilite la maintenance, l'extension, et la colla
 
 \section{Développement et Fonctionnalités}
 
-\subsection{Organisaation du Code}
+\subsection{Organisation du Code}
 
-\subsubsection*{Classe \texttt{GameMap}}
+\subsubsection{Classe \texttt{GameMap}}
 La classe \texttt{GameMap} représente la carte du jeu et est essentielle pour la logique du jeu. Elle est structurée de manière à gérer le placement des éléments, les attaques, les déplacements et les mises à jour de la carte. Voici un aperçu des principales fonctionnalités et méthodes de la classe :
 
 \begin{itemize}
@@ -170,7 +169,7 @@ La classe \texttt{GameMap} s'inscrit dans le module \texttt{configMap}, contribu
 
 
 
-\subsubsection*{Classe \texttt{TerminalUI}}
+\subsubsection{Classe \texttt{TerminalUI}}
 La classe \texttt{TerminalUI} gère l'interface utilisateur en mode terminal du jeu. Elle permet aux joueurs d'interagir avec le jeu en affichant des menus, en consultant les règles, en plaçant des tours, etc. Voici un aperçu des principales fonctionnalités et méthodes de la classe :
 
 \begin{itemize}
@@ -195,7 +194,7 @@ La classe \texttt{TerminalUI} sert d'interface utilisateur et facilite l'interac
 
 
 
-\subsubsection*{Classe \texttt{GUI}}
+\subsubsection{Classe \texttt{GUI}}
 
 La classe \texttt{GUI} gère l'interface utilisateur du jeu. Elle joue un rôle essentiel dans la présentation graphique du jeu, permettant aux joueurs d'interagir avec différentes parties du jeu. Voici un aperçu des principales fonctionnalités et méthodes de la classe :
 
@@ -219,7 +218,7 @@ La classe \texttt{GUI} gère l'interface utilisateur du jeu. Elle joue un rôle 
     \item \texttt{startGame()} : Lance le jeu en créant l'état du jeu et en affichant le panneau de jeu.
 \end{itemize}
 
-\subsubsection*{Classe \texttt{GameState}}
+\subsubsection{Classe \texttt{GameState}}
 
 La classe \texttt{GameState} est responsable de la gestion de l'état du jeu et de la logique associée à la fenêtre de jeu. Voici un aperçu des principales fonctionnalités et méthodes de la classe :
 
@@ -264,7 +263,7 @@ Save to grepper
 
 La classe \texttt{GameState} est cruciale pour la gestion de la logique de jeu et offre une intégration fluide entre la carte du jeu, le joueur et l'interface graphique. Les méthodes clairement définies facilitent la compréhension et la maintenance du code.
 
-\subsubsection*{Classe \texttt{GameMapPanel}}
+\subsubsection{Classe \texttt{GameMapPanel}}
 
 La classe \texttt{GameMapPanel} représente le panneau de la carte du jeu et gère les interactions avec celle-ci. Voici un aperçu des principales fonctionnalités et méthodes de la classe :
 
@@ -309,7 +308,7 @@ On a ici résumé les principales classes qui joue un role essentiel dans le jeu
 
 \subsection{Fonctionnalités Principales}
 
-\subsubsection*{Mécaniques de Jeu}
+\subsubsection{Mécaniques de Jeu}
 
 \begin{itemize}
     \item \textbf{Éléments Interactifs :} La carte du jeu est peuplée d'éléments tels que des tours et des ennemis. Chaque cellule de la carte contient un élément, et la disposition de ces éléments influence le déroulement du jeu.
@@ -329,7 +328,7 @@ On a ici résumé les principales classes qui joue un role essentiel dans le jeu
     \item \textbf{Placement de Tours :} Les joueurs peuvent placer des tours sur des emplacements de la carte pour renforcer leur défense.
 \end{itemize}
 
-\subsection*{Gestion des Ressources}
+\subsection{Gestion des Ressources}
 
 \subsubsection*{Images et Textures}
 
@@ -345,14 +344,14 @@ On a ici résumé les principales classes qui joue un role essentiel dans le jeu
     \item \textbf{Musique de Fond :} La musique de fond du jeu est également gérée en tant que ressource sonore, contribuant à l'ambiance globale.
 \end{itemize}
 
-\subsubsection*{Fichiers de Configuration}
+\subsection{Fichiers de Configuration}
 
 \begin{itemize}
     \item \textbf{Paramètres du Jeu :} dans la version terminal, les parametres sont accesibles depuis un menu et permette de regler la difficulté, ce qui influ sur l'argent gagné durant le jeu en tuant les enemis, dans la version graphique, le choix de difficultés n'est pas disponible(voir probleme rencontré) mais un boutton pour mettre le son a zéro est visible.
 \end{itemize}
 
 
-\subsection*{Logique de Jeu}
+\subsection{Logique de Jeu}
 Le jeu se déroule de manière tour par tour, où le joueur a la possibilité de décider quand terminer son tour dans la version en mode terminal, tandis que dans la version graphique, le jeu s'actualise à des intervalles réguliers. Les ennemis se déplacent à différentes vitesses et infligent des dommages variables. L'ordre d'exécution des actions à chaque tour est soigneusement orchestré pour maintenir l'équilibre et l'interaction dynamique entre les tours et les ennemis.
 
 Au début de chaque tour, les tours sur la carte attaquent les ennemis à portée. Cette phase stratégique permet au joueur de planifier ses défenses et d'optimiser les attaques de ses tours pour contrer les vagues d'ennemis. Ensuite, les ennemis effectuent leurs attaques, infligeant des dégâts aux tours sur leur chemin.
@@ -370,6 +369,7 @@ L'utilisation de coordonnées entières a rendu complexe la mise en œuvre de mo
 
 Cette difficulté a mis en lumière l'importance cruciale de la conception initiale et de l'anticipation des besoins du jeu. En réfléchissant à l'interaction entre les éléments du jeu, en particulier les mouvements des ennemis, nous aurions pu envisager dès le départ l'utilisation de coordonnées réelles pour permettre un déplacement fluide. Cependant, cette expérience a été un enseignement précieux sur l'importance de l'itération et de l'adaptabilité dans le processus de développement de jeux vidéo.
 
+\newpage
 \section{Conclusion}
 Au cours du développement de ce jeu de tower defense, notre équipe a relevé divers défis qui ont enrichi notre expérience et renforcé nos compétences en programmation et en conception de jeux. L'un des aspects clés du projet a été la mise en œuvre des fonctionnalités principales qui définissent l'essence même du jeu. Le choix d'une architecture modulaire s'est avéré judicieux, facilitant l'extension du jeu avec de nouvelles fonctionnalités et garantissant une maintenance plus aisée.
 
@@ -385,9 +385,6 @@ En fin de compte, ce jeu de tower defense va au-delà d'une simple application i
 
 \section*{Bibliographie}
 Si vous avez utilisé des ressources externes, référencez-les ici.
-
-
-
 
 
 
