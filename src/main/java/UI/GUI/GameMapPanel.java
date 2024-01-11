@@ -60,7 +60,7 @@ public class GameMapPanel extends JPanel {
     private void initializeImages() {
         try {
 
-            Image tntTower = ImageIO.read(new File("src/main/ressources/towers/bullettower.png"));
+            Image tntTower = ImageIO.read(new File("src/main/ressources/towers/tnttower.png"));
             Image fightTower = ImageIO.read(new File("src/main/ressources/towers/fighttower.png"));
             Image sniperTower = ImageIO.read(new File("src/main/ressources/towers/snipertower.png"));
             Image nukeTower = ImageIO.read(new File("src/main/ressources/towers/nucleartower.png"));

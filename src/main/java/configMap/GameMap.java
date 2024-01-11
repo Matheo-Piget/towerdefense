@@ -416,7 +416,7 @@ public class GameMap {
         attackTowers();
         attackEnemies(p);
         int money_win = removeDeadEnemies(); // on supprime tout les enemis mort
-        p.score += money_win + 20;
+        p.score += money_win + 178;
         removeDeadTowers(); // meme chose pour les tours
         moveAllEnemies(); // on déplace tout les enemis
         spawnNewEnemies();

@@ -56,10 +56,9 @@ public class GUI {
         // Pour lancer la musique du main_menu
         playSpecificMusic("src/main/ressources/music/mainmenumusic.wav");
         clip.loop(Clip.LOOP_CONTINUOUSLY);
-        // Le bloc à ajouter pour mettre le plein écran (à faire à la fin du projet
-        // TODO)
-        // frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        // frame.setUndecorated(true);
+
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setUndecorated(true);
 
         mainPanel = createMainPanel();
 
@@ -326,7 +325,7 @@ public class GUI {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             GUI gui = new GUI();
-            gui.startGUIGame(new GameMap(5, 10), new Player(200, 10));
+            gui.startGUIGame(new GameMap(5, 10), new Player(700, 10));
         });
     }
 }
