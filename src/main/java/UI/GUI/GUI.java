@@ -258,10 +258,12 @@ public class GUI {
      */
     private void addStyledButton(JPanel panel, String imagePath, ActionListener listener) {
         try {
+            ImageIcon icon;
             JPanel temp = new JPanel(new FlowLayout());
             temp.setOpaque(false);
             Image img = ImageIO.read(new File(imagePath));
-            ImageIcon icon = new ImageIcon(img.getScaledInstance(300, 70, Image.SCALE_SMOOTH));
+            if(imagePath == "src/main/ressources/buttons/gamebuttons/mute.png"){icon = new ImageIcon(img.getScaledInstance(100, 100, Image.SCALE_SMOOTH));}
+            else {icon = new ImageIcon(img.getScaledInstance(300, 70, Image.SCALE_SMOOTH));}
 
             JButton button = new JButton(icon);
             button.setBorderPainted(false);
