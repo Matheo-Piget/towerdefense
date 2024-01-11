@@ -64,7 +64,7 @@ public class Player {
     public void reset() {
 
         lives = 10;
-        money = 200;
+        money = 700;
         score = 0;
 
     }
