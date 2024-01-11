@@ -2,33 +2,21 @@
 
 # Fonction build qui réalise tout le travail nécessaire à la construction
 build(){
-
 # Construction des fichiers .class
-echo "Construction des classes en cours..."
-
-javac src/main/java/*/*.java
-javac src/main/java/*/*/*.java
-
-clear
-
-echo "Fin du script buid.sh, pour lancer le programme, veuillez executer le script run.sh"
-
+    echo "Construction des classes en cours..."
+    javac src/main/java/*/*.java
+    javac src/main/java/*/*/*.java
+    echo "Fin du script buid.sh, pour lancer le programme, veuillez executer le script run.sh"
 }
 
+remove(){
+    rm src/main/java/*/*.class
+    rm src/main/java/*/*/*.class
+}
 
-# On sort de script si on y est pour correctement lancer le projet
-repo_actuel=$(basename "$(pwd)")
-if [ "$repo_actuel" == "script" ]; then
-    cd ..
-fi
-
-
-# Chemin du répertoire à supprimer
-repertoire="build"
-
-#On vérifie si le répertoire existe pour le supprimer (lui et son contenu) en cas de conflits
-if [ -d "$repertoire" ]; then
-    rm -rf "$repertoire"
+fichier_recherche="src/main/java/configMap/Cellule.class"
+if [ -e "$fichier_recherche" ]; then
+    remove
     build
 else
     build
