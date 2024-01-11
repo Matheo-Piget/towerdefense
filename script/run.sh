@@ -2,7 +2,7 @@
 
 # Fonction qui lance la classe Start
 launch() {
-    java -cp build src.main.java.start.Start
+    java -cp src.main.java.start.Start
 }
 
 # On sort de script si on y est pour correctement lancer le projet
