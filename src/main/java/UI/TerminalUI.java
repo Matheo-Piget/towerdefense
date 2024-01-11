@@ -16,13 +16,11 @@ public class TerminalUI {
     GameMap map;
     Player player;
     private final Scanner scanner;
-    public static int difficulty;
 
     public TerminalUI(GameMap map, Player player) {
 
         this.map = map;
         this.player = player;
-        difficulty = 1;
         this.scanner = new Scanner(System.in); // on initialise un champ scannaer pour gerer tout les choix via le
                                                // terminal de l'utitlisateur
 
@@ -144,7 +142,7 @@ public class TerminalUI {
         System.out.print("Entrez votre choix : ");
         choixDifficulte = scanner.nextInt();
 
-        difficulty = choixDifficulte;
+        GameMap.difficulty = choixDifficulte;
 
         System.out.println("Difficulté réglée avec succès !");
         affiche_menu(); // Revenir au menu principal

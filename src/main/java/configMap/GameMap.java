@@ -28,6 +28,7 @@ public class GameMap {
 
     /** Tableau représentant la carte du jeu */
     public Cellule[][] tiles;
+    public static int difficulty;
 
     /**
      * On donne au constructeur de GameMap un nombre de lignes et de colonnes défini
@@ -77,20 +78,26 @@ public class GameMap {
      */
     public int moneyOfDeadEnemy(int choiceEnemy) {
         int gain = 0;
-        switch (TerminalUI.difficulty) {
+        switch (difficulty) {
             case 1:
                 switch (choiceEnemy) {
                     case 1:
-                        gain = 3;
+                        gain = 10;
                         break;
                     case 2:
-                        gain = 4;
+                        gain = 100;
                         break;
                     case 3:
-                        gain = 5;
+                        gain = 50;
                         break;
                     case 4:
-                        gain = 5;
+                        gain = 200;
+                        break;
+                    case 5:
+                        gain = 150;
+                        break;
+                    case 6:
+                        gain = 20;
                         break;
                     default:
                         break;
@@ -99,16 +106,22 @@ public class GameMap {
             case 2:
                 switch (choiceEnemy) {
                     case 1:
-                        gain = 2;
+                        gain = 7;
                         break;
                     case 2:
-                        gain = 3;
+                        gain = 75;
                         break;
                     case 3:
-                        gain = 4;
+                        gain = 45;
                         break;
                     case 4:
-                        gain = 4;
+                        gain = 150;
+                        break;
+                    case 5:
+                        gain = 100;
+                        break;
+                    case 6:
+                        gain = 15;
                         break;
                     default:
                         break;
@@ -117,23 +130,29 @@ public class GameMap {
             case 3:
                 switch (choiceEnemy) {
                     case 1:
-                        gain = 1;
+                        gain = 5;
                         break;
                     case 2:
-                        gain = 2;
+                        gain = 50;
                         break;
                     case 3:
-                        gain = 3;
+                        gain = 25;
                         break;
                     case 4:
-                        gain = 3;
+                        gain = 100;
+                        break;
+                    case 5:
+                        gain = 75;
+                        break;
+                    case 6:
+                        gain = 10;
                         break;
                     default:
                         break;
                 }
                 break;
             default:
-                gain = 5; // Valeur par défaut pour éviter les erreurs
+                gain = 20; // Valeur par défaut pour éviter les erreurs
                 break;
         }
         return gain;
