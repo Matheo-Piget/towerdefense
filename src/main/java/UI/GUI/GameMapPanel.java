@@ -59,7 +59,7 @@ public class GameMapPanel extends JPanel {
      */
     private void initializeImages() {
         try {
-            
+
             Image tntTower = ImageIO.read(new File("src/main/ressources/towers/bullettower.png"));
             Image fightTower = ImageIO.read(new File("src/main/ressources/towers/fighttower.png"));
             Image sniperTower = ImageIO.read(new File("src/main/ressources/towers/snipertower.png"));
@@ -73,7 +73,6 @@ public class GameMapPanel extends JPanel {
             towerImages.put("nukeTower", nukeTower);
             towerImages.put("speedTower", speedTower);
             towerImages.put("bulletTower", bulletTower);
-            
 
             grass = ImageIO.read(new File("src/main/ressources/elements/grass.jpg"));
 
@@ -151,13 +150,13 @@ public class GameMapPanel extends JPanel {
                 if (towerCost <= player.getMoney()) {
                     // Placez la tour car le joueur a assez d'argent
                     placeTower(cellX, cellY);
-                    player.setMoney(player.getMoney()-towerCost); // Déduisez le coût de la tour de l'argent du joueur
+                    player.setMoney(player.getMoney() - towerCost); // Déduisez le coût de la tour de l'argent du joueur
                 } else {
-                    
+
                     return;
                 }
             }
-        
+
         }
         repaint();
     }
@@ -177,37 +176,38 @@ public class GameMapPanel extends JPanel {
                 return 80;
             case "Speed Tower":
                 return 75;
-            case "Tnt Tower":
+            case "TnT Tower":
                 return 220;
-            
+
         }
-        return 0; // Si le type de tour n'est pas reconnu, retournez 0 ou un autre montant par défaut
+        return 0; // Si le type de tour n'est pas reconnu, retournez 0 ou un autre montant par
+                  // défaut
     }
 
     // Méthode pour placer la tour
     private void placeTower(int cellX, int cellY) {
         switch (towerToPlace) {
-                    case "Fight Tower":
-                        gameMap.putElem(new FigthTower(cellY, cellX));
-                        break;
-                    case "Bullet Tower":
-                        gameMap.putElem(new BulletTower(cellY, cellX));
-                        break;
-                    case "Nuke Tower":
-                        gameMap.putElem(new NukeTower(cellY, cellX));
-                        break;
-                    case "Sniper Tower":
-                        gameMap.putElem(new SniperTower(cellY, cellX));
-                        break;
-                    case "Speed Tower":
-                        gameMap.putElem(new SpeedTower(cellY, cellX));
-                        break;
-                    case "TnT Tower":
-                        gameMap.putElem(new TntTower(cellY, cellX));
-                        break;
-                    default:
-                        break;
-                }
+            case "Fight Tower":
+                gameMap.putElem(new FigthTower(cellY, cellX));
+                break;
+            case "Bullet Tower":
+                gameMap.putElem(new BulletTower(cellY, cellX));
+                break;
+            case "Nuke Tower":
+                gameMap.putElem(new NukeTower(cellY, cellX));
+                break;
+            case "Sniper Tower":
+                gameMap.putElem(new SniperTower(cellY, cellX));
+                break;
+            case "Speed Tower":
+                gameMap.putElem(new SpeedTower(cellY, cellX));
+                break;
+            case "TnT Tower":
+                gameMap.putElem(new TntTower(cellY, cellX));
+                break;
+            default:
+                break;
+        }
     }
 
     /**
