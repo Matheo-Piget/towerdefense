@@ -1,10 +1,7 @@
 package src.main.java.UI.GUI;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;

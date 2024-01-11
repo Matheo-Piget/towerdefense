@@ -9,7 +9,6 @@ public class Start {
 
     private GameMap map;
     private Player player;
-    private TerminalUI terminalUI;
 
     public Start() {
         map = new GameMap(5, 10);
