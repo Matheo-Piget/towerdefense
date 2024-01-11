@@ -48,37 +48,60 @@ echo "Création du répertoire build et déplacement dans celui-ci..."
 mkdir build
 cd build && mkdir src && cd src && mkdir main && cd main && mkdir java && cd java
 mkdir configMap
+mkdir launchsounds
 mkdir model
 mkdir start
 mkdir UI
 cd UI && mkdir GUI
 cd ../../../../..
 
-
-
 # On déplace les fichiers .class au bon endroit dans le fichier build
 mv "src/main/java/configMap/Cellule.class" "build/src/main/java/configMap/"
 mv "src/main/java/configMap/GameMap.class" "build/src/main/java/configMap/"
-mv src/main/java/model/Element.class build/src/main/java/model/
-mv src/main/java/model/Enemy.class build/src/main/java/model/
-mv src/main/java/model/Tower.class build/src/main/java/model/
-mv src/main/java/start/Player.class build/src/main/java/start/
-mv src/main/java/start/Start.class build/src/main/java/start/
-mv src/main/java/UI/TerminalUI.class build/src/main/java/UI/
-mv src/main/java/UI/GUI/GUI.class build/src/main/java/UI/GUI/
-mv src/main/java/model/FastTower.class build/src/main/java/model/
-mv src/main/java/model/MediumEnemy.class build/src/main/java/model/
-mv src/main/java/model/MediumTower.class build/src/main/java/model/
-mv src/main/java/model/RangeEnemy.class build/src/main/java/model/
-mv src/main/java/model/StrongEnemy.class build/src/main/java/model/
-mv src/main/java/model/StrongTower.class build/src/main/java/model/
-mv src/main/java/model/WeakEnemy.class build/src/main/java/model/
-mv src/main/java/model/WeakTower.class build/src/main/java/model/
 
+mv "src/main/java/launchsounds/ActionSound.class" "build/src/main/java/launchsounds/"
+mv "src/main/java/launchsounds/MusicAndSound.class" "build/src/main/java/launchsounds/"
 
+mv "src/main/java/model/Element.class" "build/src/main/java/model/"
+mv "src/main/java/model/Enemy.class" "build/src/main/java/model/"
+mv "src/main/java/model/Tower.class" "build/src/main/java/model/"
 
-# Fichier étrange qui apparaît lors de la compilation, on le supprime
-rm src/main/java/UI/GUI/GUI\$1.class
+mv "src/main/java/model/enemies/Dreth.class" "build/src/main/java/model/enemies/"
+mv "src/main/java/model/enemies/Fyron.class" "build/src/main/java/model/enemies/"
+mv "src/main/java/model/enemies/Gazer.class" "build/src/main/java/model/enemies/"
+mv "src/main/java/model/enemies/Kryon.class" "build/src/main/java/model/enemies/"
+mv "src/main/java/model/enemies/Liche.class" "build/src/main/java/model/enemies/"
+mv "src/main/java/model/enemies/Zorch.class" "build/src/main/java/model/enemies/"
+
+mv "src/main/java/model/towers/BulletTower.class" "build/src/main/java/model/towers/"
+mv "src/main/java/model/towers/FightTower.class" "build/src/main/java/model/towers/"
+mv "src/main/java/model/towers/NukeTower.class" "build/src/main/java/model/towers/"
+mv "src/main/java/model/towers/SniperTower.class" "build/src/main/java/model/towers/"
+mv "src/main/java/model/towers/TntTower.class" "build/src/main/java/model/towers/"
+
+mv "src/main/java/start/Player.class" "build/src/main/java/start/"
+mv "src/main/java/start/Start.class" "build/src/main/java/start/"
+
+mv "src/main/java/UI/TerminalUI.class" "build/src/main/java/UI/"
+mv "src/main/java/UI/GUI/GameMapPanel.class" "build/src/main/java/UI/GUI/"
+mv "src/main/java/UI/GUI/GUI.class" "build/src/main/java/UI/GUI/"
+mv "src/main/java/UI/GUI/GameState.class" "build/src/main/java/UI/GUI/"
+
+mv "src/main/java/UI/GUI/GUI\$1.class" "build/src/main/java/UI/GUI/"
+mv "src/main/java/UI/GUI/GUI\$2.class" "build/src/main/java/UI/GUI/"
+mv "src/main/java/UI/GUI/GUI\$3.class" "build/src/main/java/UI/GUI/"
+mv "src/main/java/UI/GUI/GUI\$4.class" "build/src/main/java/UI/GUI/"
+mv "src/main/java/UI/GUI/GUI\$5.class" "build/src/main/java/UI/GUI/"
+
+mv "src/main/java/UI/GUI/GameMapPanel\$1.class" "build/src/main/java/UI/GUI/"
+mv "src/main/java/UI/GUI/GameMapPanel\$2.class" "build/src/main/java/UI/GUI/"
+
+mv "src/main/java/UI/GUI/GameState\$1.class" "build/src/main/java/UI/GUI/"
+mv "src/main/java/UI/GUI/GameState\$2.class" "build/src/main/java/UI/GUI/"
+mv "src/main/java/UI/GUI/GameState\$3.class" "build/src/main/java/UI/GUI/"
+mv "src/main/java/UI/GUI/GameState\$4.class" "build/src/main/java/UI/GUI/"
+mv "src/main/java/UI/GUI/GameState\$5.class" "build/src/main/java/UI/GUI/"
+
 
 
 echo "Fin du script buid.sh, pour lancer le programme, veuillez executer le script run.sh"
