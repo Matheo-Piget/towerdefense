@@ -1,6 +1,7 @@
 package src.main.java.start;
 
 import src.main.java.UI.TerminalUI;
+import src.main.java.configMap.GameMap;
 
 /**
  * Classe représentant le joueur
@@ -31,7 +32,7 @@ public class Player {
 
     /** On ajuste le nombre de vie en fonction de la difficulté */
     public void ajustLifeAccordingDifficulty() {
-        switch (TerminalUI.difficulty) {
+        switch (GameMap.difficulty) {
             case 1: // Facile
                 setLives(10);
                 break;
@@ -64,6 +65,7 @@ public class Player {
 
         lives = 10;
         money = 200;
+        score = 0;
 
     }
 
