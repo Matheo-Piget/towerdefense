@@ -9,7 +9,7 @@ echo "Construction des classes en cours..."
 javac src/main/java/*/*.java
 javac src/main/java/*/*/*.java
 
-
+clear
 
 echo "Fin du script buid.sh, pour lancer le programme, veuillez executer le script run.sh"
 
