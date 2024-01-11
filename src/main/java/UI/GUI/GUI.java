@@ -286,12 +286,12 @@ public class GUI {
 
             button.addActionListener(listener);
 
-            button.addMouseListener(new MouseAdapter() {
-                public void mouseEntered(MouseEvent evt) {
+            button.addMouseListener(new MouseAdapter() { 
+                public void mouseEntered(MouseEvent evt) { // on créer une bordure quand la souris est dessus
                     button.setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
                 }
 
-                public void mouseExited(MouseEvent evt) {
+                public void mouseExited(MouseEvent evt) { // on l'enleve quand la souris part
                     button.setBorder(null);
                 }
             });
