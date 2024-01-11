@@ -264,6 +264,7 @@ public class GameState {
                 }
                 gameOverPanel.setVisible(false); // Cache le panel Game Over
                 restartButton.setVisible(false); // Cache le bouton de redémarrage
+                restartButton.setOpaque(false);
 
                 gamePanel.repaint(); // Redessine le panneau de jeu
                 startGameLoop();
