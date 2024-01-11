@@ -2,19 +2,11 @@ package src.main.java.UI.GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.*;
 import javax.swing.border.EmptyBorder;
 
 import src.main.java.configMap.GameMap;
@@ -96,6 +88,7 @@ public class GUI {
         menuPanel.setOpaque(false);
         menuPanel.setBorder(new EmptyBorder(20, 20, 20, 20));
 
+        // laisse des Jpanel pour plus d'esthétisme
         JPanel empty = new JPanel();
         empty.setOpaque(false);
         JPanel empty1 = new JPanel();
