@@ -29,11 +29,12 @@ public class Start {
         if (choice.equalsIgnoreCase("T")) {
             System.out.println("\033\143");
             var party = new TerminalUI(map, player);
-            party.startTerminalGame(map, player);
+            party.startTerminalGame();
         } else if (choice.equalsIgnoreCase("G")) {
             System.out.println("\033\143");
             System.out.println("Très bien, le jeu va se lancer dans une nouvelle fenêtre.");
-            GUI.main(new String[0]);
+            var party = new GUI(map, player);
+            party.startGUIGame();
         } else if (choice.equalsIgnoreCase("Q")) {
             System.out.println("\033\143");
             System.out.println("Au revoir !");

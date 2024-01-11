@@ -148,7 +148,7 @@ public class TerminalUI {
         affiche_menu(); // Revenir au menu principal
     }
 
-    public void startTerminalGame(GameMap map, Player player) {
+    public void startTerminalGame() {
 
         affiche_menu(); // au démarrage on affiche le menu
 

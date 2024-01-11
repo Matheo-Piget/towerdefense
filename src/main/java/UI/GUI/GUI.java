@@ -39,10 +39,14 @@ public class GUI {
     /**
      * Constructeur de GUI
      */
+    public GUI(GameMap map, Player player ){
 
-    public void startGUIGame(GameMap map, Player player) {
-        this.map = map;
         this.player = player;
+        this.map = map;
+
+    }
+
+    public void startGUIGame() {
 
         frame = new JFrame("ProtectiveTowers");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -356,12 +360,5 @@ public class GUI {
 
         gameState.startGameLoop();
 
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            GUI gui = new GUI();
-            gui.startGUIGame(new GameMap(5, 10), new Player(700, 10));
-        });
     }
 }
