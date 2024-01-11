@@ -40,7 +40,7 @@ Pour installer le jeu, merci de suivre les étapes suivantes :
 1. Cloner le repository avec la commande `https://gaufre.informatique.univ-paris-diderot.fr/chater/towerdefense.git`
 2. Entrez votre identificant ainsi que votre mot de passe
 3. Il existe 2 commandes : `./script/build.sh` pour compilier le jeu et `./script/run.sh` pour lancer le jeu
-5. Pour faire les deux, il vous faudra utiliser la commande `./script/build.sh && /script/run.sh`
+5. Pour faire les deux, il vous faudra utiliser la commande `./script/build.sh && ./script/run.sh`
 6. Pour finir, sélectionner le mode graphique ou terminal avec les lettres "G" et "T".
 ![Illustration](https://i.ibb.co/6Wx5nr4/GouT.png)
 
