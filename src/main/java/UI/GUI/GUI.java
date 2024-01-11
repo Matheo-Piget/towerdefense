@@ -260,9 +260,9 @@ public class GUI {
         
         addStyledButton(optionsPanel, "src/main/ressources/buttons/gamebuttons/mute.png", e -> stopSpecificMusic());
 
-        addStyledButton(difficulty, "src/main/ressources/buttons/gamebuttons/easy.png", e -> GameMap.difficulty = 1);
-        addStyledButton(difficulty, "src/main/ressources/buttons/gamebuttons/medium.png", e -> GameMap.difficulty = 2);
-        addStyledButton(difficulty, "src/main/ressources/buttons/gamebuttons/hard.png", e -> GameMap.difficulty = 3);
+        addStyledButton(difficulty, "src/main/ressources/buttons/gamebuttons/easy.png", e -> {GameMap.difficulty = 1; player.ajustLifeAccordingDifficulty();});
+        addStyledButton(difficulty, "src/main/ressources/buttons/gamebuttons/medium.png", e -> {GameMap.difficulty = 2; player.ajustLifeAccordingDifficulty();});
+        addStyledButton(difficulty, "src/main/ressources/buttons/gamebuttons/hard.png", e -> {GameMap.difficulty = 3; player.ajustLifeAccordingDifficulty();});
 
         optionsPanel.add(difficulty);
 
