@@ -9,7 +9,7 @@ import src.main.java.configMap.GameMap;
  * @see Element Pour avoir la liste des attributs et méthodes
  */
 
-public class Tower extends Element implements Action {
+public class Tower extends Element {
 
     /** Vitesse d'attaque */
     private int attackSpeed;
@@ -47,7 +47,7 @@ public class Tower extends Element implements Action {
      * @param gameMap
      * @return true si l'attaque a réussi, false sinon
      */
-    public boolean attaque(GameMap gameMap) {
+    public boolean attack(GameMap gameMap) {
 
         Enemy enemy = gameMap.findEnemyOnSameLine(this); // Recherche de l'ennemi sur la même ligne que la tour
 

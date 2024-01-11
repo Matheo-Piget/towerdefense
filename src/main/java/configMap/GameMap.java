@@ -200,7 +200,7 @@ public class GameMap {
     public void attackTowers() { // fonction qui fait attaquer toutes les tours
 
         for (Tower t : listOfAllTowers()) {
-            t.attaque(this);
+            t.attack(this);
         }
 
     }
@@ -212,7 +212,7 @@ public class GameMap {
     public void attackEnemies(Player p) {
 
         for (Enemy t : listOfAllEnemies()) {
-            t.attaque(this, p);
+            t.attack(this, p);
         }
 
     }
@@ -397,6 +397,7 @@ public class GameMap {
         attackTowers();
         attackEnemies(p);
         int money_win = removeDeadEnemies(); // on supprime tout les enemis mort
+        p.score += money_win + 20;
         removeDeadTowers(); // meme chose pour les tours
         moveAllEnemies(); // on déplace tout les enemis
         spawnNewEnemies();
@@ -512,9 +513,10 @@ public class GameMap {
 
     public void reset() {
 
-        for(Enemy e : listOfAllEnemies()) removeElem(e);
-        for (Tower t : listOfAllTowers()) removeElem(t);
-        
+        for (Enemy e : listOfAllEnemies())
+            removeElem(e);
+        for (Tower t : listOfAllTowers())
+            removeElem(t);
 
     }
 

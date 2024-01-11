@@ -34,7 +34,7 @@ public class GUI {
     private CardLayout cardLayout;
     private GameState gameState; // Référence à l'état du jeu
 
-    private Clip clip; // Pour la musique (TODO) je sais pas si on à le droit d'utiliser Clip :/
+    private Clip clip;
 
     /**
      * Constructeur de GUI
@@ -230,6 +230,7 @@ public class GUI {
                     e.printStackTrace();
                 }
             }
+
         };
         optionsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 
@@ -237,8 +238,6 @@ public class GUI {
 
         return optionsPanel;
     }
-
-    
 
     /**
      * méthode qui ajoute un boutton au panel mis en parametre, avec une image et un

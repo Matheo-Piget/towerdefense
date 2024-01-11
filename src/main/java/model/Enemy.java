@@ -10,7 +10,7 @@ import src.main.java.start.Player;
  * @see Element Pour avoir la liste des attributs et méthodes
  */
 
-public class Enemy extends Element implements Action {
+public class Enemy extends Element {
 
     /** Vitesse de déplacement et portée d'un Ennemi */
     private int speed;
@@ -55,7 +55,7 @@ public class Enemy extends Element implements Action {
      * @param gameMap La carte du jeu
      * @return true si l'attaque a réussi, false sinon
      */
-    public void attaque(GameMap map, Player p) {
+    public void attack(GameMap map, Player p) {
 
         Tower t = map.findTowerOnSameLine(this);
 
@@ -68,7 +68,7 @@ public class Enemy extends Element implements Action {
 
     }
 
-    public void attaque_loin(GameMap gameMap, Player p) {
+    public void rangeAttack(GameMap gameMap, Player p) {
 
         Tower tour = gameMap.findTowerOnSameLine(this); // Recherche de la tour sur la même ligne que l'enemi
 

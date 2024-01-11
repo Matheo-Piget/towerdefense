@@ -26,7 +26,6 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.border.Border;
 
-
 import src.main.java.configMap.GameMap;
 import src.main.java.start.Player;
 
@@ -44,6 +43,7 @@ public class GameState {
     int enemySpawnCounter = 0;
     private JLabel livesLabel;
     private JLabel moneyLabel;
+    private JLabel scoreLabel;
     private JPanel gameOverPanel;
 
     /**
@@ -98,9 +98,8 @@ public class GameState {
 
         String[] money_livesImages = {
 
-            "src/main/ressources/elements/dollar.png",
-            "src/main/ressources/elements/heart.png"
-
+                "src/main/ressources/elements/dollar.png",
+                "src/main/ressources/elements/heart.png"
 
         };
 
@@ -127,13 +126,20 @@ public class GameState {
         // Création des labels pour les informations du joueur (vie et argent)
         livesLabel = new JLabel("Lives: " + player.getLives());
         moneyLabel = new JLabel("Money: " + player.getMoney());
-
-        // Définition d'une nouvelle police pour les labels
-        Font customFont = new Font("Arial", Font.BOLD, 16); // Exemple de police (Arial, en gras, taille 16)
+        scoreLabel = new JLabel("Score: " + player.score);
 
         // Application de la police aux labels
-        livesLabel.setFont(customFont);
-        moneyLabel.setFont(customFont);
+        Font newCustomFont = new Font("Daydream", Font.BOLD, 16); // Exemple avec la police Arial, en gras, taille 16
+        Color customColor = Color.decode("#ffffff"); // Exemple de couleur blanche
+        livesLabel.setForeground(customColor); // Application de la couleur à l'étiquette lives
+        moneyLabel.setForeground(customColor); // Application de la couleur à l'étiquette money
+        scoreLabel.setForeground(customColor);
+        livesLabel.setFont(newCustomFont);
+        moneyLabel.setFont(newCustomFont);
+        scoreLabel.setFont(newCustomFont);
+
+        // On pousse un peu le label de score vers la droite
+        scoreLabel.setLocation(900, 100);
 
         // Chargement de l'icône depuis le fichier
         ImageIcon livesicon = new ImageIcon(money_livesImages[1]);
@@ -162,8 +168,10 @@ public class GameState {
         // Ajout des labels à côté des boutons dans le panneau supérieur
         topPanel.add(iconLabel_lives);
         topPanel.add(livesLabel);
+        topPanel.add(scoreLabel);
         topPanel.add(iconLabel_money);
         topPanel.add(moneyLabel);
+        topPanel.add(scoreLabel);
 
         topPanel.setPreferredSize(new Dimension(1, 200));
         topPanel.repaint();
@@ -208,7 +216,8 @@ public class GameState {
 
         // Ajout d'une bordure arrondie aux boutons
         Border roundedBorder = BorderFactory.createLineBorder(Color.BLACK, 2);
-        button.setBorder(BorderFactory.createCompoundBorder(roundedBorder, BorderFactory.createEmptyBorder(10, 15, 10, 15)));
+        button.setBorder(
+                BorderFactory.createCompoundBorder(roundedBorder, BorderFactory.createEmptyBorder(10, 15, 10, 15)));
 
         // Action lorsqu'un bouton de tour est cliqué
         button.addActionListener(new ActionListener() {
@@ -227,18 +236,19 @@ public class GameState {
                 gameMapPanel.repaint();
                 enemySpawnCounter++;
                 if (enemySpawnCounter >= enemySpawnInterval) {
-                    player.setMoney(gameMap.update(player)+ player.getMoney());
+                    player.setMoney(gameMap.update(player) + player.getMoney());
                     enemySpawnCounter = 0;
                 }
 
                 if (player.gameOver()) {
                     // Arrêter le timer si le joueur n'a plus de vie
-                    ((Timer)e.getSource()).stop();
-                    // Autres actions à effectuer lorsque le jeu s'arrête, par exemple afficher un message de fin
+                    ((Timer) e.getSource()).stop();
+                    // Autres actions à effectuer lorsque le jeu s'arrête, par exemple afficher un
+                    // message de fin
                     showGameOver();
                 }
 
-                 // Mettre à jour les valeurs des étiquettes
+                // Mettre à jour les valeurs des étiquettes
                 updatePlayerInfoLabels();
             }
         });
@@ -253,10 +263,10 @@ public class GameState {
 
         // Chargement de l'image de Game Over dans un JLabel
         ImageIcon gameOverImage = new ImageIcon("src/main/ressources/menu/main_menu_usable.jpg");
-        JLabel gameOverLabel = new JLabel(gameOverImage); 
+        JLabel gameOverLabel = new JLabel(gameOverImage);
 
         // Ajout du bouton de rejouer à ce panneau
-        JButton restartButton = new JButton(new ImageIcon("src/main/ressources/buttons/gamebuttons/start.png"));
+        JButton restartButton = new JButton(new ImageIcon("src/main/ressources/buttons/gamebuttons/retry.png"));
         restartButton.setOpaque(false);
         restartButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -265,21 +275,21 @@ public class GameState {
                 for (Component comp : gamePanel.getComponents()) {
 
                     comp.setVisible(true);
-                    
+
                 }
                 gameOverPanel.setVisible(false); // Cache le panel Game Over
                 restartButton.setVisible(false); // Cache le bouton de redémarrage
 
                 gamePanel.repaint(); // Redessine le panneau de jeu
                 startGameLoop();
-                
+
             }
         });
 
         for (Component comp : gamePanel.getComponents()) {
 
             comp.setVisible(false);
-            
+
         }
 
         // Ajout du label et du bouton au panneau
@@ -292,6 +302,8 @@ public class GameState {
         gamePanel.repaint();
     }
 
+    int n = 0;
+
     // Méthode pour mettre à jour les valeurs des étiquettes de vies et d'argent
     private void updatePlayerInfoLabels() {
         // Récupérer les nouvelles valeurs du joueur
@@ -299,8 +311,10 @@ public class GameState {
         int money = player.getMoney();
 
         // Mettre à jour les étiquettes avec les nouvelles valeurs
+
         livesLabel.setText("Lives: " + lives);
         moneyLabel.setText("Money: " + money);
+        scoreLabel.setText("Score: " + player.score);
 
         // Actualiser l'affichage
         gamePanel.revalidate();

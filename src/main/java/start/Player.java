@@ -9,9 +9,10 @@ import src.main.java.UI.TerminalUI;
  */
 public class Player {
 
-    /* Argent et vies */
+    /* Argent vie et score */
     private int money;
     private int lives;
+    public int score;
 
     /**
      * Constructeur de la classe Player
@@ -53,13 +54,13 @@ public class Player {
 
     }
 
-    public boolean gameOver(){
+    public boolean gameOver() {
 
         return getLives() <= 0;
 
     }
 
-    public void reset(){
+    public void reset() {
 
         lives = 10;
         money = 200;
