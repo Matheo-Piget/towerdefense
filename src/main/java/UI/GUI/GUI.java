@@ -232,9 +232,23 @@ public class GUI {
             }
 
         };
-        optionsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
 
+
+        optionsPanel.setLayout(new GridLayout(7, 2));
         addStyledButton(optionsPanel, "src/main/ressources/buttons/gamebuttons/back.png", e -> showCard("Menu"));
+
+        JPanel empty = new JPanel();
+        empty.setOpaque(false);
+        JPanel empty1 = new JPanel();
+        empty1.setOpaque(false);
+        JPanel empty2 = new JPanel();
+        empty2.setOpaque(false);
+
+        optionsPanel.add(empty);
+
+
+        
+        addStyledButton(optionsPanel, "src/main/ressources/buttons/gamebuttons/mute.png", e -> stopSpecificMusic());
 
         return optionsPanel;
     }
@@ -245,6 +259,8 @@ public class GUI {
      */
     private void addStyledButton(JPanel panel, String imagePath, ActionListener listener) {
         try {
+            JPanel temp = new JPanel(new FlowLayout());
+            temp.setOpaque(false);
             Image img = ImageIO.read(new File(imagePath));
             ImageIcon icon = new ImageIcon(img.getScaledInstance(300, 70, Image.SCALE_SMOOTH));
 
@@ -265,7 +281,8 @@ public class GUI {
                 }
             });
 
-            panel.add(button);
+            temp.add(button);
+            panel.add(temp);
         } catch (IOException e) {
             e.printStackTrace();
         }
