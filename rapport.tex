@@ -362,10 +362,26 @@ La phase suivante concerne la récolte des récompenses. Le joueur gagne de l'ar
 Après la collecte des récompenses, la carte est mise à jour pour retirer les ennemis vaincus et les tours détruites. Les ennemis restants avancent d'une certaine distance, et de nouveaux ennemis apparaissent sur la carte, introduisant un défi constant.
 
 \section{Difficultés Rencontrées}
-Identifiez les principaux défis auxquels vous avez été confronté lors du développement et expliquez comment vous les avez résolus.
+Lors du développement, plusieurs difficultés ont émergé, chacune nécessitant une attention particulière. L'une des premières problématiques a été la découverte d'un fichier inattendu, "GUI\$1.class", au cours des premiers essais de script de compilation. La gestion des coordonnées des éléments a également posé des défis, nécessitant une configuration minutieuse pour garantir un positionnement précis sur la carte du jeu. Un problème notable a été identifié avec les boutons du menu graphique, qui rencontraient des bogues résolus grâce à un ajustement du layout. Par ailleurs, dans le menu terminal, un problème persistait où la fenêtre du jeu passait d'une frame à l'autre même en l'absence de la pose d'une tour. Ces difficultés ont demandé des efforts conséquents pour les résoudre, mais chaque défi surmonté a contribué à améliorer la qualité globale du jeu.\\
+
+Au cours du développement, l'équipe a été confrontée à une difficulté importante liée à la gestion des déplacements fluides des ennemis. Initialement, le choix de coordonnées entières pour représenter la position des éléments sur la carte a entraîné des mouvements saccadés lors des déplacements des ennemis. Nous avons sous-estimé l'impact de cette décision sur la fluidité du jeu.
+
+L'utilisation de coordonnées entières a rendu complexe la mise en œuvre de mouvements continus, ce qui aurait été nécessaire pour un déplacement en temps réel des ennemis. Ce défi a conduit à une réévaluation de notre approche et a motivé le choix de maintenir le jeu dans un format de tour par tour. Bien que cela puisse être perçu comme une limitation, cela a permis d'assurer des déplacements sans accroc, offrant ainsi une expérience de jeu plus stable et prévisible.
+
+Cette difficulté a mis en lumière l'importance cruciale de la conception initiale et de l'anticipation des besoins du jeu. En réfléchissant à l'interaction entre les éléments du jeu, en particulier les mouvements des ennemis, nous aurions pu envisager dès le départ l'utilisation de coordonnées réelles pour permettre un déplacement fluide. Cependant, cette expérience a été un enseignement précieux sur l'importance de l'itération et de l'adaptabilité dans le processus de développement de jeux vidéo.
 
 \section{Conclusion}
-Résumez les points clés de votre projet. Discutez des leçons apprises et des améliorations possibles pour l'avenir.
+Au cours du développement de ce jeu de tower defense, notre équipe a relevé divers défis qui ont enrichi notre expérience et renforcé nos compétences en programmation et en conception de jeux. L'un des aspects clés du projet a été la mise en œuvre des fonctionnalités principales qui définissent l'essence même du jeu. Le choix d'une architecture modulaire s'est avéré judicieux, facilitant l'extension du jeu avec de nouvelles fonctionnalités et garantissant une maintenance plus aisée.
+
+La gestion des ressources a introduit une dimension stratégique cruciale, obligeant les joueurs à optimiser leur économie pour construire des tours efficaces et faire face à des vagues d'ennemis. Cette composante a nécessité une équilibration minutieuse pour garantir un défi stimulant sans pour autant décourager les joueurs.
+
+La logique du jeu, décrite dans la section correspondante, a été conçue pour créer une expérience de jeu immersive. Les tours attaquent avec précision, les ennemis réagissent de manière réaliste, et la récompense en argent pour la destruction d'ennemis renforce le sentiment de progression. Les mécanismes de tour par tour, que ce soit à l'initiative du joueur en mode terminal ou grâce à l'actualisation régulière en mode graphique, contribuent à maintenir un rythme dynamique.
+
+Les difficultés rencontrées, telles que les bugs dans l'interface graphique et les problèmes de disposition des éléments, ont été des opportunités d'apprentissage. La persévérance de l'équipe dans la résolution de ces problèmes a renforcé notre compréhension des nuances du développement de jeux, notamment en termes de gestion d'interface utilisateur et d'intégration de fonctionnalités interactives.
+
+En ce qui concerne la conclusion, ce projet ne se limite pas à une simple réalisation technique. Il représente l'aboutissement d'un processus créatif et collaboratif où chaque membre de l'équipe a contribué de manière significative. L'adaptabilité du code aux ajustements et aux itérations successives a été une clé majeure du succès, tout comme l'attention portée aux détails pour garantir une expérience de jeu cohérente et agréable.
+
+En fin de compte, ce jeu de tower defense va au-delà d'une simple application informatique. Il incarne une exploration constante des défis de conception, des solutions novatrices aux problèmes techniques, et une passion partagée pour la création de divertissements interactifs. Nous sommes impatients de partager ce jeu avec le public, espérant qu'il suscitera l'enthousiasme des joueurs et ouvrira la voie à de nouvelles aventures dans le monde du développement de jeux. Que ce projet soit le premier de nombreux succès à venir pour notre équipe créative.
 
 \section*{Bibliographie}
 Si vous avez utilisé des ressources externes, référencez-les ici.
